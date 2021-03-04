@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.toss.TossFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TossFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="5"
+    tools:context=".fragments.toss.TossFragment"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="1" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="2" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="3" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="4" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="5" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="6" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="7" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="8" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="9" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="10" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="11" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="12" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="13" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="14" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="15" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="16" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="17" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="18" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="19" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="20" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="x2" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="x3" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="(25)" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="(50)" />
+
+    <TextView
+        style="@style/toss_tile_style"
+        android:text="Missed" />
+
+</GridLayout>

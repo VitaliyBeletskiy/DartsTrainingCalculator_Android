@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/scoresFragment">
+
+    <!-- Scores Fragment -->
+    <fragment
+        android:id="@+id/scoresFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.scores.ScoresFragment"
+        android:label="Scores"
+        tools:layout="@layout/fragment_scores" >
+        <action
+            android:id="@+id/action_scoresFragment_to_tossFragment"
+            app:destination="@id/tossFragment" />
+    </fragment>
+
+    <!-- Toss Fragment -->
+    <fragment
+        android:id="@+id/tossFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment"
+        android:label="@string/toss"
+        tools:layout="@layout/fragment_toss" />
+
+    <!-- Settings Fragment -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <!-- History Fragment -->
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history" />
+</navigation>
