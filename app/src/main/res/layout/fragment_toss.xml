@@ -1,130 +1,471 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.toss.TossFragment">
+    tools:context=".fragments.toss.TossFragment"
+    tools:ignore="ContentDescription">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TossFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!--<editor-fold desc="Row 1 (1-4)">-->
+    <ImageButton
+        android:id="@+id/button1"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button2"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button3"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button4"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 2 (5-8)">-->
+    <ImageButton
+        android:id="@+id/button5"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button6"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button7"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button8"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button8"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 3 (9-12)">-->
+    <ImageButton
+        android:id="@+id/button9"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button10"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button10"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button11"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button9"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button11"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button12"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button12"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button11"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 4 (13-16)">-->
+    <ImageButton
+        android:id="@+id/button13"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button14"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button9"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button14"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button15"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button13"
+        app:layout_constraintTop_toBottomOf="@id/button9"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button15"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button16"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button14"
+        app:layout_constraintTop_toBottomOf="@id/button9"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button16"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button15"
+        app:layout_constraintTop_toBottomOf="@id/button9"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 5 (17-20)">-->
+    <ImageButton
+        android:id="@+id/button17"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button18"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button13"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button18"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button19"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button17"
+        app:layout_constraintTop_toBottomOf="@id/button13"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button19"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button20"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button18"
+        app:layout_constraintTop_toBottomOf="@id/button13"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button20"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button19"
+        app:layout_constraintTop_toBottomOf="@id/button13"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 6 (x2, x3)">-->
+    <ImageButton
+        android:id="@+id/button21"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toStartOf="@+id/button22"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button17"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_wide_percent" />
+
+    <ImageButton
+        android:id="@+id/button22"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button21"
+        app:layout_constraintTop_toBottomOf="@id/button17"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_wide_percent" />
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Row 7 (Missed, InnerBE, OuterBE, ADD)">-->
+    <ImageButton
+        android:id="@+id/button23"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button24"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button21"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button24"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button25"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button23"
+        app:layout_constraintTop_toBottomOf="@id/button21"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button25"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button26"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button24"
+        app:layout_constraintTop_toBottomOf="@id/button21"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+
+    <ImageButton
+        android:id="@+id/button26"
+        style="@style/toss_imagebutton_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="@dimen/tile_height_percent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button25"
+        app:layout_constraintTop_toBottomOf="@id/button21"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="@dimen/tile_width_percent" />
+    <!--</editor-fold>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
--->
 
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="5"
-    tools:context=".fragments.toss.TossFragment"
-    tools:ignore="HardcodedText">
+    <!--
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.toss.TossFragment">
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TossFragment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    -->
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="2" />
+    <!--
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="5"
+        tools:context=".fragments.toss.TossFragment"
+        tools:ignore="HardcodedText">
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="3" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="1" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="4" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="2" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="5" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="3" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="6" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="4" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="7" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="5" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="8" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="6" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="9" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="7" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="10" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="8" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="11" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="9" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="12" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="10" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="13" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="11" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="14" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="12" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="15" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="13" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="16" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="14" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="17" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="15" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="18" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="16" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="19" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="17" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="20" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="18" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="x2" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="19" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="x3" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="20" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="(25)" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="x2" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="(50)" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="x3" />
 
-    <TextView
-        style="@style/toss_tile_style"
-        android:text="Missed" />
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="(25)" />
 
-</GridLayout>
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="(50)" />
+
+        <TextView
+            style="@style/toss_tile_style"
+            android:text="Missed" />
+
+    </GridLayout>-->
