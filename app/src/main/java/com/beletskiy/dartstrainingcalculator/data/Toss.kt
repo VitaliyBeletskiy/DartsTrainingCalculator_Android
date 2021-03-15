@@ -1,7 +1,15 @@
 package com.beletskiy.dartstrainingcalculator.data
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /// represents a single throw's result
-data class Toss(val section: Section, val ring: Ring) {
+data class Toss(val section: Section, val ring: Ring) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+        Section.values()[parcel.readInt()],
+        Ring.values()[parcel.readInt()]
+    )
 
     enum class Section(val value: Int) {
         MISSED(0),
@@ -34,4 +42,24 @@ data class Toss(val section: Section, val ring: Ring) {
         X2(2),
         X3(3)
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(section.ordinal)
+        parcel.writeInt(ring.ordinal)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Toss> {
+        override fun createFromParcel(parcel: Parcel): Toss {
+            return Toss(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Toss?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }
