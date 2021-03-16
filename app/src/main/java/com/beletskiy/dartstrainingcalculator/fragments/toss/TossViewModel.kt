@@ -1,12 +1,11 @@
 package com.beletskiy.dartstrainingcalculator.fragments.toss
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.utils.TAG
+import com.beletskiy.dartstrainingcalculator.data.Toss
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -15,8 +14,8 @@ class TossViewModel : ViewModel() {
 
     // for SingleLiveEvent
     sealed class Event {
-        object NavigateToMainScreen: Event()
-        data class ShowSnackBar(val stringId: Int): Event()
+        data class NavigateToScoresScreen(val newToss: Toss) : Event()
+        data class ShowSnackBar(val stringId: Int) : Event()
     }
 
     // for SingleLiveEvent
@@ -65,8 +64,13 @@ class TossViewModel : ViewModel() {
             }
             return
         }
-        // TODO: proceed with a valid throw
-        Log.i(TAG, "throw is valid")
+        // throw is valid
+        val sectionIndex = _numberSectorChosen.value?.indexOf(true) ?: 0
+        val ringIndex = (_ringChosen.value?.indexOf(true) ?: -1) + 1
+        val newToss = Toss(Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
+        viewModelScope.launch {
+            eventChannel.send(Event.NavigateToScoresScreen(newToss))
+        }
     }
 
     /// checks if user entered a valid throw

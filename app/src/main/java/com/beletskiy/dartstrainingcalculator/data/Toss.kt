@@ -11,6 +11,10 @@ data class Toss(val section: Section, val ring: Ring) : Parcelable {
         Ring.values()[parcel.readInt()]
     )
 
+    override fun toString(): String {
+        return "${this.section} ${this.ring} points: ${this.section.value * this.ring.value}"
+    }
+
     enum class Section(val value: Int) {
         MISSED(0),
         ONE(1),
@@ -33,8 +37,8 @@ data class Toss(val section: Section, val ring: Ring) : Parcelable {
         EIGHTEEN(18),
         NINETEEN(19),
         TWENTY(20),
-        INNER_BULLSEYE(25),
-        OUTER_BULLSEYE(50),
+        OUTER_BULLSEYE(25),
+        INNER_BULLSEYE(50),
     }
 
     enum class Ring(val value: Int) {

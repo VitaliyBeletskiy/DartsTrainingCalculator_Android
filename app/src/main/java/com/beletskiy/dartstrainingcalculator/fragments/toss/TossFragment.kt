@@ -1,13 +1,12 @@
 package com.beletskiy.dartstrainingcalculator.fragments.toss
 
 import android.os.Bundle
-import android.os.Parcel
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.beletskiy.dartstrainingcalculator.data.Toss
+import androidx.navigation.fragment.findNavController
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentTossBinding
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
 import com.google.android.material.snackbar.Snackbar
@@ -35,12 +34,16 @@ class TossFragment : Fragment() {
 
         // receiving events from ViewModel
         tossViewModel.eventsFlow
-            .onEach {
-                when (it) {
-                    TossViewModel.Event.NavigateToMainScreen -> {}
+            .onEach { event ->
+                when (event) {
+                    is TossViewModel.Event.NavigateToScoresScreen -> {
+                        this.findNavController().navigate(
+                            TossFragmentDirections.actionTossFragmentToScoresFragment(event.newToss)
+                        )
+                    }
                     is TossViewModel.Event.ShowSnackBar -> {
                         // TODO: разные сообщения для разных ошибок?
-                        val message = getString(it.stringId)
+                        val message = getString(event.stringId)
                         Snackbar.make(binding.buttonAdd, message, Snackbar.LENGTH_SHORT).show()
                     }
                 }
