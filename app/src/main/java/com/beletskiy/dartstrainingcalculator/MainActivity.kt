@@ -1,21 +1,25 @@
 package com.beletskiy.dartstrainingcalculator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+
+    // two variables for "clicking the back button twice to exit"
+    private var backPressedTime: Long = 0
+    private var backSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         // подключаем Toolbar вместе с Drawer
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
-        // связывает меню из Drawer м навигацию (не надо писать код перехода при клике внутри Drawer-а)
+        // связывает меню из Drawer и навигацию (не надо писать код перехода при клике внутри Drawer-а)
         NavigationUI.setupWithNavController(binding.navView, navController)
         //binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
@@ -45,12 +49,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // if Drawer is open, the first hit on Back will close Drawer, otherwise will close the app
+    /**
+     * if Drawer is open, the first hit on Back will close Drawer, otherwise will close the app
+     * and "clicking the back button twice to exit"
+     */
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                backSnackbar!!.dismiss()
+                super.onBackPressed()
+                return
+            } else {
+                backSnackbar = Snackbar.make(
+                    binding.toolbar,
+                    getString(R.string.press_back_again_to_exit),
+                    Snackbar.LENGTH_SHORT
+                )
+                backSnackbar?.show()
+            }
+            backPressedTime = System.currentTimeMillis()
         }
     }
 }

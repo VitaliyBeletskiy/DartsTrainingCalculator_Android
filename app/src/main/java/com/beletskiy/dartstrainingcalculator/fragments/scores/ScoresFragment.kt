@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,19 @@ class ScoresFragment : Fragment() {
     private val scoresViewModel: ScoresViewModel by lazy {
         ViewModelProvider(this).get(ScoresViewModel::class.java)
     }
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        // click back button twice to exit the application
+//        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                // in here you can do logic when backPress is clicked
+//                Log.i(TAG, "handleOnBackPressed: ")
+//                requireActivity().onBackPressedDispatcher.onBackPressed()
+//            }
+//        })
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +72,8 @@ class ScoresFragment : Fragment() {
             })
     }
 
-    /// const for previousBackStackEntry/currentBackStackEntry (getting a new Toss from TossFragment)
+
+    /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
     companion object {
         const val NEW_TOSS = "NEW_TOSS"
     }
