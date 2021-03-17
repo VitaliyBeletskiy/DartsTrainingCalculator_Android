@@ -8,25 +8,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoresBinding
 import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class ScoresFragment : Fragment() {
 
-    private lateinit var binding : FragmentScoresBinding
+    private lateinit var binding: FragmentScoresBinding
+    private val scoresViewModel: ScoresViewModel by lazy {
+        ViewModelProvider(this).get(ScoresViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScoresBinding.inflate(inflater)
-        val scoresViewModel = ViewModelProvider(this).get(ScoresViewModel::class.java)
         binding.scoresViewModel = scoresViewModel
         binding.lifecycleOwner = this
 
-        // TossFragment MIGHT send 'newToss' argument (so, it's nullable)
-        val newToss = ScoresFragmentArgs.fromBundle(requireArguments()).newToss
-        Log.i(TAG, "ScoresFragment just got a new Toss = $newToss")
+        // binding RecyclerView with ListAdapter and setting ViewModel as data supplier
+        val scoresAdapter = ScoresAdapter()
+        binding.recyclerView.adapter = scoresAdapter
+        scoresViewModel.tossList.observe(viewLifecycleOwner, {
+            it?.let {
+                scoresAdapter.submitList(it)
+            }
+        })
 
         return binding.root
     }
@@ -34,10 +43,24 @@ class ScoresFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // FIXME: temporary for testing purposes
-        binding.button.setOnClickListener {
-            view.findNavController().navigate(ScoresFragmentDirections.actionScoresFragmentToTossFragment())
+        // navigate to TossFragment by clicking [fab]
+        binding.fab.setOnClickListener {
+            findNavController().navigate(ScoresFragmentDirections.actionScoresFragmentToTossFragment())
         }
+
+        // getting new [Toss] from TossFragment
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Toss>(NEW_TOSS)
+            ?.observe(viewLifecycleOwner, {
+                scoresViewModel.onNewTossCreated(it)
+            })
+    }
+
+    /// const for previousBackStackEntry/currentBackStackEntry (getting a new Toss from TossFragment)
+    companion object {
+        const val NEW_TOSS = "NEW_TOSS"
     }
 
 }

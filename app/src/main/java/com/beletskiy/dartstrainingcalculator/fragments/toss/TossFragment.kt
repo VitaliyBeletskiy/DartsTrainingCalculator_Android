@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentTossBinding
+import com.beletskiy.dartstrainingcalculator.fragments.scores.ScoresFragment
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.onEach
@@ -15,14 +17,15 @@ import kotlinx.coroutines.flow.onEach
 class TossFragment : Fragment() {
 
     private lateinit var binding: FragmentTossBinding
-    private lateinit var tossViewModel: TossViewModel
+    private val tossViewModel: TossViewModel by lazy {
+        ViewModelProvider(this).get(TossViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTossBinding.inflate(inflater)
-        tossViewModel = ViewModelProvider(this).get(TossViewModel::class.java)
         binding.tossViewModel = tossViewModel
         binding.lifecycleOwner = this
 
@@ -32,14 +35,22 @@ class TossFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // FIXME: KLUDGE!!! otherwise pressing Up button sends the previous new Toss value
+        findNavController()
+            .previousBackStackEntry
+            ?.savedStateHandle
+            ?.remove<Toss>(ScoresFragment.NEW_TOSS)
+
         // receiving events from ViewModel
         tossViewModel.eventsFlow
             .onEach { event ->
                 when (event) {
                     is TossViewModel.Event.NavigateToScoresScreen -> {
-                        this.findNavController().navigate(
-                            TossFragmentDirections.actionTossFragmentToScoresFragment(event.newToss)
-                        )
+                        findNavController()
+                            .previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set(ScoresFragment.NEW_TOSS, event.newToss)
+                        findNavController().navigateUp()
                     }
                     is TossViewModel.Event.ShowSnackBar -> {
                         // TODO: разные сообщения для разных ошибок?
@@ -50,4 +61,5 @@ class TossFragment : Fragment() {
             }
             .observeInLifecycle(viewLifecycleOwner)
     }
+
 }
