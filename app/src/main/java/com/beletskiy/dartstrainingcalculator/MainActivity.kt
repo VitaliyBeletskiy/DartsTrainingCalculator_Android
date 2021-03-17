@@ -1,21 +1,24 @@
 package com.beletskiy.dartstrainingcalculator
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
 
     // two variables for "clicking the back button twice to exit"
     private var backPressedTime: Long = 0
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // получаем ссылку на NavController: val navController = findNavController(R.id.fragment_container) рушится
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         // подключаем Toolbar вместе с Drawer
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
@@ -54,22 +57,32 @@ class MainActivity : AppCompatActivity() {
      * and "clicking the back button twice to exit"
      */
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            if (backPressedTime + 2000 > System.currentTimeMillis()) {
-                backSnackbar!!.dismiss()
-                super.onBackPressed()
-                return
-            } else {
-                backSnackbar = Snackbar.make(
-                    binding.toolbar,
-                    getString(R.string.press_back_again_to_exit),
-                    Snackbar.LENGTH_SHORT
-                )
-                backSnackbar?.show()
+        Log.i(TAG, "MainActivity.onBackPressed() called !!!!!")
+        when {
+            // if Drawer is open -> close it
+            drawerLayout.isDrawerOpen(GravityCompat.START) -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
             }
-            backPressedTime = System.currentTimeMillis()
+            // if current fragment is not start fragment -> default Back behavior
+            navController.graph.startDestination != navController.currentDestination?.id -> {
+                super.onBackPressed()
+            }
+            // if current fragment is start fragment -> double click Back to exit
+            else -> {
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    backSnackbar!!.dismiss()
+                    super.onBackPressed()
+                    return
+                } else {
+                    backSnackbar = Snackbar.make(
+                        binding.toolbar,
+                        getString(R.string.press_back_again_to_exit),
+                        Snackbar.LENGTH_SHORT
+                    )
+                    backSnackbar?.show()
+                }
+                backPressedTime = System.currentTimeMillis()
+            }
         }
     }
 }

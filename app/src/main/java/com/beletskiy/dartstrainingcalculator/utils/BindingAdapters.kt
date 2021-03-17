@@ -11,8 +11,8 @@ import com.beletskiy.dartstrainingcalculator.data.Toss
 @BindingAdapter("android:background")
 fun ImageButton.setBackground(value: Boolean?) {
     value?.let {
-        val bgSelected = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background_selected);
-        val bg = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background);
+        val bgSelected = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background_selected)
+        val bg = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background)
         if (it) {
             this.background = bgSelected
         } else {
@@ -51,6 +51,18 @@ fun bindNumberImage(imageView: ImageView, section: Toss.Section?) {
             Toss.Section.TWENTY -> R.drawable.ic_20
             Toss.Section.OUTER_BULLSEYE -> R.drawable.ic_ob
             Toss.Section.INNER_BULLSEYE -> R.drawable.ic_ib
+        }
+        imageView.setImageResource(imageId)
+    }
+}
+
+@BindingAdapter("ringImage")
+fun bindNumberImage(imageView: ImageView, ring: Toss.Ring?) {
+    ring?.let {
+        val imageId = when(ring) {
+            Toss.Ring.X1 -> R.drawable.ic_badge_x1
+            Toss.Ring.X2  -> R.drawable.ic_badge_x2
+            Toss.Ring.X3  -> R.drawable.ic_badge_x3
         }
         imageView.setImageResource(imageId)
     }

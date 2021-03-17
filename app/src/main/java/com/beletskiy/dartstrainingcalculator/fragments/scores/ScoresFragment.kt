@@ -1,18 +1,16 @@
 package com.beletskiy.dartstrainingcalculator.fragments.scores
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoresBinding
-import com.beletskiy.dartstrainingcalculator.utils.TAG
+
 
 class ScoresFragment : Fragment() {
 
@@ -20,19 +18,6 @@ class ScoresFragment : Fragment() {
     private val scoresViewModel: ScoresViewModel by lazy {
         ViewModelProvider(this).get(ScoresViewModel::class.java)
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        // click back button twice to exit the application
-//        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                // in here you can do logic when backPress is clicked
-//                Log.i(TAG, "handleOnBackPressed: ")
-//                requireActivity().onBackPressedDispatcher.onBackPressed()
-//            }
-//        })
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +27,16 @@ class ScoresFragment : Fragment() {
         binding.scoresViewModel = scoresViewModel
         binding.lifecycleOwner = this
 
-        // binding RecyclerView with ListAdapter and setting ViewModel as data supplier
+        // binding RecyclerView with ListAdapter and
         val scoresAdapter = ScoresAdapter()
         binding.recyclerView.adapter = scoresAdapter
+
+        // GridLayoutManager with default vertical orientation and 3 number of columns
+        val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+        // set LayoutManager to RecyclerView
+        binding.recyclerView.layoutManager = gridLayoutManager
+
+        // setting ViewModel as data supplier
         scoresViewModel.tossList.observe(viewLifecycleOwner, {
             it?.let {
                 scoresAdapter.submitList(it)
@@ -71,7 +63,6 @@ class ScoresFragment : Fragment() {
                 scoresViewModel.onNewTossCreated(it)
             })
     }
-
 
     /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
     companion object {
