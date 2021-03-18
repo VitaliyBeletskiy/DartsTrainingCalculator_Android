@@ -60,4 +60,6 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // AndroidX Preference library
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 }

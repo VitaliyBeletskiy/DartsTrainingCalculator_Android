@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentTossBinding
-import com.beletskiy.dartstrainingcalculator.fragments.scores.ScoresFragment
+import com.beletskiy.dartstrainingcalculator.fragments.score.ScoreFragment
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.onEach
@@ -35,21 +34,21 @@ class TossFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // FIXME: KLUDGE!!! otherwise pressing Up button sends the previous new Toss value
+        /*// FIXME: KLUDGE!!! otherwise pressing Up button sends the previous new Toss value
         findNavController()
             .previousBackStackEntry
             ?.savedStateHandle
-            ?.remove<Toss>(ScoresFragment.NEW_TOSS)
+            ?.remove<Toss>(ScoreFragment.NEW_TOSS)*/
 
         // receiving events from ViewModel
         tossViewModel.eventsFlow
             .onEach { event ->
                 when (event) {
-                    is TossViewModel.Event.NavigateToScoresScreen -> {
+                    is TossViewModel.Event.NavigateToScoreScreen -> {
                         findNavController()
                             .previousBackStackEntry
                             ?.savedStateHandle
-                            ?.set(ScoresFragment.NEW_TOSS, event.newToss)
+                            ?.set(ScoreFragment.NEW_TOSS, event.newToss)
                         findNavController().navigateUp()
                     }
                     is TossViewModel.Event.ShowSnackBar -> {

@@ -7,14 +7,14 @@
     <data>
 
         <variable
-            name="scoresViewModel"
-            type="com.beletskiy.dartstrainingcalculator.fragments.scores.ScoresViewModel" />
+            name="scoreViewModel"
+            type="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.scores.ScoresFragment">
+        tools:context=".fragments.score.ScoreFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

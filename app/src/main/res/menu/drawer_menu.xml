@@ -7,8 +7,9 @@
         android:title="@string/history" />
 
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settingsDestination"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings" />
+<!--    android:id="@+id/settingsFragment"-->
 
 </menu>

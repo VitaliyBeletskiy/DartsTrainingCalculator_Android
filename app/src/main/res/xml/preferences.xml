@@ -1,0 +1,21 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Game">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/preferencesGameTitles"
+            android:entryValues="@array/preferencesGameTitles"
+            android:key="@string/game_key"
+            android:title="Choose your game" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Phone">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/prevent_sleep_key"
+            android:summaryOff="OFF"
+            android:summaryOn="ON"
+            android:title="@string/prevent_phone_from_sleeping" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

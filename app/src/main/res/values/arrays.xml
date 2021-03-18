@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="preferencesGameTitles">
+        <item>301</item>
+        <item>501</item>
+    </string-array>
+
+</resources>

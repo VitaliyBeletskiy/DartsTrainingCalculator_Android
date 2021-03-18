@@ -1,5 +1,6 @@
 package com.beletskiy.dartstrainingcalculator
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import com.beletskiy.dartstrainingcalculator.utils.TAG
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
      * and "clicking the back button twice to exit"
      */
     override fun onBackPressed() {
-        Log.i(TAG, "MainActivity.onBackPressed() called !!!!!")
         when {
             // if Drawer is open -> close it
             drawerLayout.isDrawerOpen(GravityCompat.START) -> {
@@ -85,4 +83,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+//        if (key == getString(R.string.game_key)) {
+//            Log.i(
+//                com.beletskiy.dartstrainingcalculator.utils.TAG, "Settings (Game) were updated to: "
+//                        + sharedPreferences?.getString(key, "default_value")
+//            )
+//        }
+//        if (key == getString(R.string.prevent_sleep_key)) {
+//            Log.i(
+//                com.beletskiy.dartstrainingcalculator.utils.TAG, "Settings (Phone Sleep) were updated to: "
+//                        + sharedPreferences?.getBoolean(key, false)
+//            )
+//        }
+//    }
+
 }

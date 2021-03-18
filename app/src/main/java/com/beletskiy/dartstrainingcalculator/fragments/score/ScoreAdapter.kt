@@ -1,4 +1,4 @@
-package com.beletskiy.dartstrainingcalculator.fragments.scores
+package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.ItemTossBinding
 
-class ScoresAdapter : ListAdapter<Toss, TossViewHolder>(TossDiffItemCallback()) {
+class ScoreAdapter : ListAdapter<Toss, TossViewHolder>(TossDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TossViewHolder {
         return TossViewHolder.from(parent)
@@ -25,7 +25,7 @@ class ScoresAdapter : ListAdapter<Toss, TossViewHolder>(TossDiffItemCallback()) 
 
 }
 
-class TossViewHolder(var binding: ItemTossBinding) : RecyclerView.ViewHolder(binding.root) {
+class TossViewHolder(private var binding: ItemTossBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(toss: Toss) {
         binding.toss = toss
@@ -41,9 +41,9 @@ class TossViewHolder(var binding: ItemTossBinding) : RecyclerView.ViewHolder(bin
     }
 }
 
-class TossDiffItemCallback() : DiffUtil.ItemCallback<Toss>() {
+class TossDiffItemCallback : DiffUtil.ItemCallback<Toss>() {
 
-    override fun areItemsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem == newItem
 

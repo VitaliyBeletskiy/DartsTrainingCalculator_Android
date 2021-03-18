@@ -5,4 +5,8 @@
     <string name="toss">Add Throw</string>
     <string name="invalid_trow_message">Enter valid values</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
+    <string name="prevent_phone_from_sleeping">Prevent phone from sleeping</string>
+
+    <string name="game_key">game_key</string>
+    <string name="prevent_sleep_key">prevent_sleep_key</string>
 </resources>

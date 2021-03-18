@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/scoresFragment">
+    app:startDestination="@id/scoreFragment">
 
-    <!-- Scores Fragment -->
+    <!-- Score Fragment -->
     <fragment
-        android:id="@+id/scoresFragment"
-        android:name="com.beletskiy.dartstrainingcalculator.fragments.scores.ScoresFragment"
-        android:label="Scores"
-        tools:layout="@layout/fragment_scores" >
+        android:id="@+id/scoreFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreFragment"
+        android:label="Score"
+        tools:layout="@layout/fragment_score" >
         <action
-            android:id="@+id/action_scoresFragment_to_tossFragment"
+            android:id="@+id/action_scoreFragment_to_tossFragment"
             app:destination="@id/tossFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -41,4 +41,9 @@
         android:name="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_history" />
+
+    <!--Global action-->
+    <action android:id="@+id/settingsDestination"
+        app:destination="@id/settingsFragment"/>
+
 </navigation>

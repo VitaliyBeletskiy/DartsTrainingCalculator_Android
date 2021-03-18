@@ -14,7 +14,7 @@ class TossViewModel : ViewModel() {
 
     // for SingleLiveEvent
     sealed class Event {
-        data class NavigateToScoresScreen(val newToss: Toss) : Event()
+        data class NavigateToScoreScreen(val newToss: Toss) : Event()
         data class ShowSnackBar(val stringId: Int) : Event()
     }
 
@@ -67,9 +67,9 @@ class TossViewModel : ViewModel() {
         // throw is valid
         val sectionIndex = _numberSectorChosen.value?.indexOf(true) ?: 0
         val ringIndex = (_ringChosen.value?.indexOf(true) ?: -1) + 1
-        val newToss = Toss(Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
+        val newToss = Toss(0, Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
         viewModelScope.launch {
-            eventChannel.send(Event.NavigateToScoresScreen(newToss))
+            eventChannel.send(Event.NavigateToScoreScreen(newToss))
         }
     }
 

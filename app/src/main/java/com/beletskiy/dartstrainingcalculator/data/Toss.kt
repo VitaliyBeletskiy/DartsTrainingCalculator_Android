@@ -4,9 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /// represents a single throw's result
-data class Toss(val section: Section, val ring: Ring) : Parcelable {
+// we need 'id' for better animation due to DiffUtil
+data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         Section.values()[parcel.readInt()],
         Ring.values()[parcel.readInt()]
     )
@@ -48,6 +50,7 @@ data class Toss(val section: Section, val ring: Ring) : Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeInt(section.ordinal)
         parcel.writeInt(ring.ordinal)
     }
