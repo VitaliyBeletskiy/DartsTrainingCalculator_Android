@@ -9,4 +9,5 @@
 
     <string name="game_key">game_key</string>
     <string name="prevent_sleep_key">prevent_sleep_key</string>
+    <string name="new_game">new_game</string>
 </resources>

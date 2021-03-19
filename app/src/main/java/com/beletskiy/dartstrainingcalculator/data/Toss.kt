@@ -7,6 +7,9 @@ import android.os.Parcelable
 // we need 'id' for better animation due to DiffUtil
 data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable {
 
+    val value: Int
+        get() =  section.value * ring.value
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         Section.values()[parcel.readInt()],
@@ -16,6 +19,7 @@ data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable 
     override fun toString(): String {
         return "${this.section} ${this.ring} points: ${this.section.value * this.ring.value}"
     }
+
 
     enum class Section(val value: Int) {
         MISSED(0),

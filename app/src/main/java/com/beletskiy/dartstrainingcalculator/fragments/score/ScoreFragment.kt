@@ -2,9 +2,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -21,7 +19,8 @@ class ScoreFragment : Fragment() {
     private val scoreViewModel: ScoreViewModel by lazy {
         ViewModelProvider(
             this,
-            ScoreViewModel.Factory(selectedGame)
+            ScoreViewModel.Factory(21)
+//            ScoreViewModel.Factory(selectedGame)
         ).get(ScoreViewModel::class.java)
     }
     private var selectedGame: Int = 501
@@ -30,6 +29,7 @@ class ScoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentScoreBinding.inflate(inflater)
         readSettings()
         binding.scoreViewModel = scoreViewModel
@@ -50,12 +50,6 @@ class ScoreFragment : Fragment() {
                 scoreAdapter.submitList(it)
             }
         })
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         // navigate to TossFragment by clicking [fab]
         binding.fab.setOnClickListener {
@@ -78,6 +72,7 @@ class ScoreFragment : Fragment() {
                     ?.remove<Toss>(ScoreFragment.NEW_TOSS)
             })
 
+        return binding.root
     }
 
     private fun readSettings() {
@@ -89,7 +84,8 @@ class ScoreFragment : Fragment() {
 
         val preventSleep =
             sharedPreferences.getBoolean(getString(R.string.prevent_sleep_key), false)
-        Log.i(TAG, "ScoreFragment.readSettings(): selectedGame = $selectedGame, preventSleep = $preventSleep")
+
+        //Log.i(TAG, "ScoreFragment.readSettings(): selectedGame = $selectedGame, preventSleep = $preventSleep")
     }
 
 

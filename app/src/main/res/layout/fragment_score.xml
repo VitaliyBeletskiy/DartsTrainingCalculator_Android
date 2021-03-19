@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="scoreViewModel"
             type="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel" />
@@ -23,7 +25,7 @@
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/item_toss" />
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -32,6 +34,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
+            android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
             app:layout_anchor="@id/recycler_view"
             app:layout_anchorGravity="bottom|right|end" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
