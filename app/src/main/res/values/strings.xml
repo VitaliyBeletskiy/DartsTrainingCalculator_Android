@@ -10,4 +10,8 @@
     <string name="game_key">game_key</string>
     <string name="prevent_sleep_key">prevent_sleep_key</string>
     <string name="new_game">new_game</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="all_progress_will_be_lost">All progress will be lost. Are you sure you want to restart the game?</string>
+    <string name="restart_game">Restart game</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -96,12 +98,31 @@ class ScoreFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_game -> {
-                scoreViewModel.restartGame()
+                restartGameWithConfirmation()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
+    private fun restartGameWithConfirmation() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                    scoreViewModel.restartGame()
+                }
+                setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                }
+            }
+            // Set other dialog properties
+            builder.setMessage(getString(R.string.all_progress_will_be_lost))
+                ?.setTitle(getString(R.string.restart_game))
+
+            // Create the AlertDialog
+            builder.create()
+        }
+        alertDialog?.show()
     }
 
     /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
