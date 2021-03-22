@@ -8,9 +8,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.*
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -19,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     // two variables for "clicking the back button twice to exit"
     private var backPressedTime: Long = 0
@@ -28,19 +27,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        drawerLayout = binding.drawerLayout
 
-        // получаем ссылку на NavController: val navController = findNavController(R.id.fragment_container) рушится
+        drawerLayout = binding.drawerLayout
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-        // подключаем Toolbar вместе с Drawer
-        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
-        // связывает меню из Drawer и навигацию (не надо писать код перехода при клике внутри Drawer-а)
-        NavigationUI.setupWithNavController(binding.navView, navController)
-        //binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        // sets the toolbar as the app bar for the activity
+        setSupportActionBar(binding.toolbar)
+
+        // setup ActionBar
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // setup Navigation Menu
+        binding.navView.setupWithNavController(navController)
+
 
         // block Drawer if not on start destination (which is ScoreFragment)
         navController.addOnDestinationChangedListener { controller, destination, _ ->
@@ -51,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
+    }
+
 
     /**
      * if Drawer is open, the first hit on Back will close Drawer, otherwise will close the app

@@ -29,11 +29,12 @@ class ScoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentScoreBinding.inflate(inflater)
         readSettings()
         binding.scoreViewModel = scoreViewModel
         binding.lifecycleOwner = this
+
+        setHasOptionsMenu(true)
 
         // binding RecyclerView with ListAdapter and
         val scoreAdapter = ScoreAdapter()
@@ -88,6 +89,20 @@ class ScoreFragment : Fragment() {
         //Log.i(TAG, "ScoreFragment.readSettings(): selectedGame = $selectedGame, preventSleep = $preventSleep")
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.score_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.new_game -> {
+                scoreViewModel.restartGame()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
 
     /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
     companion object {
