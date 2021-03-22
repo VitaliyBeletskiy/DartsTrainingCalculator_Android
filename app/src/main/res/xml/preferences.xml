@@ -1,21 +1,30 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Game">
+    <PreferenceCategory app:title="Game">
         <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/preferencesGameTitles"
-            android:entryValues="@array/preferencesGameTitles"
-            android:key="@string/game_key"
-            android:title="Choose your game" />
+            app:defaultValue="1"
+            app:entries="@array/preferencesGameTitles"
+            app:entryValues="@array/preferencesGameTitles"
+            app:key="@string/game_key"
+            app:title="Choose your game"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Phone">
+    <PreferenceCategory app:title="Phone">
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/prevent_sleep_key"
-            android:summaryOff="OFF"
-            android:summaryOn="ON"
-            android:title="@string/prevent_phone_from_sleeping" />
+            app:defaultValue="false"
+            app:key="@string/prevent_sleep_key"
+            app:summaryOff="OFF"
+            app:summaryOn="ON"
+            app:title="@string/prevent_phone_from_sleeping" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="About">
+        <Preference
+            app:key="Version"
+            app:summary=""
+            app:title="Version" />
     </PreferenceCategory>
 
 </PreferenceScreen>

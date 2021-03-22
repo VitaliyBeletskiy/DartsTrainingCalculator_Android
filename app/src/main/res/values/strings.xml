@@ -1,4 +1,10 @@
 <resources>
+    <!-- Preferences Constants -->
+    <string name="game_key">game_key</string>
+    <string name="default_game_value">501</string>
+    <string name="prevent_sleep_key">prevent_sleep_key</string>
+    <!-- End of Preferences Constants -->
+
     <string name="app_name">Darts Training Calculator</string>
     <string name="settings">Settings</string>
     <string name="history">History</string>
@@ -6,9 +12,6 @@
     <string name="invalid_trow_message">Enter valid values</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
     <string name="prevent_phone_from_sleeping">Prevent phone from sleeping</string>
-
-    <string name="game_key">game_key</string>
-    <string name="prevent_sleep_key">prevent_sleep_key</string>
     <string name="new_game">new_game</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>

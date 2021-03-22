@@ -1,10 +1,8 @@
 package com.beletskiy.dartstrainingcalculator
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -58,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
     }
 
-
     /**
      * if Drawer is open, the first hit on Back will close Drawer, otherwise will close the app
      * and "clicking the back button twice to exit"
@@ -91,20 +88,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-//    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-//        if (key == getString(R.string.game_key)) {
-//            Log.i(
-//                com.beletskiy.dartstrainingcalculator.utils.TAG, "Settings (Game) were updated to: "
-//                        + sharedPreferences?.getString(key, "default_value")
-//            )
-//        }
-//        if (key == getString(R.string.prevent_sleep_key)) {
-//            Log.i(
-//                com.beletskiy.dartstrainingcalculator.utils.TAG, "Settings (Phone Sleep) were updated to: "
-//                        + sharedPreferences?.getBoolean(key, false)
-//            )
-//        }
-//    }
 
 }

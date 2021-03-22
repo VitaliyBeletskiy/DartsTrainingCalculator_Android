@@ -1,9 +1,7 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
-import com.beletskiy.dartstrainingcalculator.utils.TAG
+import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
+
 
 class ScoreFragment : Fragment() {
 
@@ -25,14 +24,15 @@ class ScoreFragment : Fragment() {
 //            ScoreViewModel.Factory(selectedGame)
         ).get(ScoreViewModel::class.java)
     }
-    private var selectedGame: Int = 501
+    private var selectedGame: Int = DEFAULT_GAME_VALUE
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScoreBinding.inflate(inflater)
-        readSettings()
+        readGameSettings()
+        // TODO: 22/03/2021 restart game id settings changed
         binding.scoreViewModel = scoreViewModel
         binding.lifecycleOwner = this
 
@@ -47,7 +47,7 @@ class ScoreFragment : Fragment() {
         // set LayoutManager to RecyclerView
         binding.recyclerView.layoutManager = gridLayoutManager
 
-        // setting ViewModel as data supplier
+        // setting ViewModel as data supplier for RecyclerView
         scoreViewModel.tossList.observe(viewLifecycleOwner, {
             it?.let {
                 scoreAdapter.submitList(it)
@@ -56,6 +56,7 @@ class ScoreFragment : Fragment() {
 
         // navigate to TossFragment by clicking [fab]
         binding.fab.setOnClickListener {
+            readGameSettings()
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
         }
 
@@ -76,19 +77,6 @@ class ScoreFragment : Fragment() {
             })
 
         return binding.root
-    }
-
-    private fun readSettings() {
-        val context = requireContext()
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-        val gameString = sharedPreferences.getString(getString(R.string.game_key), "501")
-        selectedGame = gameString?.toInt() ?: selectedGame
-
-        val preventSleep =
-            sharedPreferences.getBoolean(getString(R.string.prevent_sleep_key), false)
-
-        //Log.i(TAG, "ScoreFragment.readSettings(): selectedGame = $selectedGame, preventSleep = $preventSleep")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -123,6 +111,13 @@ class ScoreFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
+    }
+
+    private fun readGameSettings() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val gameString = sharedPreferences
+            .getString(getString(R.string.game_key), getString(R.string.default_game_value))
+        selectedGame = gameString?.toInt() ?: selectedGame
     }
 
     /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
