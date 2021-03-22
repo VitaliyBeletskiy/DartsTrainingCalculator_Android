@@ -20,7 +20,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         preference?.let {
-            if (preference!!.key == getString(R.string.prevent_sleep_key)) {
+            if (preference.key == getString(R.string.prevent_sleep_key)) {
                 Log.i(TAG, "onPreferenceChange: preventSleepPreference CHANGED, new value = $newValue")
                 // TODO: 22/03/2021 handle "prevent phone from sleeping"
             }

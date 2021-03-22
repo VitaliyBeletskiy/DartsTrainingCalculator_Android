@@ -53,6 +53,13 @@ class TossViewModel : ViewModel() {
             temp[ring] = true
         }
         _ringChosen.value = temp
+
+        // clear selection on 0, Outer Bullseye (25), Inner Bullseye (50) if any
+        val isNonRingSectionChosen = _numberSectorChosen.value?.sliceArray(listOf(0, 21, 22))
+            ?.reduce { sum, item -> sum || item } ?: false
+        if (isNonRingSectionChosen) {
+            _numberSectorChosen.value = Array(23) { false }
+        }
     }
 
     /// called when User tapped ADD button
