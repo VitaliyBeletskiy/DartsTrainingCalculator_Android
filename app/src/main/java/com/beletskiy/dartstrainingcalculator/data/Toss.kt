@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 /// represents a single throw's result
 // we need 'id' for better animation due to DiffUtil
-data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable {
+data class Toss(var number: Int, val section: Section, val ring: Ring) : Parcelable {
 
     val value: Int
         get() =  section.value * ring.value
@@ -19,7 +19,6 @@ data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable 
     override fun toString(): String {
         return "${this.section} ${this.ring} points: ${this.section.value * this.ring.value}"
     }
-
 
     enum class Section(val value: Int) {
         MISSED(0),
@@ -54,7 +53,7 @@ data class Toss(var id: Int, val section: Section, val ring: Ring) : Parcelable 
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeInt(number)
         parcel.writeInt(section.ordinal)
         parcel.writeInt(ring.ordinal)
     }

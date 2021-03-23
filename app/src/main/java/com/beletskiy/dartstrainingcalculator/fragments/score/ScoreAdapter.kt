@@ -43,7 +43,7 @@ class TossViewHolder(private var binding: ItemTossBinding) : RecyclerView.ViewHo
 
 class TossDiffItemCallback : DiffUtil.ItemCallback<Toss>() {
 
-    override fun areItemsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem.number == newItem.number
 
     override fun areContentsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem == newItem
 

@@ -54,11 +54,11 @@ class ScoreViewModel(private var gameTotalScore: Int) : ViewModel() {
         // TODO: 23/03/2021 exception or notify User??? Or do I need it at all?
         if (_scoreAfterThrow.value == null) return
 
-        newToss.id = (_tossList.value?.size ?: 0) + 1
+        newToss.number = (_tossList.value?.size ?: 0) + 1
         _tossList.value?.add(newToss)
         _tossList.value = _tossList.value
 
-        throwNumberInSeries = newToss.id % 3
+        throwNumberInSeries = newToss.number % 3
         _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
 
         // check if game is over
