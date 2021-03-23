@@ -17,4 +17,7 @@
     <string name="cancel">Cancel</string>
     <string name="all_progress_will_be_lost">All progress will be lost. Are you sure you want to restart the game?</string>
     <string name="restart_game">Restart game</string>
+    <string name="about">About</string>
+    <string name="phone">Phone</string>
+    <string name="game">Game</string>
 </resources>
