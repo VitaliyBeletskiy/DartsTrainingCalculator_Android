@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /// represents a single throw's result
-// we need 'id' for better animation due to DiffUtil
+// we need 'number' for better animation due to DiffUtil
 data class Toss(var number: Int, val section: Section, val ring: Ring) : Parcelable {
 
     val value: Int
