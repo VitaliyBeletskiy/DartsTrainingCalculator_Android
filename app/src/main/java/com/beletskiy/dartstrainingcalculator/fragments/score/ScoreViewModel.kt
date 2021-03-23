@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beletskiy.dartstrainingcalculator.data.Toss
 
-class ScoreViewModel(private var game: Int) : ViewModel() {
+class ScoreViewModel(private var gameTotalScore: Int) : ViewModel() {
 
     // contains all throws
     private val _tossList = MutableLiveData<ArrayList<Toss>>(ArrayList())
@@ -19,7 +19,9 @@ class ScoreViewModel(private var game: Int) : ViewModel() {
         get() = _isGameOver
 
     // current score after the last trow
-    private var scoreAfterThrow: Int = 0
+    private val _scoreAfterThrow = MutableLiveData<Int>()
+    val scoreAfterThrow: LiveData<Int>
+        get() = _scoreAfterThrow
 
     // score after the most recent series of 3 trows
     private var scoreAfterSeries: Int = 0
@@ -31,39 +33,50 @@ class ScoreViewModel(private var game: Int) : ViewModel() {
         restartGame()
     }
 
+    // when User chosen another Game (f.e. 301 instead of 501)
+    fun onGameChanged(newTotalPoints: Int) {
+        gameTotalScore = newTotalPoints
+        restartGame()
+    }
+
+    // restarts the game
     fun restartGame() {
-        _tossList.value = ArrayList()
-        _isGameOver.value = false
-        scoreAfterSeries = game
-        scoreAfterThrow = game
-        throwNumberInSeries = 0
+        _tossList.value = ArrayList()               // empty array of "Toss"
+        _isGameOver.value = false                   // game is NOT over
+        scoreAfterSeries = gameTotalScore           // reset points counter
+        _scoreAfterThrow.value = gameTotalScore     // reset points counter
+        throwNumberInSeries = 0                     // reset points counter
     }
 
     // when User added a new throw
     fun onNewTossCreated(newToss: Toss) {
+
+        // TODO: 23/03/2021 exception or notify User??? Or do I need it at all?
+        if (_scoreAfterThrow.value == null) return
+
         newToss.id = (_tossList.value?.size ?: 0) + 1
         _tossList.value?.add(newToss)
         _tossList.value = _tossList.value
 
         throwNumberInSeries = newToss.id % 3
-        scoreAfterThrow -= newToss.value
+        _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
 
         // check if game is over
-        if (scoreAfterThrow == 0 && (newToss.ring == Toss.Ring.X2 || newToss.section == Toss.Section.INNER_BULLSEYE)) {
+        if (_scoreAfterThrow.value == 0 && (newToss.ring == Toss.Ring.X2 || newToss.section == Toss.Section.INNER_BULLSEYE)) {
             // TODO: Game is over - inform user and add game to history
             _isGameOver.value = true
             return
         }
         // whether the entire series counts or not
-        if (1 >= scoreAfterThrow) {
+        if (1 >= _scoreAfterThrow.value!!) {
             // add "missed" throws to complete current series
             completeSeriesWIthMissedThrows(throwNumberInSeries)
-            scoreAfterThrow = scoreAfterSeries
+            _scoreAfterThrow.value = scoreAfterSeries
             return
         }
         // if it was the third throw in series - update scoreAfterSeries
         if (0 == throwNumberInSeries) {
-            scoreAfterSeries = scoreAfterThrow
+            scoreAfterSeries = _scoreAfterThrow.value!!
         }
 
     }

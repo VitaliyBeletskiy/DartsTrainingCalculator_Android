@@ -3,6 +3,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,11 +21,15 @@ class ScoreFragment : Fragment() {
     private val scoreViewModel: ScoreViewModel by lazy {
         ViewModelProvider(
             this,
-            ScoreViewModel.Factory(21)
-//            ScoreViewModel.Factory(selectedGame)
+            ScoreViewModel.Factory(currentGameTotalPoints)
         ).get(ScoreViewModel::class.java)
     }
-    private var selectedGame: Int = DEFAULT_GAME_VALUE
+
+    // what game we are playing - 301 or 501
+    private var currentGameTotalPoints: Int = DEFAULT_GAME_VALUE
+
+    // indicates if we need to restart the current game due to Settings changes
+    private var resetGameAsSettingsChanged: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +37,17 @@ class ScoreFragment : Fragment() {
     ): View {
         binding = FragmentScoreBinding.inflate(inflater)
         readGameSettings()
-        // TODO: 22/03/2021 restart game id settings changed
         binding.scoreViewModel = scoreViewModel
+        // if Settings changed - notify ViewModel
+        if (resetGameAsSettingsChanged) {
+            scoreViewModel.onGameChanged(currentGameTotalPoints)
+        }
         binding.lifecycleOwner = this
 
         setHasOptionsMenu(true)
 
-        // binding RecyclerView with ListAdapter and
+        //<editor-fold desc="setting up RecyclerView">
+        // binding RecyclerView with ListAdapter
         val scoreAdapter = ScoreAdapter()
         binding.recyclerView.adapter = scoreAdapter
 
@@ -53,12 +62,7 @@ class ScoreFragment : Fragment() {
                 scoreAdapter.submitList(it)
             }
         })
-
-        // navigate to TossFragment by clicking [fab]
-        binding.fab.setOnClickListener {
-            readGameSettings()
-            findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
-        }
+        //</editor-fold>
 
         // getting new [Toss] from TossFragment
         findNavController()
@@ -69,20 +73,39 @@ class ScoreFragment : Fragment() {
                 scoreViewModel.onNewTossCreated(it)
 
                 // FIXME: KLUDGE!!! otherwise the previous new Toss value added every time we come
-                // back to ScoreFragment
+                // FIXME: back to ScoreFragment
                 findNavController()
                     .currentBackStackEntry
                     ?.savedStateHandle
-                    ?.remove<Toss>(ScoreFragment.NEW_TOSS)
+                    ?.remove<Toss>(NEW_TOSS)
             })
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // navigate to TossFragment by clicking [fab]
+        binding.fab.setOnClickListener {
+            readGameSettings()
+            findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
+        }
+
+        scoreViewModel.scoreAfterThrow.observe(viewLifecycleOwner, {
+            // TODO: 23/03/2021 проверить правильность
+            "Score $it/${this.currentGameTotalPoints}".also { text ->
+                (activity as AppCompatActivity?)?.supportActionBar?.title = text
+            }
+        })
+    }
+
+    /// adds button "Restart game" to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.score_fragment_menu, menu)
     }
 
+    /// called when User clicked button "Restart game" in the toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_game -> {
@@ -93,7 +116,9 @@ class ScoreFragment : Fragment() {
         }
     }
 
+    /// asks if User is sure and wants to restart the game and loose all progress
     private fun restartGameWithConfirmation() {
+        // TODO: 23/03/2021 if game is over don't ask for confirmation
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
@@ -113,11 +138,14 @@ class ScoreFragment : Fragment() {
         alertDialog?.show()
     }
 
+    /// reads from Preferences what game we play (301 or 501)
     private fun readGameSettings() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val gameString = sharedPreferences
             .getString(getString(R.string.game_key), getString(R.string.default_game_value))
-        selectedGame = gameString?.toInt() ?: selectedGame
+        val newGameTotalPoints = gameString?.toInt() ?: currentGameTotalPoints
+        resetGameAsSettingsChanged = currentGameTotalPoints != newGameTotalPoints
+        currentGameTotalPoints = newGameTotalPoints
     }
 
     /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
