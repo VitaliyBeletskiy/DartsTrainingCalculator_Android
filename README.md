@@ -8,4 +8,4 @@ To-do:
 
 *Database diagram:*
 
-<img src="dtc_database_diagram.png" width="800"/>
+<img src="docs/dtc_database_diagram.png" width="800"/>
