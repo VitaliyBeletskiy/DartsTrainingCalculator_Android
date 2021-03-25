@@ -8,10 +8,13 @@ import com.beletskiy.dartstrainingcalculator.utils.DATABASE_NAME
 interface SavedGameDao {
 
     @Query("SELECT * FROM game_table")
-    fun getAll(): List<SavedGame>
+    suspend fun getAll(): List<SavedGame>
 
-    @Insert
-    suspend fun insertGame(savedGame: SavedGame)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGame(savedGame: SavedGame): Long
+
+    @Query("DELETE FROM game_table WHERE id = :id")
+    suspend fun deleteGame(id: Long)
 
     @Query("DELETE FROM game_table")
     suspend fun deleteAll()
@@ -21,7 +24,7 @@ interface SavedGameDao {
 interface SavedTossDao {
 
     @Query("SELECT * FROM toss_table WHERE game_id = :gameId")
-    fun getAllForGame(gameId: Long): List<SavedToss>
+    suspend fun getAllForGame(gameId: Long): List<SavedToss>
 
     @Insert
     suspend fun insertTosses(savedTossList: List<SavedToss>)
