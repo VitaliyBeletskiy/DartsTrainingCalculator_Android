@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/new_game"
-        android:icon="@drawable/ic_refresh"
-        android:title="@string/new_game"
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/share"
         app:showAsAction="always" />
 </menu>

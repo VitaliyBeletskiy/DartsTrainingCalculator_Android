@@ -12,7 +12,7 @@
     <string name="invalid_trow_message">Enter valid values</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
     <string name="prevent_phone_from_sleeping">Prevent phone from sleeping</string>
-    <string name="new_game">new_game</string>
+    <!--    <string name="new_game">new_game</string>-->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="all_progress_will_be_lost">All progress will be lost. Are you sure you want to restart the game?</string>
@@ -20,4 +20,9 @@
     <string name="about">About</string>
     <string name="phone">Phone</string>
     <string name="game">Game</string>
+    <string name="restart">Restart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share">Share</string>
+    <string name="delete_all">Delete All</string>
 </resources>

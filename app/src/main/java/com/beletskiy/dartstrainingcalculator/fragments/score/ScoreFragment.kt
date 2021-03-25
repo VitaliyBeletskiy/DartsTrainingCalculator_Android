@@ -105,7 +105,7 @@ class ScoreFragment() : Fragment() {
     // TODO: change to menu
     /// adds button "Restart game" to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.score_fragment_menu, menu)
+        inflater.inflate(R.menu.score_menu, menu)
     }
 
     /// called when User clicked button "Restart game" in the toolbar
