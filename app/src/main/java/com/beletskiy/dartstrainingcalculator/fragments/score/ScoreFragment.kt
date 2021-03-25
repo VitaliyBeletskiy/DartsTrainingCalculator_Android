@@ -90,19 +90,17 @@ class ScoreFragment() : Fragment() {
 
         // navigate to TossFragment by clicking [fab]
         binding.fab.setOnClickListener {
-            readGameSettings()
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
         }
 
         scoreViewModel.scoreAfterThrow.observe(viewLifecycleOwner, {
-            // TODO: 23/03/2021 проверить правильность
+            // TODO: проверить правильность, убрать Hard-coded text
             "Score $it/${this.currentGameTotalPoints}".also { text ->
                 (activity as AppCompatActivity?)?.supportActionBar?.title = text
             }
         })
     }
 
-    // TODO: change to menu
     /// adds button "Restart game" to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.score_menu, menu)
@@ -121,7 +119,7 @@ class ScoreFragment() : Fragment() {
 
     /// asks if User is sure and wants to restart the game and loose all progress
     private fun restartGameWithConfirmation() {
-        // TODO: 23/03/2021 if game is over don't ask for confirmation
+        // TODO: if game is over don't ask for confirmation
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {

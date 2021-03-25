@@ -5,6 +5,7 @@ The app counts scores during Darts training session.
 To-do:
 
 - добавить возможность кастомной игры (301, 501, введите своё значение (>1))
+- в Настройках выбор "начинать с удвоения" (doubling in ON/OFF)
 
 *Database diagram:*
 

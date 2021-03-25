@@ -3,9 +3,12 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 import android.app.Application
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
+import com.beletskiy.dartstrainingcalculator.database.DartsRepository
 
 class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
     AndroidViewModel(application) {
+
+    private val dartsRepository = DartsRepository(application)
 
     // contains all throws
     private val _tossList = MutableLiveData<ArrayList<Toss>>(ArrayList())
@@ -61,8 +64,13 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
 
         // check if game is over
-        if (_scoreAfterThrow.value == 0 && (newToss.ring == Toss.Ring.X2 || newToss.section == Toss.Section.INNER_BULLSEYE)) {
-            // TODO: Game is over - inform user and add game to history
+        if (_scoreAfterThrow.value == 0 &&
+            (newToss.ring == Toss.Ring.X2 || newToss.section == Toss.Section.INNER_BULLSEYE)
+        ) {
+            // TODO: Game is over - inform user
+
+            //  save the game to database
+            dartsRepository.saveGame(gameTotalScore, _tossList.value ?: emptyList())
             _isGameOver.value = true
             return
         }
