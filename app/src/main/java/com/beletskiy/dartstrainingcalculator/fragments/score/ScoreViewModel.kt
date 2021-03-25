@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
+import kotlin.random.Random
 
 class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
     AndroidViewModel(application) {
@@ -109,5 +110,18 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
             }
             throw IllegalArgumentException("Unable to construct ViewModel")
         }
+    }
+
+    // TODO  for testing only!!! remove it !!!
+    fun saveTestData() {
+        val testTossList = ArrayList<Toss>()
+        for (i in 1..Random.nextInt(5, 15)) {
+            testTossList.add(Toss(
+                i,
+                Toss.Section.values()[Random.nextInt(1, 21)],
+                Toss.Ring.values()[Random.nextInt(0, 3)],
+            ))
+        }
+        dartsRepository.saveGame(Random.nextInt(300,400),testTossList)
     }
 }

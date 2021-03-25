@@ -13,6 +13,7 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
+import kotlin.random.Random
 
 class ScoreFragment() : Fragment() {
 
@@ -38,13 +39,13 @@ class ScoreFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScoreBinding.inflate(inflater)
+        binding.lifecycleOwner = this
         readGameSettings()
         binding.scoreViewModel = scoreViewModel
         // if Settings changed - notify ViewModel
         if (resetGameAsSettingsChanged) {
             scoreViewModel.onGameChanged(currentGameTotalPoints)
         }
-        binding.lifecycleOwner = this
 
         setHasOptionsMenu(true)
 
@@ -101,16 +102,21 @@ class ScoreFragment() : Fragment() {
         })
     }
 
-    /// adds button "Restart game" to the toolbar
+    /// adds menu with "Restart game" to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.score_menu, menu)
     }
 
-    /// called when User clicked button "Restart game" in the toolbar
+    /// called when User clicked "Restart game" in the toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_game -> {
                 restartGameWithConfirmation()
+                true
+            }
+            // TODO  for testing only!!! remove it !!!
+            R.id.save_test_data -> {
+                scoreViewModel.saveTestData()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -155,3 +161,4 @@ class ScoreFragment() : Fragment() {
     }
 
 }
+

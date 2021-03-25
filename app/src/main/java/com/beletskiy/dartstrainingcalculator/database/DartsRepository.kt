@@ -24,6 +24,14 @@ class DartsRepository(context: Context) {
         }
     }
 
+    // empties database = deletes all data
+    fun deleteAllData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dartsDatabase.savedTossDao().deleteAll()
+            dartsDatabase.savedGameDao().deleteAll()
+        }
+    }
+
     /// converts the list of Toss to the list of SavedToss (to save in database)
     private fun convertTossListToSavedTossList(gameId: Long, tossList: List<Toss>): List<SavedToss> {
         return tossList.map {

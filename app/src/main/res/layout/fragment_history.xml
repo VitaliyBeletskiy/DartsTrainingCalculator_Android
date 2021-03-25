@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="historyViewModel"
+            type="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

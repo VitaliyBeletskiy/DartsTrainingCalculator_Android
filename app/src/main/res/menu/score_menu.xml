@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/new_game"
         android:icon="@drawable/ic_refresh"
         android:menuCategory="secondary"
         android:title="@string/restart" />
+
+    <!--  TODO  for testing only!!! remove it !!!-->
+    <item
+        android:id="@+id/save_test_data"
+        android:icon="@drawable/ic_refresh"
+        android:menuCategory="secondary"
+        android:title="Save test data"
+        tools:ignore="HardcodedText" />
 </menu>
