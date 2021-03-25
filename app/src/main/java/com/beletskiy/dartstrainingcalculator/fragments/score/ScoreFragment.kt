@@ -14,18 +14,20 @@ import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
 
-
-class ScoreFragment : Fragment() {
+class ScoreFragment() : Fragment() {
 
     private lateinit var binding: FragmentScoreBinding
     private val scoreViewModel: ScoreViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onViewCreated()"
+        }
         ViewModelProvider(
             this,
-            ScoreViewModel.Factory(currentGameTotalPoints)
+            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
         ).get(ScoreViewModel::class.java)
     }
 
-    // what game we are playing - 301 or 501
+    // what game we are playing - 301 or 501 or custom
     private var currentGameTotalPoints: Int = DEFAULT_GAME_VALUE
 
     // indicates if we need to restart the current game due to Settings changes
@@ -100,6 +102,7 @@ class ScoreFragment : Fragment() {
         })
     }
 
+    // TODO: change to menu
     /// adds button "Restart game" to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.score_fragment_menu, menu)

@@ -1,12 +1,11 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.app.Application
+import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 
-class ScoreViewModel(private var gameTotalScore: Int) : ViewModel() {
+class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
+    AndroidViewModel(application) {
 
     // contains all throws
     private val _tossList = MutableLiveData<ArrayList<Toss>>(ArrayList())
@@ -81,6 +80,7 @@ class ScoreViewModel(private var gameTotalScore: Int) : ViewModel() {
 
     }
 
+    // if current series needs to be skipped, adds "missed" throws to make 3 throws in current series
     private fun completeSeriesWIthMissedThrows(throwNumberInSeries: Int) {
         if (0 == throwNumberInSeries) return
 
@@ -92,12 +92,12 @@ class ScoreViewModel(private var gameTotalScore: Int) : ViewModel() {
         _tossList.value = _tossList.value
     }
 
-    // Factory for constructing ScoreViewModel with parameter
-    class Factory(private val game: Int) : ViewModelProvider.Factory {
+    // Factory for constructing ScoreViewModel with parameters
+    class Factory(private val game: Int, private val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ScoreViewModel(game) as T
+                return ScoreViewModel(game, app) as T
             }
             throw IllegalArgumentException("Unable to construct ViewModel")
         }

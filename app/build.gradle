@@ -62,4 +62,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     // AndroidX Preference library
     implementation 'androidx.preference:preference-ktx:1.1.1'
+    //Room
+    def room_version = "2.2.6"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
