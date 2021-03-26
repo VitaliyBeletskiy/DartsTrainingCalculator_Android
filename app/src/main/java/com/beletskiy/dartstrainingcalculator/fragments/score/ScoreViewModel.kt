@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
@@ -71,7 +72,9 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
             // TODO: Game is over - inform user
 
             //  save the game to database
-            dartsRepository.saveGame(gameTotalScore, _tossList.value ?: emptyList())
+            viewModelScope.launch {
+                dartsRepository.saveGame(gameTotalScore, _tossList.value ?: emptyList())
+            }
             _isGameOver.value = true
             return
         }
@@ -116,12 +119,16 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
     fun saveTestData() {
         val testTossList = ArrayList<Toss>()
         for (i in 1..Random.nextInt(5, 15)) {
-            testTossList.add(Toss(
-                i,
-                Toss.Section.values()[Random.nextInt(1, 21)],
-                Toss.Ring.values()[Random.nextInt(0, 3)],
-            ))
+            testTossList.add(
+                Toss(
+                    i,
+                    Toss.Section.values()[Random.nextInt(1, 21)],
+                    Toss.Ring.values()[Random.nextInt(0, 3)],
+                )
+            )
         }
-        dartsRepository.saveGame(Random.nextInt(300,400),testTossList)
+        viewModelScope.launch {
+            dartsRepository.saveGame(Random.nextInt(300, 400), testTossList)
+        }
     }
 }

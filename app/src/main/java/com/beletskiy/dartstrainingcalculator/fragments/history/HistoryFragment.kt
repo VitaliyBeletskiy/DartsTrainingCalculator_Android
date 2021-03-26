@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
+import com.beletskiy.dartstrainingcalculator.fragments.score.ScoreAdapter
 import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class HistoryFragment : Fragment() {
@@ -31,6 +33,15 @@ class HistoryFragment : Fragment() {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.historyViewModel = historyViewModel
+
+        val historyAdapter = HistoryAdapter()
+        binding.recyclerView.adapter = historyAdapter
+
+        historyViewModel.savedGameList.observe(viewLifecycleOwner) {
+            it?.let {
+                historyAdapter.submitList(it)
+            }
+        }
 
         return binding.root
     }

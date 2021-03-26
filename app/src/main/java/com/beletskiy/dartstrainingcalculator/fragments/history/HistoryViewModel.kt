@@ -1,16 +1,17 @@
 package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
+import com.beletskiy.dartstrainingcalculator.database.SavedGame
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dartsRepository = DartsRepository(application)
+
+    val savedGameList: LiveData<List<SavedGame>> = dartsRepository.savedGameList.asLiveData()
+
 
     /**
      * empties database and refreshes RecyclerView

@@ -38,6 +38,8 @@ class ScoreFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
+
         binding = FragmentScoreBinding.inflate(inflater)
         binding.lifecycleOwner = this
         readGameSettings()
@@ -46,8 +48,6 @@ class ScoreFragment() : Fragment() {
         if (resetGameAsSettingsChanged) {
             scoreViewModel.onGameChanged(currentGameTotalPoints)
         }
-
-        setHasOptionsMenu(true)
 
         //<editor-fold desc="setting up RecyclerView">
         // binding RecyclerView with ListAdapter
