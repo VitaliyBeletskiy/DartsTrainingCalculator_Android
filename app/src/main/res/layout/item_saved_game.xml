@@ -19,48 +19,90 @@
             type="com.beletskiy.dartstrainingcalculator.database.GameAndTosses" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{rowClickListener}"
-        android:orientation="horizontal">
+        android:layout_margin="4dp">
 
-        <TextView
-            android:id="@+id/timestamp_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:timestamp="@{gameAndTosses.savedGame.timestamp}"
-            tools:text="25-03-2021 18:13" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{rowClickListener}"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/points_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@{String.valueOf(gameAndTosses.savedGame.points)}"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/timestamp_text"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="501" />
+            <TextView
+                android:id="@+id/timestamp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:timestamp="@{gameAndTosses.savedGame.timestamp}"
+                tools:text="Friday, 25 Mar 2021, 18:13" />
 
-        <ImageButton
-            android:id="@+id/menu_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@android:color/transparent"
-            android:onClick="@{menuClickListener}"
-            android:src="@drawable/ic_baseline_more_vert_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/points_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Game:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/timestamp_text"/>
+
+            <TextView
+                android:id="@+id/points_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{String.valueOf(gameAndTosses.savedGame.points)}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/points_label"
+                app:layout_constraintTop_toBottomOf="@id/timestamp_text"
+                tools:text="501" />
+
+            <TextView
+                android:id="@+id/tosses_number_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Total throws:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/points_text"
+                app:layout_constraintTop_toBottomOf="@id/timestamp_text"/>
+
+            <TextView
+                android:id="@+id/tosses_number_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{String.valueOf(gameAndTosses.savedTossList.size())}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tosses_number_label"
+                app:layout_constraintTop_toBottomOf="@id/timestamp_text"
+                tools:text="24" />
+
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{menuClickListener}"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

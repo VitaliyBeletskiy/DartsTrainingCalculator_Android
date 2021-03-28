@@ -24,7 +24,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             tools:listitem="@layout/item_toss" />
-        <!-- app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
 
         <TextView
             android:layout_width="wrap_content"

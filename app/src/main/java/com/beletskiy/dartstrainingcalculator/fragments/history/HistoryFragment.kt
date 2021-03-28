@@ -2,15 +2,15 @@ package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
-import com.beletskiy.dartstrainingcalculator.utils.TAG
+
 
 class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
 
@@ -38,6 +38,11 @@ class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
 
         val historyAdapter = HistoryAdapter(this)
         binding.recyclerView.adapter = historyAdapter
+
+        // to reverse items order in RecyclerView = latest on the top
+        val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        linearLayoutManager.stackFromEnd = true
+        binding.recyclerView.layoutManager = linearLayoutManager
 
         historyViewModel.gameAndTossesList.observe(viewLifecycleOwner) {
             it?.let {
