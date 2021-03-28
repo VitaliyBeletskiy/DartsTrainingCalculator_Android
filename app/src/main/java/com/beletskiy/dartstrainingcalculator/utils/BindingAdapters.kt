@@ -1,6 +1,8 @@
 package com.beletskiy.dartstrainingcalculator.utils
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.text.Spanned
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,12 +11,14 @@ import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
+import com.beletskiy.dartstrainingcalculator.database.SavedToss
 import java.text.SimpleDateFormat
 
 @BindingAdapter("android:background")
 fun ImageButton.setBackground(value: Boolean?) {
     value?.let {
-        val bgSelected = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background_selected)
+        val bgSelected =
+            AppCompatResources.getDrawable(context, R.drawable.toss_tile_background_selected)
         val bg = AppCompatResources.getDrawable(context, R.drawable.toss_tile_background)
         if (it) {
             this.background = bgSelected
@@ -30,7 +34,7 @@ fun ImageButton.setBackground(value: Boolean?) {
 @BindingAdapter("numberImage")
 fun bindNumberImage(imageView: ImageView, section: Toss.Section?) {
     section?.let {
-        val imageId = when(section) {
+        val imageId = when (section) {
             Toss.Section.MISSED -> R.drawable.ic_0
             Toss.Section.ONE -> R.drawable.ic_1
             Toss.Section.TWO -> R.drawable.ic_2
@@ -62,19 +66,27 @@ fun bindNumberImage(imageView: ImageView, section: Toss.Section?) {
 @BindingAdapter("ringImage")
 fun bindNumberImage(imageView: ImageView, ring: Toss.Ring?) {
     ring?.let {
-        val imageId = when(ring) {
+        val imageId = when (ring) {
             Toss.Ring.X1 -> R.drawable.ic_badge_x1
-            Toss.Ring.X2  -> R.drawable.ic_badge_x2
-            Toss.Ring.X3  -> R.drawable.ic_badge_x3
+            Toss.Ring.X2 -> R.drawable.ic_badge_x2
+            Toss.Ring.X3 -> R.drawable.ic_badge_x3
         }
         imageView.setImageResource(imageId)
     }
 }
 
+// converts milliseconds (Long) to "Friday, 25 Mar 2021, 18:13"
 @BindingAdapter("timestamp")
 fun TextView.fromMillisecondsToDate(timestamp: Long?) {
-    timestamp?.let{
+    timestamp?.let {
         text = convertLongToDateString(it)
+    }
+}
+
+@BindingAdapter("savedTossList")
+fun TextView.fromSavedTossListToString(savedTossList: List<SavedToss>?) {
+    savedTossList?.let {
+        text = convertSavedTossListToString(it)
     }
 }
 
@@ -93,4 +105,27 @@ fun TextView.fromMillisecondsToDate(timestamp: Long?) {
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE, dd MMM yyyy, HH:mm")
         .format(systemTime).toString()
+}
+
+// TODO: shitcode, for testing only
+/// converts List<Toss> to text
+fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
+    val sb = StringBuilder()
+    var numberInSeries = 0
+    sb.apply {
+        savedTossList.forEach {
+            append("${Toss.Section.values()[it.section]}")
+            val ring = Toss.Ring.values()[it.ring]
+            when(ring) {
+                Toss.Ring.X2, Toss.Ring.X3 -> append(" (x${ring.value}), ")
+                Toss.Ring.X1 -> append(", ")
+            }
+            numberInSeries ++
+            if (numberInSeries == 3) {
+                append("\n")
+                numberInSeries = 0
+            }
+        }
+    }
+    return sb.toString()
 }

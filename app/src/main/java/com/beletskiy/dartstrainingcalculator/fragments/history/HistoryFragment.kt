@@ -40,10 +40,12 @@ class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
         binding.recyclerView.adapter = historyAdapter
 
         // to reverse items order in RecyclerView = latest on the top
-        val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        val linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         linearLayoutManager.stackFromEnd = true
         binding.recyclerView.layoutManager = linearLayoutManager
 
+        // observe changes in List<GameAndTosses>
         historyViewModel.gameAndTossesList.observe(viewLifecycleOwner) {
             it?.let {
                 historyAdapter.submitList(it)
