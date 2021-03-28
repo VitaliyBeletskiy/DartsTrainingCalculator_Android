@@ -40,10 +40,27 @@
         android:id="@+id/historyFragment"
         android:name="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryFragment"
         android:label="@string/history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_history_to_gameDetails"
+            app:destination="@id/gameDetailsFragment" />
+    </fragment>
+
+    <!-- GameDetails Fragment -->
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="com.beletskiy.dartstrainingcalculator.fragments.gamedetails.GameDetailsFragment"
+        android:label="Details" >
+        <argument
+            android:name="game_id"
+            app:argType="long" />
+    </fragment>
+
 
     <!--Global action-->
     <action android:id="@+id/settingsDestination"
         app:destination="@id/settingsFragment"/>
+
+
 
 </navigation>

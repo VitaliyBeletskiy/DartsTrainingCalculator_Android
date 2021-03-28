@@ -1,4 +1,9 @@
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="restart">Restart</string>
+
+
     <!-- Preferences Constants -->
     <string name="game_key">game_key</string>
     <string name="default_game_value">501</string>
@@ -20,10 +25,8 @@
     <string name="about">About</string>
     <string name="phone">Phone</string>
     <string name="game">Game</string>
-    <string name="restart">Restart</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="share">Share</string>
     <string name="delete_all">Delete All</string>
     <string name="delete_all_data">This operation cannot be undone. Are you sure you want to delete all data?</string>
+    <string name="new_game">New game</string>
 </resources>

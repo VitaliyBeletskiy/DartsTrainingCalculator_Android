@@ -4,18 +4,29 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.beletskiy.dartstrainingcalculator.R
+import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
 import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class GameDetailsFragment : Fragment() {
 
+    private lateinit var binding: FragmentGameDetailsBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.fragment_game_details, container, false)
+        binding = FragmentGameDetailsBinding.inflate(inflater)
+
+        val args: GameDetailsFragmentArgs by navArgs()
+
+        val gameId = args.gameId
+        binding.textView.text = "Game with id = $gameId"
+
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

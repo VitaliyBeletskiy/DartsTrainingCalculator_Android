@@ -7,13 +7,22 @@
     <data>
 
         <variable
+            name="rowClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="menuClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="savedGame"
             type="com.beletskiy.dartstrainingcalculator.database.SavedGame" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{rowClickListener}"
         android:orientation="horizontal">
 
         <TextView
@@ -21,9 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:timestamp="@{savedGame.timestamp}"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:timestamp="@{savedGame.timestamp}"
             tools:text="25-03-2021 18:13" />
 
         <TextView
@@ -34,7 +46,21 @@
             android:text="@{String.valueOf(savedGame.points)}"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timestamp_text"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="501" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:onClick="@{menuClickListener}"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

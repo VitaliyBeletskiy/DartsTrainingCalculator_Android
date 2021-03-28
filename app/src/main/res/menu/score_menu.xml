@@ -6,7 +6,7 @@
         android:id="@+id/new_game"
         android:icon="@drawable/ic_refresh"
         android:menuCategory="secondary"
-        android:title="@string/restart" />
+        android:title="@string/new_game" />
 
     <!--  TODO  for testing only!!! remove it !!!-->
     <item
