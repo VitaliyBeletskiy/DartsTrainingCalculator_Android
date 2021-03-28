@@ -2,19 +2,16 @@ package com.beletskiy.dartstrainingcalculator.database
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsDatabase.Companion.getDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class DartsRepository(context: Context) {
 
     private val dartsDatabase = getDatabase(context)
 
-    val savedGameList: Flow<List<SavedGame>> = dartsDatabase.savedGameDao().getAll()
+    //val savedGameList: Flow<List<SavedGame>> = dartsDatabase.savedGameDao().getAll()
+    val gameAndTossesList: Flow<List<GameAndTosses>> = dartsDatabase.savedGameDao().getAllGamesAndTosses()
 
     /// saves the finished game to database
     @WorkerThread
@@ -32,8 +29,15 @@ class DartsRepository(context: Context) {
     @WorkerThread
     suspend fun deleteAllData() {
         dartsDatabase.run {
-            savedTossDao().deleteAll()
             savedGameDao().deleteAll()
+        }
+    }
+
+    // deletes one SavedGamed with all its SavedTosses
+    @WorkerThread
+    suspend fun deleteSavedGame(gameId: Long) {
+        dartsDatabase.run {
+            savedGameDao().deleteGame(gameId)
         }
     }
 

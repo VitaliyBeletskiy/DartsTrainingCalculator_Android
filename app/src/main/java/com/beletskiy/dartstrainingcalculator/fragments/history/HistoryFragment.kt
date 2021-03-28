@@ -6,13 +6,14 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.beletskiy.dartstrainingcalculator.R
+import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
-import com.beletskiy.dartstrainingcalculator.fragments.score.ScoreAdapter
 import com.beletskiy.dartstrainingcalculator.utils.TAG
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
+
 
     private lateinit var binding: FragmentHistoryBinding
     private val historyViewModel: HistoryViewModel by lazy {
@@ -20,7 +21,7 @@ class HistoryFragment : Fragment() {
             "You can only access the viewModel after onViewCreated()"
         }
         ViewModelProvider(
-            this,
+            activity,  // not 'this', as we use this ViewModel in two Fragments
             HistoryViewModel.Factory(activity.application)
         ).get(HistoryViewModel::class.java)
     }
@@ -30,14 +31,15 @@ class HistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
+
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.historyViewModel = historyViewModel
 
-        val historyAdapter = HistoryAdapter()
+        val historyAdapter = HistoryAdapter(this)
         binding.recyclerView.adapter = historyAdapter
 
-        historyViewModel.savedGameList.observe(viewLifecycleOwner) {
+        historyViewModel.gameAndTossesList.observe(viewLifecycleOwner) {
             it?.let {
                 historyAdapter.submitList(it)
             }
@@ -78,6 +80,17 @@ class HistoryFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
+    }
+
+    // handles the situation when User clicked "Delete" from row's pop-up menu
+    override fun onPopupMenuItemClicked(gameId: Long) {
+        historyViewModel.deleteSavedGame(gameId)
+    }
+
+    // handles the situation when User clicked the entire row
+    override fun onRowClicked(gameAndTosses: GameAndTosses) {
+        historyViewModel.selectedGameAndTosses.value = gameAndTosses
+        findNavController().navigate(HistoryFragmentDirections.actionHistoryToGameDetails())
     }
 
 }

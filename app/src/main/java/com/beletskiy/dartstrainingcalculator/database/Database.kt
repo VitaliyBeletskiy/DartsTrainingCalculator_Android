@@ -8,8 +8,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SavedGameDao {
 
+    @Transaction
     @Query("SELECT * FROM game_table")
-    fun getAll(): Flow<List<SavedGame>>
+    fun getAllGamesAndTosses(): Flow<List<GameAndTosses>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGame(savedGame: SavedGame): Long
@@ -19,22 +20,27 @@ interface SavedGameDao {
 
     @Query("DELETE FROM game_table")
     suspend fun deleteAll()
+
+    /*    @Query("SELECT * FROM game_table")
+    fun getAll(): Flow<List<SavedGame>>*/
 }
 
 @Dao
 interface SavedTossDao {
 
-    @Query("SELECT * FROM toss_table WHERE game_id = :gameId")
-    fun getAllForGame(gameId: Long): Flow<List<SavedToss>>
-
     @Insert
     suspend fun insertTosses(savedTossList: List<SavedToss>)
 
+/*    // Don't need this any mose as we read 'GameAndTosses' from database
+    @Query("SELECT * FROM toss_table WHERE game_id = :gameId")
+    fun getAllForGame(gameId: Long): Flow<List<SavedToss>>*/
+
+/*  // Don't need DELETE queries any more due to cascade deletion from SavedGame using foreign key
     @Query("DELETE FROM toss_table")
     suspend fun deleteAll()
 
     @Query("DELETE FROM toss_table WHERE game_id = :gameId")
-    suspend fun deleteAllForGame(gameId: Long)
+    suspend fun deleteAllForGame(gameId: Long)*/
 }
 
 @Database(entities = [SavedGame::class, SavedToss::class], version = 1, exportSchema = false)

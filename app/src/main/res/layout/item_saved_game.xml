@@ -15,8 +15,8 @@
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="savedGame"
-            type="com.beletskiy.dartstrainingcalculator.database.SavedGame" />
+            name="gameAndTosses"
+            type="com.beletskiy.dartstrainingcalculator.database.GameAndTosses" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:timestamp="@{savedGame.timestamp}"
+            app:timestamp="@{gameAndTosses.savedGame.timestamp}"
             tools:text="25-03-2021 18:13" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@{String.valueOf(savedGame.points)}"
+            android:text="@{String.valueOf(gameAndTosses.savedGame.points)}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

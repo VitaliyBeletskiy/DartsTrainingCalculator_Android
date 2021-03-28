@@ -51,16 +51,10 @@
         android:id="@+id/gameDetailsFragment"
         android:name="com.beletskiy.dartstrainingcalculator.fragments.gamedetails.GameDetailsFragment"
         android:label="Details" >
-        <argument
-            android:name="game_id"
-            app:argType="long" />
     </fragment>
-
 
     <!--Global action-->
     <action android:id="@+id/settingsDestination"
         app:destination="@id/settingsFragment"/>
-
-
 
 </navigation>

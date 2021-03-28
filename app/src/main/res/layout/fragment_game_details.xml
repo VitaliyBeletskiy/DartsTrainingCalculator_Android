@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="historyViewModel"
+            type="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel" />
     </data>
 
     <FrameLayout
@@ -16,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/hello_blank_fragment" />
-
+            android:text="@{String.valueOf(historyViewModel.selectedGameAndTosses.savedGame.id)}" />
     </FrameLayout>
 </layout>

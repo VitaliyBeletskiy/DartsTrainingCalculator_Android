@@ -4,14 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
+import com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel
 import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class GameDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentGameDetailsBinding
+    private val historyViewModel: HistoryViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onViewCreated()"
+        }
+        ViewModelProvider(
+            activity,  // not 'this', as we use this ViewModel in two Fragments
+            HistoryViewModel.Factory(activity.application)
+        ).get(HistoryViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,11 +31,8 @@ class GameDetailsFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding = FragmentGameDetailsBinding.inflate(inflater)
-
-        val args: GameDetailsFragmentArgs by navArgs()
-
-        val gameId = args.gameId
-        binding.textView.text = "Game with id = $gameId"
+        binding.lifecycleOwner = this
+        binding.historyViewModel = historyViewModel
 
         return binding.root
     }
