@@ -26,6 +26,17 @@
             tools:listitem="@layout/item_toss" />
         <!-- app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="32dp"
+            android:gravity="center"
+            android:text="@string/start_playing_by_adding_your_throws"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="@{scoreViewModel.tossList.size() == 0 ? View.VISIBLE : View.INVISIBLE}" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

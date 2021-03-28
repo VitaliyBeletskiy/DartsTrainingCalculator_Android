@@ -29,4 +29,5 @@
     <string name="delete_all">Delete All</string>
     <string name="delete_all_data">This operation cannot be undone. Are you sure you want to delete all data?</string>
     <string name="new_game">New game</string>
+    <string name="start_playing_by_adding_your_throws">Start playing by adding your throws.</string>
 </resources>
