@@ -1,19 +1,18 @@
 package com.beletskiy.dartstrainingcalculator.fragments.settings
 
-import android.content.pm.PackageInfo
 import android.os.Bundle
-import android.util.Log
+import android.view.WindowManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.beletskiy.dartstrainingcalculator.MainActivity
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.utils.TAG
-
 
 class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
+        // to show App Version in Settings
         val appVersion = requireContext().packageManager.getPackageInfo(
             requireContext().packageName,
             0
@@ -23,20 +22,21 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
         }
         findPreference<Preference>("version")?.summaryProvider = summaryProvider
 
-        // set Preference Change Listeners
+        // set PreferenceChange listeners
         val preventSleepPreference: Preference? =
             preferenceManager.findPreference(getString(R.string.prevent_sleep_key))
         preventSleepPreference?.onPreferenceChangeListener = this
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+        // switch ON/OFF "prevent phone from sleeping"
         preference?.let {
             if (preference.key == getString(R.string.prevent_sleep_key)) {
-                Log.i(
-                    TAG,
-                    "onPreferenceChange: preventSleepPreference CHANGED, new value = $newValue"
-                )
-                // TODO: 22/03/2021 handle "prevent phone from sleeping"
+                if (newValue == true) {
+                    (requireNotNull(this.activity) as MainActivity).window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                } else {
+                    (requireNotNull(this.activity) as MainActivity).window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
             }
         }
         return true
