@@ -74,7 +74,7 @@ class TossViewModel : ViewModel() {
         // throw is valid
         val sectionIndex = _numberSectorChosen.value?.indexOf(true) ?: 0
         val ringIndex = (_ringChosen.value?.indexOf(true) ?: -1) + 1
-        val newToss = Toss(0, Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
+        val newToss = Toss(0, false, Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
         viewModelScope.launch {
             eventChannel.send(Event.NavigateToScoreScreen(newToss))
         }

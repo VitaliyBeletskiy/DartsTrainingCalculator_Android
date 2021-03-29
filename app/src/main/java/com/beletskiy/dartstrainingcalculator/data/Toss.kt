@@ -3,15 +3,17 @@ package com.beletskiy.dartstrainingcalculator.data
 import android.os.Parcel
 import android.os.Parcelable
 
+
 /// represents a single throw's result
 // we need 'number' for better animation due to DiffUtil
-data class Toss(var number: Int, val section: Section, val ring: Ring) : Parcelable {
+data class Toss(var number: Int, var counted: Boolean, val section: Section, val ring: Ring) : Parcelable {
 
     val value: Int
         get() =  section.value * ring.value
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readInt() == 1,
         Section.values()[parcel.readInt()],
         Ring.values()[parcel.readInt()]
     )
@@ -54,6 +56,7 @@ data class Toss(var number: Int, val section: Section, val ring: Ring) : Parcela
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(number)
+        parcel.writeInt(if (counted) 1 else 0)
         parcel.writeInt(section.ordinal)
         parcel.writeInt(ring.ordinal)
     }

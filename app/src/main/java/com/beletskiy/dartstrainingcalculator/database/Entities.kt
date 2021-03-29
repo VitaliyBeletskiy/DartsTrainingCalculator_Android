@@ -23,6 +23,7 @@ data class SavedToss(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "game_id", index = true) val gameId: Long,
     val number: Int,
+    val counted: Boolean,
     val section: Int,
     val ring: Int,
 )

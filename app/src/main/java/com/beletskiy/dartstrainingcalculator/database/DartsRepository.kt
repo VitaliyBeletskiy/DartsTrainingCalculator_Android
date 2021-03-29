@@ -50,6 +50,7 @@ class DartsRepository(context: Context) {
             SavedToss(
                 gameId = gameId,
                 number = it.number,
+                counted = it.counted,
                 section = it.section.ordinal,
                 ring = it.ring.ordinal
             )
