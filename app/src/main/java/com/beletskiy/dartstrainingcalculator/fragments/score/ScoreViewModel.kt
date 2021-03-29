@@ -112,7 +112,9 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _tossList.value = ArrayList(_tossList.value?.dropLast(throwsInLastSeries))
         // recalculate score
         scoreAfterSeries =
-            gameTotalScore - (_tossList.value?.fold(0) { sum, toss -> sum + toss.value } ?: 0)
+            gameTotalScore - (_tossList.value?.fold(0) { sum, toss ->
+                sum + (if (toss.counted) toss.value else 0)
+            } ?: 0)
         _scoreAfterThrow.value = scoreAfterSeries
     }
 
