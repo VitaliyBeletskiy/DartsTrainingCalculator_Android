@@ -114,9 +114,8 @@ fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
     var numberInSeries = 0
     sb.apply {
         savedTossList.forEach {
-            append("${Toss.Section.values()[it.section]}")
-            val ring = Toss.Ring.values()[it.ring]
-            when(ring) {
+            append("${Toss.Section.values()[it.section].value}")
+            when(val ring = Toss.Ring.values()[it.ring]) {
                 Toss.Ring.X2, Toss.Ring.X3 -> append(" (x${ring.value}), ")
                 Toss.Ring.X1 -> append(", ")
             }

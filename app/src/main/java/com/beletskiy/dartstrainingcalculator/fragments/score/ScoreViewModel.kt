@@ -31,6 +31,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
     // score after the most recent series of 3 trows
     private var scoreAfterSeries: Int = 0
 
+    // TODO: а оно точно должно быть здесь? может в тело метода?
     // throw number in series of 3
     private var throwPositionInSeries: Int = 0
 
@@ -98,6 +99,23 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         }
 
     }
+
+    // when User clicks Undo button in ScoreFragment
+    fun deleteLastSeries() {
+        // if there is the only one series - restart game
+        if (_tossList.value?.size ?: 0 < 4) {
+            restartGame()
+            return
+        }
+        // remove the last series (it can be incomplete)
+        val throwsInLastSeries = _tossList.value!!.size.inSeriesOf3
+        _tossList.value = ArrayList(_tossList.value?.dropLast(throwsInLastSeries))
+        // recalculate score
+        scoreAfterSeries =
+            gameTotalScore - (_tossList.value?.fold(0) { sum, toss -> sum + toss.value } ?: 0)
+        _scoreAfterThrow.value = scoreAfterSeries
+    }
+
 
     // if current series needs to be skipped, adds "missed" throws to make 3 throws in current series
     private fun completeSeriesWithMissedThrows(throwNumberInSeries: Int) {

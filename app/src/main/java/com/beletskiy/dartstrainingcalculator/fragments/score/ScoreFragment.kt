@@ -2,6 +2,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
+import com.beletskiy.dartstrainingcalculator.utils.TAG
 import kotlin.random.Random
 
 class ScoreFragment() : Fragment() {
@@ -114,6 +116,10 @@ class ScoreFragment() : Fragment() {
                 restartGameWithConfirmation()
                 true
             }
+            R.id.undo -> {
+                scoreViewModel.deleteLastSeries()
+                true
+            }
             // TODO  for testing only!!! remove it !!!
             R.id.save_test_data -> {
                 scoreViewModel.saveTestData()
@@ -125,7 +131,11 @@ class ScoreFragment() : Fragment() {
 
     /// asks if User is sure and wants to restart the game and loose all progress
     private fun restartGameWithConfirmation() {
-        // TODO: if game is over don't ask for confirmation
+        // don't ask for confirmation if there is no throws yet or if game is over
+        if (scoreViewModel.tossList.value?.size == 0 || scoreViewModel.isGameOver.value == true) {
+            scoreViewModel.restartGame()
+            return
+        }
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
