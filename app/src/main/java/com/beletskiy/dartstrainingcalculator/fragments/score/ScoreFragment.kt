@@ -2,6 +2,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity

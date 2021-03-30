@@ -1,8 +1,8 @@
 package com.beletskiy.dartstrainingcalculator.utils
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.text.Spanned
+import android.content.Context
+import android.text.format.DateFormat
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -79,7 +79,7 @@ fun bindNumberImage(imageView: ImageView, ring: Toss.Ring?) {
 @BindingAdapter("timestamp")
 fun TextView.fromMillisecondsToDate(timestamp: Long?) {
     timestamp?.let {
-        text = convertLongToDateString(it)
+        text = convertLongToDateString(it, context)
     }
 }
 
@@ -90,25 +90,18 @@ fun TextView.fromSavedTossListToString(savedTossList: List<SavedToss>?) {
     }
 }
 
-
 // TODO: убрать отсюда?
-/**
- * Take the Long milliseconds returned by the system and stored in Room,
- * and convert it to a nicely formatted string for display.
- *
- * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the nmotny
- * dd-yyyy - day in month and full year numerically
- * HH:mm - Hours and minutes in 24hr format
- */
+/// takes the Long milliseconds and convert it to a string for display.
 @SuppressLint("SimpleDateFormat")
-fun convertLongToDateString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE, dd MMM yyyy, HH:mm")
-        .format(systemTime).toString()
+fun convertLongToDateString(milliseconds: Long, context: Context): String {
+    val weekday = SimpleDateFormat("EEEE").format(milliseconds)
+    val time = DateFormat.getTimeFormat(context).format(milliseconds)
+    val date = DateFormat.getLongDateFormat(context).format(milliseconds)
+    return "$weekday, $date, $time"
 }
 
 // TODO: shitcode, for testing only
-/// converts List<Toss> to text
+/// converts List<Toss> to a string
 fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
     val sb = StringBuilder()
     var numberInSeries = 0

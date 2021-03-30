@@ -1,14 +1,18 @@
 package com.beletskiy.dartstrainingcalculator
 
 import android.os.Bundle
-import androidx.core.view.GravityCompat
+import android.text.format.DateFormat
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
