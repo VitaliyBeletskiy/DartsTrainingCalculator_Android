@@ -27,7 +27,8 @@ class ScoreFragment() : Fragment() {
         }
         ViewModelProvider(
             this,
-            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
+            ScoreViewModel.Factory(21, activity.application)
+//            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
         ).get(ScoreViewModel::class.java)
     }
 
@@ -110,7 +111,7 @@ class ScoreFragment() : Fragment() {
         inflater.inflate(R.menu.score_menu, menu)
     }
 
-    /// called when User clicked "Restart game" in the toolbar
+    /// called when User clicked "Restart game" or "Undo" in the toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_game -> {
@@ -118,7 +119,7 @@ class ScoreFragment() : Fragment() {
                 true
             }
             R.id.undo -> {
-                scoreViewModel.deleteLastSeries()
+                scoreViewModel.undoLastThrow()
                 true
             }
             // TODO  for testing only!!! remove it !!!
@@ -159,8 +160,10 @@ class ScoreFragment() : Fragment() {
     /// reads from Preferences what game we play (301 or 501)
     private fun readGameSettings() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val gameString = sharedPreferences
-            .getString(getString(R.string.game_key), getString(R.string.default_game_value))
+        val gameString = sharedPreferences.getString(
+            getString(R.string.game_key),
+            getString(R.string.default_game_value)
+        )
         val newGameTotalPoints = gameString?.toInt() ?: currentGameTotalPoints
         resetGameAsSettingsChanged = currentGameTotalPoints != newGameTotalPoints
         currentGameTotalPoints = newGameTotalPoints

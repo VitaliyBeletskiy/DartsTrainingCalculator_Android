@@ -46,6 +46,7 @@ class TossDiffItemCallback : DiffUtil.ItemCallback<Toss>() {
     override fun areItemsTheSame(oldItem: Toss, newItem: Toss): Boolean =
         oldItem.number == newItem.number
 
+    // This method is called only if areItemsTheSame(T, T) returns true for these items.
     override fun areContentsTheSame(oldItem: Toss, newItem: Toss): Boolean = oldItem == newItem
 
 }

@@ -101,7 +101,45 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
     }
 
     // when User clicks Undo button in ScoreFragment
-    fun deleteLastSeries() {
+    fun undoLastThrow() {
+        // if there is only one Toss with non-zero value - restart game
+        val nonzeroTosses =
+            _tossList.value?.fold(0) { sum, item -> sum + (if (item.value > 0) 1 else 0) } ?: 0
+        if (nonzeroTosses < 2) {
+            restartGame()
+            return
+        }
+        // keep removing from the end until have removed a Toss with non-zero value
+        loop@ while (true) {
+            val lastToss = _tossList.value!!.last()
+            val hasValue = lastToss.value > 0
+            _tossList.value!!.remove(lastToss)
+            if (hasValue) {
+                break@loop
+            }
+        }
+
+        // recalculate score for completed series
+        val completedSeries = _tossList.value!!.size / 3
+        scoreAfterSeries = gameTotalScore - _tossList.value!!.subList(0, completedSeries * 3)
+            .fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
+
+        // Tosses (1 or 2) the incomplete series (the last one) should be switched to counted
+        // (as we removed nonzero Toss which caused "bust")
+        val lastTossPositionInSeries = _tossList.value!!.size % 3  // 0 (nothing to switch), 1 , 2
+        for (i in 1..lastTossPositionInSeries) {
+            _tossList.value!![_tossList.value!!.size - i].counted = true
+        }
+
+        _scoreAfterThrow.value = gameTotalScore -
+                _tossList.value!!.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
+
+        // refresh RecyclerView
+        _tossList.value = _tossList.value!!
+    }
+
+// TODO: old code , remove
+/*    fun deleteLastSeries() {
         // if there is the only one series - restart game
         if (_tossList.value?.size ?: 0 < 4) {
             restartGame()
@@ -116,8 +154,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
                 sum + (if (toss.counted) toss.value else 0)
             } ?: 0)
         _scoreAfterThrow.value = scoreAfterSeries
-    }
-
+    }*/
 
     // if current series needs to be skipped, adds "missed" throws to make 3 throws in current series
     private fun completeSeriesWithMissedThrows(throwNumberInSeries: Int) {
