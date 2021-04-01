@@ -3,6 +3,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.gamedetails
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -10,6 +11,8 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
 import com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel
 import com.beletskiy.dartstrainingcalculator.utils.TAG
+import com.beletskiy.dartstrainingcalculator.utils.convertLongToDateString
+import com.beletskiy.dartstrainingcalculator.utils.convertSavedTossListToString
 
 class GameDetailsFragment : Fragment() {
 
@@ -43,12 +46,25 @@ class GameDetailsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.share) {
-            // TODO: add code for "Share"
-            Log.i(TAG, "GameDetailsFragment: Share clicked ")
+            shareGame()
             true
         } else {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun shareGame() {
+        val intent = ShareCompat.IntentBuilder.from(requireActivity())
+            .setText(getString(
+                R.string.share_game_text,
+                convertLongToDateString(historyViewModel.selectedGameAndTosses.value?.savedGame?.timestamp ?: 0L, requireContext()),
+                this.historyViewModel.selectedGameAndTosses.value?.savedGame?.id ?: 0,
+                historyViewModel.selectedGameAndTosses.value?.savedTossList?.size ?: 0,
+                convertSavedTossListToString(historyViewModel.selectedGameAndTosses.value?.savedTossList ?: emptyList()),
+            ))
+            .setType("text/plain")
+            .intent
+        startActivity(intent)
     }
 
 }

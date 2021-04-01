@@ -1,6 +1,7 @@
 package com.beletskiy.dartstrainingcalculator.database
 
 import androidx.room.*
+import com.beletskiy.dartstrainingcalculator.data.Toss
 
 @Entity(tableName = "game_table")
 data class SavedGame(
@@ -26,7 +27,18 @@ data class SavedToss(
     val counted: Boolean,
     val section: Int,
     val ring: Int,
-)
+) {
+
+    fun toToss(): Toss {
+        return Toss(
+            number = number,
+            counted = counted,
+            section = Toss.Section.values()[section],
+            ring = Toss.Ring.values()[ring]
+        )
+    }
+
+}
 
 data class GameAndTosses(
     @Embedded

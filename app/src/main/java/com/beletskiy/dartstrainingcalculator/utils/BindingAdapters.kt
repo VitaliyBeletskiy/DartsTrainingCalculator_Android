@@ -1,8 +1,5 @@
 package com.beletskiy.dartstrainingcalculator.utils
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.text.format.DateFormat
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +9,6 @@ import androidx.databinding.BindingAdapter
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.SavedToss
-import java.text.SimpleDateFormat
 
 @BindingAdapter("android:background")
 fun ImageButton.setBackground(value: Boolean?) {
@@ -75,7 +71,7 @@ fun bindNumberImage(imageView: ImageView, ring: Toss.Ring?) {
     }
 }
 
-// converts milliseconds (Long) to "Friday, 25 Mar 2021, 18:13"
+// converts milliseconds (Long) to String (example "Friday, 25 Mar 2021, 18:13")
 @BindingAdapter("timestamp")
 fun TextView.fromMillisecondsToDate(timestamp: Long?) {
     timestamp?.let {
@@ -88,36 +84,4 @@ fun TextView.fromSavedTossListToString(savedTossList: List<SavedToss>?) {
     savedTossList?.let {
         text = convertSavedTossListToString(it)
     }
-}
-
-// TODO: убрать отсюда?
-/// takes the Long milliseconds and convert it to a string for display.
-@SuppressLint("SimpleDateFormat")
-fun convertLongToDateString(milliseconds: Long, context: Context): String {
-    val weekday = SimpleDateFormat("EEEE").format(milliseconds)
-    val time = DateFormat.getTimeFormat(context).format(milliseconds)
-    val date = DateFormat.getLongDateFormat(context).format(milliseconds)
-    return "$weekday, $date, $time"
-}
-
-// TODO: shitcode, for testing only
-/// converts List<Toss> to a string
-fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
-    val sb = StringBuilder()
-    var numberInSeries = 0
-    sb.apply {
-        savedTossList.forEach {
-            append("${Toss.Section.values()[it.section].value}")
-            when(val ring = Toss.Ring.values()[it.ring]) {
-                Toss.Ring.X2, Toss.Ring.X3 -> append(" (x${ring.value}), ")
-                Toss.Ring.X1 -> append(", ")
-            }
-            numberInSeries ++
-            if (numberInSeries == 3) {
-                append("\n")
-                numberInSeries = 0
-            }
-        }
-    }
-    return sb.toString()
 }
