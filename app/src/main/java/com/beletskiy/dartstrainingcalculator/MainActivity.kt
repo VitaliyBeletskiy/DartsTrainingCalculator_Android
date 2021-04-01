@@ -1,9 +1,9 @@
 package com.beletskiy.dartstrainingcalculator
 
 import android.os.Bundle
-import android.text.format.DateFormat
-import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -11,8 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.beletskiy.dartstrainingcalculator.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStatusBarColor()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -91,6 +91,10 @@ class MainActivity : AppCompatActivity() {
                 backPressedTime = System.currentTimeMillis()
             }
         }
+    }
+
+    private fun setStatusBarColor() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
     }
 
 }
