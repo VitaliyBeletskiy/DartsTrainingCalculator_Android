@@ -27,8 +27,7 @@ class ScoreFragment() : Fragment() {
         }
         ViewModelProvider(
             this,
-            ScoreViewModel.Factory(21, activity.application)
-//            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
+            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
         ).get(ScoreViewModel::class.java)
     }
 

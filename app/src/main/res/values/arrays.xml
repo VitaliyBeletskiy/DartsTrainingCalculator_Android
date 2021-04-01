@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<!--    TODO delete 31-->
     <string-array name="preferencesGameTitles">
+        <item>31</item>
         <item>301</item>
         <item>501</item>
     </string-array>

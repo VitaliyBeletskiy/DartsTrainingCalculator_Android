@@ -134,8 +134,11 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _scoreAfterThrow.value = gameTotalScore -
                 _tossList.value!!.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
-        // refresh RecyclerView
+        // update LiveData
         _tossList.value = _tossList.value!!
+
+        // in case if undone Toss finished the game
+        _isGameOver.value = false
     }
 
 // TODO: old code , remove

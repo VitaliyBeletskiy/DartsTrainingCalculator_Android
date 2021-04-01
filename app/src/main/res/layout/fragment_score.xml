@@ -25,6 +25,17 @@
             android:clipToPadding="false"
             tools:listitem="@layout/item_toss" />
 
+        <Button
+            android:id="@+id/start_new_game_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_margin="16dp"
+            android:onClick="@{() -> scoreViewModel.restartGame()}"
+            android:text="Start new game"
+            android:textColor="@color/purple_200"
+            android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
