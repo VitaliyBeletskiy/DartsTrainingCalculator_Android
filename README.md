@@ -3,7 +3,6 @@
 The app counts scores during Darts training session.
 
 To-do:
-- когда игра закончена, показывать кнопку "Новая игра" в ScoreFragment
 
 Improvements:
 - в Настройках выбор "начинать с удвоения" (doubling in ON/OFF) (тогда будет иметь смысл создать data class GameSettings и передавать в ViewModel его)

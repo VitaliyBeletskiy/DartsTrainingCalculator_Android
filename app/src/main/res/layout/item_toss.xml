@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="toss"
             type="com.beletskiy.dartstrainingcalculator.data.Toss" />
@@ -28,6 +30,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_wire_2" />
+
+        <ImageView
+            android:id="@+id/not_counted_image_view"
+            android:src="@drawable/ic_add"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_margin ="8dp"
+            android:visibility="@{toss.counted ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_add" />
 
         <ImageView
             android:id="@+id/ring_image_view"

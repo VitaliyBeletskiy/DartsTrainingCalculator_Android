@@ -41,6 +41,14 @@ class DartsRepository(context: Context) {
         }
     }
 
+    // deletes the last SavedGamed with all its SavedTosses
+    @WorkerThread
+    suspend fun deleteLastSavedGame() {
+        dartsDatabase.run {
+            savedGameDao().deleteLastGame()
+        }
+    }
+
     /// converts the list of Toss to the list of SavedToss (to save in database)
     private fun convertTossListToSavedTossList(
         gameId: Long,

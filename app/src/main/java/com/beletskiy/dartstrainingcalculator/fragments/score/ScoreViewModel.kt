@@ -1,9 +1,11 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
+import com.beletskiy.dartstrainingcalculator.utils.TAG
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -73,8 +75,6 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         if (_scoreAfterThrow.value == 0 &&
             (newToss.ring == Toss.Ring.X2 || newToss.section == Toss.Section.INNER_BULLSEYE)
         ) {
-            // TODO: Game is over - inform user
-
             //  save the game to database
             viewModelScope.launch {
                 dartsRepository.saveGame(gameTotalScore, _tossList.value ?: emptyList())
@@ -109,55 +109,49 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
             restartGame()
             return
         }
+
+        // create an "alias" for cleaner code
+        val list = _tossList.value!!
+
         // keep removing from the end until have removed a Toss with non-zero value
         loop@ while (true) {
-            val lastToss = _tossList.value!!.last()
+            val lastToss = list.last()
             val hasValue = lastToss.value > 0
-            _tossList.value!!.remove(lastToss)
+            list.remove(lastToss)
             if (hasValue) {
                 break@loop
             }
         }
 
         // recalculate score for completed series
-        val completedSeries = _tossList.value!!.size / 3
-        scoreAfterSeries = gameTotalScore - _tossList.value!!.subList(0, completedSeries * 3)
+        val completedSeries = list.size / 3
+        scoreAfterSeries = gameTotalScore - list.subList(0, completedSeries * 3)
             .fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
         // Tosses (1 or 2) the incomplete series (the last one) should be switched to counted
         // (as we removed nonzero Toss which caused "bust")
-        val lastTossPositionInSeries = _tossList.value!!.size % 3  // 0 (nothing to switch), 1 , 2
+        val lastTossPositionInSeries = list.size % 3  // 0 (nothing to switch), 1 , 2
         for (i in 1..lastTossPositionInSeries) {
-            _tossList.value!![_tossList.value!!.size - i].counted = true
+            // have to do this to force List Adapter to update UI
+            val toss = list[list.size - i].copy(counted = true)
+            list[list.size - i] = toss
         }
 
         _scoreAfterThrow.value = gameTotalScore -
-                _tossList.value!!.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
+                list.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
-        // update LiveData
-        _tossList.value = _tossList.value!!
+        // trigger LiveData observer
+        _tossList.value = list
 
         // in case if undone Toss finished the game
-        _isGameOver.value = false
-    }
-
-// TODO: old code , remove
-/*    fun deleteLastSeries() {
-        // if there is the only one series - restart game
-        if (_tossList.value?.size ?: 0 < 4) {
-            restartGame()
-            return
+        if (_isGameOver.value == true) {
+            _isGameOver.value = false
+            // delete the last saved game
+            viewModelScope.launch {
+                dartsRepository.deleteLastSavedGame()
+            }
         }
-        // remove the last series (it can be incomplete)
-        val throwsInLastSeries = _tossList.value!!.size.inSeriesOf3
-        _tossList.value = ArrayList(_tossList.value?.dropLast(throwsInLastSeries))
-        // recalculate score
-        scoreAfterSeries =
-            gameTotalScore - (_tossList.value?.fold(0) { sum, toss ->
-                sum + (if (toss.counted) toss.value else 0)
-            } ?: 0)
-        _scoreAfterThrow.value = scoreAfterSeries
-    }*/
+    }
 
     // if current series needs to be skipped, adds "missed" throws to make 3 throws in current series
     private fun completeSeriesWithMissedThrows(throwNumberInSeries: Int) {

@@ -65,6 +65,7 @@ class ScoreFragment() : Fragment() {
         // setting ViewModel as data supplier for RecyclerView
         scoreViewModel.tossList.observe(viewLifecycleOwner, {
             it?.let {
+                Log.i(TAG, "ScoreFragment.observe was called")
                 scoreAdapter.submitList(it)
             }
         })

@@ -21,6 +21,10 @@ interface SavedGameDao {
     @Query("DELETE FROM game_table")
     suspend fun deleteAll()
 
+    //    @Query("DELETE FROM game_table ORDER BY timestamp DESC LIMIT 1")
+    @Query("DELETE FROM game_table WHERE id = (SELECT MAX(id) FROM game_table)")
+    suspend fun deleteLastGame()
+
     /*    @Query("SELECT * FROM game_table")
     fun getAll(): Flow<List<SavedGame>>*/
 }

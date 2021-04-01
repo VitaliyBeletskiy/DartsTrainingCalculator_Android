@@ -1,5 +1,6 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.ItemTossBinding
+import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class ScoreAdapter : ListAdapter<Toss, TossViewHolder>(TossDiffItemCallback()) {
 
