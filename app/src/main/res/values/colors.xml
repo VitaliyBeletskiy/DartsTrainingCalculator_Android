@@ -16,7 +16,4 @@
     <color name="darts_sisal">#FFC5BAA0</color>
 
     <color name="darts_white">#FFFFEE</color>"
-
-    <!--    TODO delete-->
-    <drawable name="not_counted_bg">#80000000</drawable>
 </resources>

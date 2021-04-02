@@ -99,7 +99,7 @@
                 android:layout_margin="16dp"
                 android:background="@android:color/transparent"
                 android:onClick="@{menuClickListener}"
-                android:src="@drawable/ic_baseline_more_vert_24"
+                android:src="@drawable/ic_menu_three_dots"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

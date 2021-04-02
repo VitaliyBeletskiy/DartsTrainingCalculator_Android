@@ -23,7 +23,6 @@
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_margin="8dp"
-            android:background="@{!toss.counted ? @drawable/not_counted_bg : null}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -33,14 +32,14 @@
 
         <ImageView
             android:id="@+id/not_counted_image_view"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_strike_out"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_margin ="8dp"
             android:visibility="@{toss.counted ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@drawable/ic_add" />
+            tools:src="@drawable/ic_strike_out" />
 
         <ImageView
             android:id="@+id/ring_image_view"
