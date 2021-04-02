@@ -58,7 +58,7 @@ class GameDetailsFragment : Fragment() {
             .setText(getString(
                 R.string.share_game_text,
                 convertLongToDateString(historyViewModel.selectedGameAndTosses.value?.savedGame?.timestamp ?: 0L, requireContext()),
-                this.historyViewModel.selectedGameAndTosses.value?.savedGame?.id ?: 0,
+                this.historyViewModel.selectedGameAndTosses.value?.savedGame?.points ?: 0,
                 historyViewModel.selectedGameAndTosses.value?.savedTossList?.size ?: 0,
                 convertSavedTossListToString(historyViewModel.selectedGameAndTosses.value?.savedTossList ?: emptyList()),
             ))
