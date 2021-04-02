@@ -16,6 +16,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/darts_green_dark"
         tools:context=".fragments.score.ScoreFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -53,9 +54,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add"
+            android:backgroundTint="@color/darts_red"
+            android:src="@drawable/ic_hand"
             android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
             app:layout_anchor="@id/recycler_view"
-            app:layout_anchorGravity="bottom|right|end" />
+            app:layout_anchorGravity="bottom|right|end"
+            app:tint="@color/white" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
