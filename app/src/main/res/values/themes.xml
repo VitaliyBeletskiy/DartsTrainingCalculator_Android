@@ -13,6 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+        <!-- phone's navigation bar at the bottom -->
+        <item name="android:navigationBarColor">@color/black</item>
         <!--  change font color for PreferenceCategory in settings  -->
         <item name="colorAccent">@color/darts_green_dark</item>
     </style>
