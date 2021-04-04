@@ -10,6 +10,7 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.SavedToss
 
+// used in fragment_score.xml
 @BindingAdapter("android:background")
 fun ImageButton.setBackground(value: Boolean?) {
     value?.let {
@@ -22,8 +23,7 @@ fun ImageButton.setBackground(value: Boolean?) {
             this.background = bg
         }
         // as setting background removes padding
-        // FIXME: don't like hardcoded value here
-        this.setPadding(20.px)
+        this.setPadding(context.resources.getDimensionPixelSize(R.dimen.toss_value_padding))
     }
 }
 

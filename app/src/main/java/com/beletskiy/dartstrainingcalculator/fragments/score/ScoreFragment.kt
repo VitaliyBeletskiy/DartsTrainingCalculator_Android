@@ -2,7 +2,6 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
-import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class ScoreFragment : Fragment() {
 
@@ -63,7 +61,6 @@ class ScoreFragment : Fragment() {
         // setting ViewModel as data supplier for RecyclerView
         scoreViewModel.tossList.observe(viewLifecycleOwner, {
             it?.let {
-                Log.i(TAG, "ScoreFragment.observe was called")
                 scoreAdapter.submitList(it)
             }
         })

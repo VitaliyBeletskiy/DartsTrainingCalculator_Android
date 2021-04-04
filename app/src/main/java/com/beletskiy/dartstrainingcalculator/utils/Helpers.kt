@@ -2,15 +2,10 @@ package com.beletskiy.dartstrainingcalculator.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.text.format.DateFormat
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.SavedToss
 import java.text.SimpleDateFormat
-
-/// dp to px
-val Int.px: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 /// returns position in the last series of 3
 val Int.inSeriesOf3: Int
