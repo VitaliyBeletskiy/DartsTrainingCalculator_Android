@@ -2,22 +2,22 @@
     <!-- Base application theme. -->
     <style name="DtcTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item> <!-- fab color-->
+        <item name="android:navigationBarColor">@color/black
+        </item> <!-- phone's navigation bar at the bottom -->
+        <!--        <item name="android:windowBackground">@color/darts_green_dark</item>-->
+        <item name="colorAccent">@color/darts_green_dark
+        </item> <!--  change font color for PreferenceCategory in settings  -->
+        <item name="colorSecondary">@color/black</item>  <!-- fab color-->
+
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
-
-        <!-- phone's navigation bar at the bottom -->
-        <item name="android:navigationBarColor">@color/black</item>
-        <!--  change font color for PreferenceCategory in settings  -->
-        <item name="colorAccent">@color/darts_green_dark</item>
     </style>
-
 </resources>
 

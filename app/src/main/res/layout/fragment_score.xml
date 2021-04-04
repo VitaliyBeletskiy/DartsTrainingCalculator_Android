@@ -32,11 +32,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/darts_red"
             android:onClick="@{() -> scoreViewModel.restartGame()}"
             android:text="@string/start_new_game"
             android:textColor="@color/white"
             android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}" />
+<!--        android:backgroundTint="@color/darts_red"-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,12 +56,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            app:backgroundTint="@color/darts_red"
             android:src="@drawable/ic_hand"
             android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
             app:layout_anchor="@id/recycler_view"
             app:layout_anchorGravity="bottom|right|end"
             app:tint="@color/white" />
+<!--        app:backgroundTint="@color/darts_red"-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColor()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         // setup Navigation Menu
         binding.navView.setupWithNavController(navController)
-
 
         // block Drawer if not on start destination (which is ScoreFragment)
         navController.addOnDestinationChangedListener { controller, destination, _ ->
@@ -91,9 +88,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun setStatusBarColor() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-    }
-
 }

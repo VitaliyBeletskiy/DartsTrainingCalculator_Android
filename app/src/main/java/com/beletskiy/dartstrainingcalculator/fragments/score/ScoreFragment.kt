@@ -2,7 +2,6 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +15,8 @@ import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
 import com.beletskiy.dartstrainingcalculator.utils.TAG
-import kotlin.random.Random
 
-class ScoreFragment() : Fragment() {
+class ScoreFragment : Fragment() {
 
     private lateinit var binding: FragmentScoreBinding
     private val scoreViewModel: ScoreViewModel by lazy {
@@ -77,14 +75,16 @@ class ScoreFragment() : Fragment() {
             ?.savedStateHandle
             ?.getLiveData<Toss>(NEW_TOSS)
             ?.observe(viewLifecycleOwner, {
-                scoreViewModel.onNewTossCreated(it)
+                it?.let {
+                    scoreViewModel.onNewTossCreated(it)
 
-                // FIXME: KLUDGE!!! otherwise the previous new Toss value added every time we come
-                // FIXME: back to ScoreFragment
-                findNavController()
-                    .currentBackStackEntry
-                    ?.savedStateHandle
-                    ?.remove<Toss>(NEW_TOSS)
+                    // we need a result only once, so we call remove() according to this
+                    // https://developer.android.com/guide/navigation/navigation-programmatic#returning_a_result
+                    findNavController()
+                        .currentBackStackEntry
+                        ?.savedStateHandle
+                        ?.remove<Toss>(NEW_TOSS)
+                }
             })
 
         return binding.root
@@ -97,11 +97,16 @@ class ScoreFragment() : Fragment() {
         binding.fab.setOnClickListener {
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
         }
-
+        // update Toolbar text with current score
         scoreViewModel.scoreAfterThrow.observe(viewLifecycleOwner, {
-            // TODO: проверить правильность, убрать Hard-coded text
-            "Score $it/${this.currentGameTotalPoints}".also { text ->
-                (activity as AppCompatActivity?)?.supportActionBar?.title = text
+            it?.let {
+                getString(
+                    R.string.score_fragment_title_bar,
+                    it,
+                    this.currentGameTotalPoints
+                ).also { text ->
+                    (activity as AppCompatActivity?)?.supportActionBar?.title = text
+                }
             }
         })
     }
@@ -122,7 +127,7 @@ class ScoreFragment() : Fragment() {
                 scoreViewModel.undoLastThrow()
                 true
             }
-            // TODO  for testing only!!! remove it !!!
+            // TODO  for testing only!!! to remove!!!
             R.id.save_test_data -> {
                 scoreViewModel.saveTestData()
                 true

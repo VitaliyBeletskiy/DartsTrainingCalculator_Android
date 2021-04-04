@@ -53,7 +53,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _isGameOver.value = false                   // game is NOT over
         scoreAfterSeries = gameTotalScore           // reset points counter
         _scoreAfterThrow.value = gameTotalScore     // reset points counter
-        throwPositionInSeries = 0                     // reset points counter
+        throwPositionInSeries = 0                   // reset points counter
     }
 
     // when User added a new throw
@@ -69,7 +69,6 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
 
         throwPositionInSeries = newToss.number.inSeriesOf3  // 1, 2 or 3
         _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
-
 
         // check if game is over
         if (_scoreAfterThrow.value == 0 &&
