@@ -55,7 +55,7 @@ class GameDetailsFragment : Fragment() {
 
     private fun shareGame() {
         val intent = ShareCompat.IntentBuilder.from(requireActivity())
-            .setText(getString(
+            .setText(resources.getString(
                 R.string.share_game_text,
                 convertLongToDateString(historyViewModel.selectedGameAndTosses.value?.savedGame?.timestamp ?: 0L, requireContext()),
                 this.historyViewModel.selectedGameAndTosses.value?.savedGame?.points ?: 0,

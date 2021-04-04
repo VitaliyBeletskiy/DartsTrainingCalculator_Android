@@ -7,7 +7,7 @@
             app:entries="@array/preferencesGameTitles"
             app:entryValues="@array/preferencesGameTitles"
             app:key="@string/game_key"
-            app:title="Choose your game"
+            app:title="@string/choose_your_game"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
@@ -15,8 +15,8 @@
         <SwitchPreference
             app:defaultValue="false"
             app:key="@string/prevent_sleep_key"
-            app:summaryOff="OFF"
-            app:summaryOn="ON"
+            app:summaryOff="@string/off"
+            app:summaryOn="@string/on"
             app:title="@string/prevent_phone_from_sleeping" />
     </PreferenceCategory>
 

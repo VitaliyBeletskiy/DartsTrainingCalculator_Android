@@ -1,0 +1,30 @@
+<resources>
+    <string name="settings">Настройки</string>
+    <string name="history">История</string>
+    <string name="toss">Добавить бросок</string>
+    <string name="invalid_trow_message">Введите допустимые значения</string>
+    <string name="press_back_again_to_exit">Нажмите еще раз, чтобы выйти</string>
+    <string name="prevent_phone_from_sleeping">Блокировать спящий режим</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="cancel">Отмена</string>
+    <string name="all_progress_will_be_lost">Текущие результаты будет потеряны. Вы уверены, что хотите начать новую игру?</string>
+    <string name="restart_game">Новая игра</string>
+    <string name="about">О программе</string>
+    <string name="phone">Телефон</string>
+    <string name="game">Игра</string>
+    <string name="share">Поделиться</string>
+    <string name="delete_all">Удалить все</string>
+    <string name="delete_all_data">Эту операцию нельзя отменить. Вы уверены, что хотите удалить все данные?</string>
+    <string name="new_game">Новая игра</string>
+    <string name="start_playing_by_adding_your_throws">Начните играть, добавляя броски.</string>
+    <string name="undo">Отменить</string>
+    <string name="share_game_text">%1$s\nИгра:%2$d&#160;&#160;&#160;Всего бросков:%3$d\n\n%4$s</string>
+    <string name="game_details_game_throws">Игра:%1$d&#160;&#160;&#160;Всего бросков:%2$d</string>
+    <string name="start_new_game">Начать новую игру</string>
+    <string name="score_fragment_title_bar">Счёт %1$d/%2$d</string>
+    <string name="choose_your_game">Выбор игры</string>
+    <string name="on">Вкл</string>
+    <string name="off">Выкл</string>
+    <string name="game_with_colon">Игра:</string>
+    <string name="total_throws_with_colon">Всего бросков:</string>
+</resources>
