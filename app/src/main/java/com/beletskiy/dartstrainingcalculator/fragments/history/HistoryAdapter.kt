@@ -1,19 +1,16 @@
 package com.beletskiy.dartstrainingcalculator.fragments.history
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.ItemSavedGameBinding
-import com.beletskiy.dartstrainingcalculator.utils.TAG
 
 class HistoryAdapter(private val rowClickListener: RowClickListener) :
     ListAdapter<GameAndTosses, HistoryAdapter.GameAndTossesViewHolder>(GameAndTossesDiffItemCallback()) {
@@ -47,8 +44,7 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
 
             // listen to and handle "User clicked on entire row in RecyclerView" event
             binding.setRowClickListener {
-                // TODO: check "not-null assertion operator (!!)"
-                rowClickListener.onRowClicked(binding.gameAndTosses!!)
+                clickListener?.onRowClicked(binding.gameAndTosses as GameAndTosses)
             }
             // set up Pop-up Menu for the particular row
             binding.setMenuClickListener {
@@ -71,9 +67,12 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
         // part of PopupMenu.OnMenuItemClickListener interface, handles Pop-up menu actions
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             if (item?.itemId == R.id.game_item_delete) {
-                // TODO: check "not-null assertion operator (!!)"
-                clickListener?.onPopupMenuItemClicked(binding.gameAndTosses!!.savedGame!!.id)
-                return true
+                val saveGameId = binding.gameAndTosses?.savedGame?.id
+                saveGameId?.let {
+                    clickListener?.onPopupMenuItemClicked(it)
+                    return true
+                }
+                return false
             }
             return false
         }

@@ -10,8 +10,8 @@ class DartsRepository(context: Context) {
 
     private val dartsDatabase = getDatabase(context)
 
-    //val savedGameList: Flow<List<SavedGame>> = dartsDatabase.savedGameDao().getAll()
-    val gameAndTossesList: Flow<List<GameAndTosses>> = dartsDatabase.savedGameDao().getAllGamesAndTosses()
+    val gameAndTossesList: Flow<List<GameAndTosses>> =
+        dartsDatabase.savedGameDao().getAllGamesAndTosses()
 
     /// saves the finished game to database
     @WorkerThread
@@ -25,7 +25,7 @@ class DartsRepository(context: Context) {
         dartsDatabase.savedTossDao().insertTosses(savedTossList)
     }
 
-    // empties database = deletes all data
+    /// empties database = deletes all data
     @WorkerThread
     suspend fun deleteAllData() {
         dartsDatabase.run {
@@ -33,7 +33,7 @@ class DartsRepository(context: Context) {
         }
     }
 
-    // deletes one SavedGamed with all its SavedTosses
+    /// deletes one SavedGamed with all its SavedTosses
     @WorkerThread
     suspend fun deleteSavedGame(gameId: Long) {
         dartsDatabase.run {
@@ -41,7 +41,7 @@ class DartsRepository(context: Context) {
         }
     }
 
-    // deletes the last SavedGamed with all its SavedTosses
+    /// deletes the last SavedGamed with all its SavedTosses
     @WorkerThread
     suspend fun deleteLastSavedGame() {
         dartsDatabase.run {

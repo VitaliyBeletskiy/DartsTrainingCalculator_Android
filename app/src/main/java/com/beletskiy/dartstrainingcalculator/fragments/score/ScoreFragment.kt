@@ -127,11 +127,6 @@ class ScoreFragment : Fragment() {
                 scoreViewModel.undoLastThrow()
                 true
             }
-            // TODO  for testing only!!! to remove!!!
-            R.id.save_test_data -> {
-                scoreViewModel.saveTestData()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

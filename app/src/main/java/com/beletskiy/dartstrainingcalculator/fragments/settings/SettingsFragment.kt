@@ -31,7 +31,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         // switch ON/OFF "prevent phone from sleeping"
         preference?.let {
-            if (preference.key == getString(R.string.prevent_sleep_key)) {
+            if (it.key == getString(R.string.prevent_sleep_key)) {
                 if (newValue == true) {
                     (requireNotNull(this.activity) as MainActivity).window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 } else {

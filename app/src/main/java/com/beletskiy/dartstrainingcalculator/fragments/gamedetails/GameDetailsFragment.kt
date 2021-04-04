@@ -1,16 +1,13 @@
 package com.beletskiy.dartstrainingcalculator.fragments.gamedetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
 import com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel
-import com.beletskiy.dartstrainingcalculator.utils.TAG
 import com.beletskiy.dartstrainingcalculator.utils.convertLongToDateString
 import com.beletskiy.dartstrainingcalculator.utils.convertSavedTossListToString
 

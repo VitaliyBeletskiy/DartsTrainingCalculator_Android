@@ -11,9 +11,7 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
 
-
 class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
-
 
     private lateinit var binding: FragmentHistoryBinding
     private val historyViewModel: HistoryViewModel by lazy {

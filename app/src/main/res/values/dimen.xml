@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="tile_height_percent" type="dimen">0.14</item>
-    <item name="tile_width_percent" type="dimen">0.24</item>
-    <item name="tile_width_wide_percent" type="dimen">0.49</item>
+
 </resources>

@@ -3,7 +3,6 @@ package com.beletskiy.dartstrainingcalculator.data
 import android.os.Parcel
 import android.os.Parcelable
 
-
 /// represents a single throw's result
 // we need 'number' for better animation due to DiffUtil
 data class Toss(var number: Int, var counted: Boolean, val section: Section, val ring: Ring) : Parcelable {

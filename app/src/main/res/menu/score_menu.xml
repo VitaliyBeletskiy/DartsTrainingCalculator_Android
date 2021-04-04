@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/undo"
@@ -15,11 +14,4 @@
         android:menuCategory="secondary"
         android:title="@string/new_game" />
 
-    <!--  TODO  for testing only!!! remove it !!!-->
-    <item
-        android:id="@+id/save_test_data"
-        android:icon="@drawable/ic_refresh"
-        android:menuCategory="secondary"
-        android:title="Save test data"
-        tools:ignore="HardcodedText" />
 </menu>

@@ -1,14 +1,11 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
-import com.beletskiy.dartstrainingcalculator.utils.TAG
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
     AndroidViewModel(application) {
@@ -33,10 +30,6 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
     // score after the most recent series of 3 trows
     private var scoreAfterSeries: Int = 0
 
-    // TODO: а оно точно должно быть здесь? может в тело метода?
-    // throw number in series of 3
-    private var throwPositionInSeries: Int = 0
-
     init {
         restartGame()
     }
@@ -53,21 +46,22 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _isGameOver.value = false                   // game is NOT over
         scoreAfterSeries = gameTotalScore           // reset points counter
         _scoreAfterThrow.value = gameTotalScore     // reset points counter
-        throwPositionInSeries = 0                   // reset points counter
     }
 
     // when User added a new throw
     fun onNewTossCreated(newToss: Toss) {
 
-        // TODO: 23/03/2021 exception or notify User??? Or do I need it at all?
-        if (_scoreAfterThrow.value == null) return
+        if (_scoreAfterThrow.value == null) {
+            throw IllegalArgumentException()
+        }
 
         newToss.number = (_tossList.value?.size ?: 0) + 1
         newToss.counted = true
         _tossList.value?.add(newToss)
         _tossList.value = _tossList.value
 
-        throwPositionInSeries = newToss.number.inSeriesOf3  // 1, 2 or 3
+        // throw number in series of 3
+        val throwPositionInSeries = newToss.number.inSeriesOf3  // 1, 2 or 3
         _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
 
         // check if game is over
@@ -170,24 +164,6 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
                 return ScoreViewModel(game, app) as T
             }
             throw IllegalArgumentException("Unable to construct ViewModel")
-        }
-    }
-
-    // TODO  for testing only!!! remove it !!!
-    fun saveTestData() {
-        val testTossList = ArrayList<Toss>()
-        for (i in 1..Random.nextInt(5, 15)) {
-            testTossList.add(
-                Toss(
-                    i,
-                    true,
-                    Toss.Section.values()[Random.nextInt(1, 21)],
-                    Toss.Ring.values()[Random.nextInt(0, 3)],
-                )
-            )
-        }
-        viewModelScope.launch {
-            dartsRepository.saveGame(Random.nextInt(300, 400), testTossList)
         }
     }
 }

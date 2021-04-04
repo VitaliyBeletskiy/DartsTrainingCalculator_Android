@@ -1,11 +1,9 @@
 package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
 import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
-import com.beletskiy.dartstrainingcalculator.utils.TAG
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,7 +22,7 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    /// deletes one SavedGame (User action from row's pop-up menu
+    /// deletes one SavedGame (User action from row's pop-up menu)
     fun deleteSavedGame(gameId: Long) {
         viewModelScope.launch {
             dartsRepository.deleteSavedGame(gameId)

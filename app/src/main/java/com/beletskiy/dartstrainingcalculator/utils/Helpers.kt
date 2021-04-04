@@ -8,10 +8,6 @@ import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.SavedToss
 import java.text.SimpleDateFormat
 
-/// px to dp
-val Int.dp: Int
-    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
-
 /// dp to px
 val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()

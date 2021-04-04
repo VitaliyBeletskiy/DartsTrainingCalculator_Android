@@ -34,12 +34,6 @@ class TossFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*// FIXME: KLUDGE!!! otherwise pressing Up button sends the previous new Toss value
-        findNavController()
-            .previousBackStackEntry
-            ?.savedStateHandle
-            ?.remove<Toss>(ScoreFragment.NEW_TOSS)*/
-
         // receiving events from ViewModel
         tossViewModel.eventsFlow
             .onEach { event ->
@@ -52,7 +46,6 @@ class TossFragment : Fragment() {
                         findNavController().navigateUp()
                     }
                     is TossViewModel.Event.ShowSnackBar -> {
-                        // TODO: разные сообщения для разных ошибок?
                         val message = getString(event.stringId)
                         Snackbar.make(binding.buttonAdd, message, Snackbar.LENGTH_SHORT).show()
                     }
