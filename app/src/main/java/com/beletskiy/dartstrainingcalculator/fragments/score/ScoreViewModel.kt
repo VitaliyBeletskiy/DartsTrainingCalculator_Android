@@ -15,7 +15,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
 
     // for SingleLiveEvent
     sealed class Event {
-        data class onNewTossAdded(val position: Int) : Event()
+        data class OnNewTossAdded(val position: Int) : Event()
     }
 
     // for SingleLiveEvent
@@ -106,7 +106,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         // trigger scrolling inside RecyclerView
         _tossList.value?.size?.let {
             viewModelScope.launch(Dispatchers.Main) {
-                eventChannel.send(Event.onNewTossAdded(_tossList.value!!.size))
+                eventChannel.send(Event.OnNewTossAdded(_tossList.value!!.size))
             }
         }
     }

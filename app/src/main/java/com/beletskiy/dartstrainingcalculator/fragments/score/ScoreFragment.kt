@@ -111,7 +111,7 @@ class ScoreFragment : Fragment() {
         // receiving events from ViewModel - adding new Toss triggers RecyclerView scrolling
         scoreViewModel.eventsFlow
             .onEach { event ->
-                if (event is ScoreViewModel.Event.onNewTossAdded) {
+                if (event is ScoreViewModel.Event.OnNewTossAdded) {
                     binding.recyclerView.smoothScrollToPosition(event.position)
                 }
             }
