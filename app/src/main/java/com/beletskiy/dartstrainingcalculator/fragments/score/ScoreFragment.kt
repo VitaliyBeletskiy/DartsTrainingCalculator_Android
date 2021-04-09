@@ -13,6 +13,8 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
+import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
+import kotlinx.coroutines.flow.onEach
 
 class ScoreFragment : Fragment() {
 
@@ -106,6 +108,14 @@ class ScoreFragment : Fragment() {
                 }
             }
         })
+        // receiving events from ViewModel - adding new Toss triggers RecyclerView scrolling
+        scoreViewModel.eventsFlow
+            .onEach { event ->
+                if (event is ScoreViewModel.Event.onNewTossAdded) {
+                    binding.recyclerView.smoothScrollToPosition(event.position)
+                }
+            }
+            .observeInLifecycle(viewLifecycleOwner)
     }
 
     /// adds menu with "Restart game" to the toolbar

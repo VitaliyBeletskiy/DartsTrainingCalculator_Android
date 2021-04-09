@@ -5,10 +5,22 @@ import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.database.DartsRepository
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
     AndroidViewModel(application) {
+
+    // for SingleLiveEvent
+    sealed class Event {
+        data class onNewTossAdded(val position: Int) : Event()
+    }
+
+    // for SingleLiveEvent
+    private val eventChannel = Channel<Event>(Channel.BUFFERED)
+    val eventsFlow = eventChannel.receiveAsFlow()
 
     private val dartsRepository = DartsRepository(application)
 
@@ -91,6 +103,12 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
             scoreAfterSeries = _scoreAfterThrow.value!!
         }
 
+        // trigger scrolling inside RecyclerView
+        _tossList.value?.size?.let {
+            viewModelScope.launch(Dispatchers.Main) {
+                eventChannel.send(Event.onNewTossAdded(_tossList.value!!.size))
+            }
+        }
     }
 
     // when User clicks Undo button in ScoreFragment
