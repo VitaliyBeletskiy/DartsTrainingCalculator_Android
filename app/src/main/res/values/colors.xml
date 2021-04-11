@@ -5,8 +5,9 @@
 
     <color name="darts_black">#FF241F21</color>
     <color name="darts_steel">#FFD9DEDE</color>
-    <color name="darts_green_dark">#FF035B41</color>
-    <color name="darts_green">#FF0F8A44</color>
+    <color name="darts_green">#FF035B41</color>
+    <color name="darts_green_light">#FF3E896C</color>
+    <color name="darts_green_dark">#FF00301A</color>
     <color name="darts_red">#FFE81D25</color>
     <color name="darts_sisal">#FFC5BAA0</color>
 

@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/darts_green_dark"
+        android:background="@color/darts_green"
         tools:context=".fragments.score.ScoreFragment">
 
         <androidx.recyclerview.widget.RecyclerView

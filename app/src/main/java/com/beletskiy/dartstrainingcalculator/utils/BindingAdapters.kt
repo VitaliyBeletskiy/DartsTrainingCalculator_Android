@@ -85,3 +85,10 @@ fun TextView.fromSavedTossListToString(savedTossList: List<SavedToss>?) {
         text = convertSavedTossListToString(it)
     }
 }
+
+@BindingAdapter("savedToss")
+fun TextView.fromSavedTossToString(savedToss: SavedToss?) {
+    savedToss?.let {
+        text = convertSavedTossToString(it)
+    }
+}

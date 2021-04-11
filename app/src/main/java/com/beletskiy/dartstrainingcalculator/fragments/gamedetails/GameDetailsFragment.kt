@@ -5,6 +5,7 @@ import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
 import com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel
@@ -33,6 +34,17 @@ class GameDetailsFragment : Fragment() {
         binding = FragmentGameDetailsBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.historyViewModel = historyViewModel
+
+        val gameDetailsAdapter = GameDetailedAdapter()
+        binding.recyclerView.adapter = gameDetailsAdapter
+//        val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+//        binding.recyclerView.layoutManager = gridLayoutManager
+
+        historyViewModel.selectedGameAndTosses.observe(viewLifecycleOwner){
+            it?.let {
+                gameDetailsAdapter.submitList(it.savedTossList)
+            }
+        }
 
         return binding.root
     }

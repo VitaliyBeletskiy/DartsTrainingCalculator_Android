@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="DtcTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -7,7 +7,7 @@
         <item name="android:navigationBarColor">@color/black
         </item> <!-- phone's navigation bar at the bottom -->
         <!--        <item name="android:windowBackground">@color/darts_green_dark</item>-->
-        <item name="colorAccent">@color/darts_green_dark
+        <item name="colorAccent">@color/darts_green
         </item> <!--  change font color for PreferenceCategory in settings  -->
         <item name="colorSecondary">@color/black</item>  <!-- fab color-->
 

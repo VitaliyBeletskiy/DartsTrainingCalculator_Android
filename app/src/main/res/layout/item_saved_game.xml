@@ -22,12 +22,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp">
+
+        android:layout_margin="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:onClick="@{rowClickListener}"
+            android:background="@color/darts_green_light"
             android:orientation="horizontal">
 
             <TextView
@@ -37,6 +39,7 @@
                 android:layout_margin="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:timestamp="@{gameAndTosses.savedGame.timestamp}"
@@ -50,6 +53,7 @@
                 android:text="@string/game_with_colon"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/timestamp_text"/>
@@ -62,6 +66,7 @@
                 android:text="@{String.valueOf(gameAndTosses.savedGame.points)}"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/points_label"
                 app:layout_constraintTop_toBottomOf="@id/timestamp_text"
@@ -75,6 +80,7 @@
                 android:text="@string/total_throws_with_colon"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/points_text"
                 app:layout_constraintTop_toBottomOf="@id/timestamp_text"/>
@@ -87,6 +93,7 @@
                 android:text="@{String.valueOf(gameAndTosses.savedTossList.size())}"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tosses_number_label"
                 app:layout_constraintTop_toBottomOf="@id/timestamp_text"

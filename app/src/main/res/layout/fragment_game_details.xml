@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/darts_green"
         android:padding="16dp"
         tools:context="fragments.gamedetails.GameDetailsFragment">
 
@@ -22,9 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
             android:text="@{@string/game_details_game_throws(historyViewModel.selectedGameAndTosses.savedGame.points, historyViewModel.selectedGameAndTosses.savedTossList.size())}"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,18 +46,33 @@
             app:layout_constraintTop_toBottomOf="@+id/timestamp_text"
             tools:text="Game: 501 Total throws: 27" />
 
-        <TextView
-            android:id="@+id/tosses"
-            savedTossList="@{historyViewModel.selectedGameAndTosses.savedTossList}"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/game_text"
-            tools:text="20 (x2), 1, 25,\n16, 19 (x3), 17" />
+            app:layout_constraintTop_toBottomOf="@id/game_text"
+            app:spanCount="3"
+            tools:itemCount="14"
+            tools:listitem="@layout/item_detailed_toss" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tosses"-->
+        <!--            savedTossList="@{historyViewModel.selectedGameAndTosses.savedTossList}"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginVertical="16dp"-->
+        <!--            android:textSize="24sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/game_text"-->
+        <!--            tools:text="20 (x2), 1, 25,\n16, 19 (x3), 17" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

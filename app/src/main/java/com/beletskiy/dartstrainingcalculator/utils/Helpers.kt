@@ -20,7 +20,7 @@ fun convertLongToDateString(milliseconds: Long, context: Context): String {
     return "$weekday, $date, $time"
 }
 
-/// converts List<Toss> to String
+/// converts List<SavedToss> to String
 fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
     val sb = StringBuilder()
     var numberInSeries = 0
@@ -28,7 +28,7 @@ fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
         savedTossList.forEach {
             val toss = it.toToss()
             val sectionString = toss.section.value.toString()
-            val ringString  = when(toss.ring) {
+            val ringString = when (toss.ring) {
                 Toss.Ring.X2, Toss.Ring.X3 -> "x${toss.ring.value}"
                 Toss.Ring.X1 -> ""
             }
@@ -37,12 +37,27 @@ fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
                 append(" ")
             }
 
-            numberInSeries ++
+            numberInSeries++
             if (numberInSeries == 3) {
                 appendLine()
                 numberInSeries = 0
             }
         }
+    }
+    return sb.toString()
+}
+
+/// converts SavedToss to String
+fun convertSavedTossToString(savedToss: SavedToss): String {
+    val sb = StringBuilder()
+    sb.apply {
+        val toss = savedToss.toToss()
+        val sectionString = toss.section.value.toString()
+        val ringString = when (toss.ring) {
+            Toss.Ring.X2, Toss.Ring.X3 -> "x${toss.ring.value}"
+            Toss.Ring.X1 -> ""
+        }
+        append(sectionString, ringString)
     }
     return sb.toString()
 }

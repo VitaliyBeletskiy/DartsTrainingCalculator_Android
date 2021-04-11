@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="savedToss"
+            type="com.beletskiy.dartstrainingcalculator.database.SavedToss" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/toss_text_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="16dp"
+            savedToss = "@{savedToss}"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="20x3" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
