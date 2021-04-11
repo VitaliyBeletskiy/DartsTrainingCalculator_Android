@@ -28,4 +28,5 @@
     <string name="game_with_colon">Игра:</string>
     <string name="total_throws_with_colon">Всего бросков:</string>
     <string name="delete">Удалить</string>
+    <string name="add_a_throw">добавить бросок</string>
 </resources>

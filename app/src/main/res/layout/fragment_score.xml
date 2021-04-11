@@ -13,7 +13,7 @@
             type="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/darts_green_dark"
@@ -22,46 +22,50 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/add_toss_button"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_toss" />
 
         <Button
-            android:id="@+id/start_new_game_button"
-            android:layout_width="wrap_content"
+            android:id="@+id/add_toss_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
+            android:layout_margin="16dp"
+            android:text="@string/add_a_throw"
+            android:textColor="@color/white"
+            android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="invisible" />
+
+        <Button
+            android:id="@+id/start_new_game_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:onClick="@{() -> scoreViewModel.restartGame()}"
             android:text="@string/start_new_game"
             android:textColor="@color/white"
-            android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}" />
-<!--        android:backgroundTint="@color/darts_red"-->
+            android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="32dp"
             android:gravity="center"
-            android:textColor="@color/white"
             android:text="@string/start_playing_by_adding_your_throws"
+            android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:visibility="@{scoreViewModel.tossList.size() == 0 ? View.VISIBLE : View.INVISIBLE}" />
+            android:visibility="@{scoreViewModel.tossList.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_hand"
-            android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_anchor="@id/recycler_view"
-            app:layout_anchorGravity="bottom|right|end"
-            app:tint="@color/white" />
-<!--        app:backgroundTint="@color/darts_red"-->
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

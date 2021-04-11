@@ -36,4 +36,5 @@
     <string name="game_with_colon">Game:</string>
     <string name="total_throws_with_colon">Total throws:</string>
     <string name="delete">Delete</string>
+    <string name="add_a_throw">add a throw</string>
 </resources>

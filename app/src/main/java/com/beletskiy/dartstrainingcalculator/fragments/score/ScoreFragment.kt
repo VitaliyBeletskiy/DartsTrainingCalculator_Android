@@ -92,8 +92,8 @@ class ScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // navigate to TossFragment by clicking [fab]
-        binding.fab.setOnClickListener {
+        // navigate to TossFragment by clicking "ADD A THROW" button
+        binding.addTossButton.setOnClickListener {
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
         }
         // update Toolbar text with current score
