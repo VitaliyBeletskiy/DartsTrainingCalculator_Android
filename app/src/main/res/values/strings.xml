@@ -15,7 +15,7 @@
     <string name="prevent_phone_from_sleeping">Prevent phone from sleeping</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="all_progress_will_be_lost">All progress will be lost. Are you sure you want to restart the game?</string>
+    <string name="all_progress_will_be_lost">All progress will be lost. Proceed?</string>
     <string name="restart_game">Restart game</string>
     <string name="about">About</string>
     <string name="phone">Phone</string>
@@ -37,4 +37,7 @@
     <string name="total_throws_with_colon">Total throws:</string>
     <string name="delete">Delete</string>
     <string name="add_a_throw">add a throw</string>
+    <string name="change_game_title">Change game</string>
+    <string name="change_game_message">This action will reset the current game. Proceed?</string>
+    <string name="version">Version %1$s</string>
 </resources>

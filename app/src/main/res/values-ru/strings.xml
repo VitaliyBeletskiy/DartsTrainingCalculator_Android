@@ -7,7 +7,7 @@
     <string name="prevent_phone_from_sleeping">Блокировать спящий режим</string>
     <string name="confirm">Подтвердить</string>
     <string name="cancel">Отмена</string>
-    <string name="all_progress_will_be_lost">Текущие результаты будет потеряны. Вы уверены, что хотите начать новую игру?</string>
+    <string name="all_progress_will_be_lost">Текущая игра будет потеряна. Продолжить?</string>
     <string name="restart_game">Новая игра</string>
     <string name="about">О программе</string>
     <string name="phone">Телефон</string>
@@ -29,4 +29,7 @@
     <string name="total_throws_with_colon">Всего бросков:</string>
     <string name="delete">Удалить</string>
     <string name="add_a_throw">добавить бросок</string>
+    <string name="change_game_title">Выбор игры</string>
+    <string name="change_game_message">Текущая игра будет потеряна. Продолжить?</string>
+    <string name="version">Версия %1$s</string>
 </resources>

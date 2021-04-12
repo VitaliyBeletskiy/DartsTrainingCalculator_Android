@@ -145,23 +145,19 @@ class ScoreFragment : Fragment() {
             scoreViewModel.restartGame()
             return
         }
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
+        activity?.let {
+            AlertDialog.Builder(it).run {
+                setTitle(getString(R.string.restart_game))
+                setMessage(getString(R.string.all_progress_will_be_lost))
                 setPositiveButton(getString(R.string.confirm)) { _, _ ->
                     scoreViewModel.restartGame()
                 }
                 setNegativeButton(getString(R.string.cancel)) { _, _ ->
                 }
+                create()
+                show()
             }
-            // Set other dialog properties
-            builder.setMessage(getString(R.string.all_progress_will_be_lost))
-                ?.setTitle(getString(R.string.restart_game))
-
-            // Create the AlertDialog
-            builder.create()
         }
-        alertDialog?.show()
     }
 
     /// reads from Preferences what game we play (301 or 501)
