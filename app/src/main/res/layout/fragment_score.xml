@@ -31,25 +31,24 @@
 
         <Button
             android:id="@+id/add_toss_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            style="@style/score_fragment_bottom_button"
             android:text="@string/add_a_throw"
-            android:textColor="@color/white"
             android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="invisible" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/start_new_game_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            style="@style/score_fragment_bottom_button"
             android:onClick="@{() -> scoreViewModel.restartGame()}"
             android:text="@string/start_new_game"
-            android:textColor="@color/white"
             android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="invisible" />
 
         <TextView
             android:layout_width="wrap_content"
