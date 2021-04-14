@@ -24,12 +24,12 @@ Features included:
 
 The more you practice the better you become! Let’s darts!  
 
-<br/>
+<p float="left">
 <img src="docs/dtc_screenshot_phone_1.png" width="200"/>
 <img src="docs/dtc_screenshot_phone_2.png" width="200"/>
 <img src="docs/dtc_screenshot_phone_3.png" width="200"/>
 <img src="docs/dtc_screenshot_phone_4.png" width="200"/>
-<br/>
+</p>
 <br/>
 
 ## tech data
