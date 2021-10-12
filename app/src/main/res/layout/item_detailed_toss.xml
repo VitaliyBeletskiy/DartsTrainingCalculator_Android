@@ -6,7 +6,7 @@
 
         <variable
             name="savedToss"
-            type="com.beletskiy.dartstrainingcalculator.database.SavedToss" />
+            type="com.beletskiy.dartstrainingcalculator.data.SavedToss" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

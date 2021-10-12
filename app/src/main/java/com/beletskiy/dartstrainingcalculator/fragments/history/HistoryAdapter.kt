@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
+import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.ItemSavedGameBinding
 
 class HistoryAdapter(private val rowClickListener: RowClickListener) :

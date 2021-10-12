@@ -1,19 +1,17 @@
-package com.beletskiy.dartstrainingcalculator.database
+package com.beletskiy.dartstrainingcalculator.data
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.beletskiy.dartstrainingcalculator.data.Toss
-import com.beletskiy.dartstrainingcalculator.database.DartsDatabase.Companion.getDatabase
 import kotlinx.coroutines.flow.Flow
 
 class DartsRepository(context: Context) {
 
-    private val dartsDatabase = getDatabase(context)
+    private val dartsDatabase = DartsDatabase.getInstance(context)
 
     val gameAndTossesList: Flow<List<GameAndTosses>> =
         dartsDatabase.savedGameDao().getAllGamesAndTosses()
 
-    /// saves the finished game to database
+    /** Saves the finished game to database. */
     @WorkerThread
     suspend fun saveGame(gamePoints: Int, tossList: List<Toss>) {
         val savedGame = SavedGame(points = gamePoints)
@@ -25,7 +23,7 @@ class DartsRepository(context: Context) {
         dartsDatabase.savedTossDao().insertTosses(savedTossList)
     }
 
-    /// empties database = deletes all data
+    /** Empties database = deletes all data. */
     @WorkerThread
     suspend fun deleteAllData() {
         dartsDatabase.run {
@@ -33,7 +31,7 @@ class DartsRepository(context: Context) {
         }
     }
 
-    /// deletes one SavedGamed with all its SavedTosses
+    /** Deletes one SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteSavedGame(gameId: Long) {
         dartsDatabase.run {
@@ -41,7 +39,7 @@ class DartsRepository(context: Context) {
         }
     }
 
-    /// deletes the last SavedGamed with all its SavedTosses
+    /** Deletes the last SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteLastSavedGame() {
         dartsDatabase.run {
@@ -49,7 +47,7 @@ class DartsRepository(context: Context) {
         }
     }
 
-    /// converts the list of Toss to the list of SavedToss (to save in database)
+    /** Converts the list of Toss to the list of SavedToss (to save in database). */
     private fun convertTossListToSavedTossList(
         gameId: Long,
         tossList: List<Toss>

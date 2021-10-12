@@ -3,7 +3,7 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 import android.app.Application
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.Toss
-import com.beletskiy.dartstrainingcalculator.database.DartsRepository
+import com.beletskiy.dartstrainingcalculator.data.DartsRepository
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel

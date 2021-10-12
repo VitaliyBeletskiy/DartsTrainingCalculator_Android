@@ -3,12 +3,16 @@ package com.beletskiy.dartstrainingcalculator.data
 import android.os.Parcel
 import android.os.Parcelable
 
-/// represents a single throw's result
-// we need 'number' for better animation due to DiffUtil
-data class Toss(var number: Int, var counted: Boolean, val section: Section, val ring: Ring) : Parcelable {
+/** Represents a single throw's result */
+data class Toss(
+    var number: Int,       // we need 'number' for DiffUtil to work
+    var counted: Boolean,
+    val section: Section,
+    val ring: Ring
+) : Parcelable {
 
     val value: Int
-        get() =  section.value * ring.value
+        get() = section.value * ring.value
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -65,6 +69,7 @@ data class Toss(var number: Int, var counted: Boolean, val section: Section, val
     }
 
     companion object CREATOR : Parcelable.Creator<Toss> {
+
         override fun createFromParcel(parcel: Parcel): Toss {
             return Toss(parcel)
         }
@@ -72,6 +77,7 @@ data class Toss(var number: Int, var counted: Boolean, val section: Section, val
         override fun newArray(size: Int): Array<Toss?> {
             return arrayOfNulls(size)
         }
+
     }
 
 }

@@ -3,8 +3,8 @@ package com.beletskiy.dartstrainingcalculator.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.DateFormat
+import com.beletskiy.dartstrainingcalculator.data.SavedToss
 import com.beletskiy.dartstrainingcalculator.data.Toss
-import com.beletskiy.dartstrainingcalculator.database.SavedToss
 import java.text.SimpleDateFormat
 
 /// returns position in the last series of 3

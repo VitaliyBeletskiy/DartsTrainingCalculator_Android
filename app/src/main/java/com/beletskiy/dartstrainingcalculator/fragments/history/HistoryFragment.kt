@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
+import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {

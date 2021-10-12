@@ -7,8 +7,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import com.beletskiy.dartstrainingcalculator.R
+import com.beletskiy.dartstrainingcalculator.data.SavedToss
 import com.beletskiy.dartstrainingcalculator.data.Toss
-import com.beletskiy.dartstrainingcalculator.database.SavedToss
 
 // used in fragment_score.xml
 @BindingAdapter("android:background")

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beletskiy.dartstrainingcalculator.database.SavedToss
+import com.beletskiy.dartstrainingcalculator.data.SavedToss
 import com.beletskiy.dartstrainingcalculator.databinding.ItemDetailedTossBinding
 
 class GameDetailedAdapter : ListAdapter<SavedToss, GameDetailedAdapter.SavedTossViewHolder>(SavedTossDiffItemCallback()) {

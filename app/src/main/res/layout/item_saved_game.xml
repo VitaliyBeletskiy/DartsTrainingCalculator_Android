@@ -16,7 +16,7 @@
 
         <variable
             name="gameAndTosses"
-            type="com.beletskiy.dartstrainingcalculator.database.GameAndTosses" />
+            type="com.beletskiy.dartstrainingcalculator.data.GameAndTosses" />
     </data>
 
     <androidx.cardview.widget.CardView

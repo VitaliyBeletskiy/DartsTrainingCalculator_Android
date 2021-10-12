@@ -2,8 +2,8 @@ package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.beletskiy.dartstrainingcalculator.database.DartsRepository
-import com.beletskiy.dartstrainingcalculator.database.GameAndTosses
+import com.beletskiy.dartstrainingcalculator.data.DartsRepository
+import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(application: Application) : AndroidViewModel(application) {

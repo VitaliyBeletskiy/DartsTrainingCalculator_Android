@@ -1,15 +1,11 @@
-package com.beletskiy.dartstrainingcalculator.database
+package com.beletskiy.dartstrainingcalculator.data
 
-import androidx.room.*
-import com.beletskiy.dartstrainingcalculator.data.Toss
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
-@Entity(tableName = "game_table")
-data class SavedGame(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val timestamp: Long = System.currentTimeMillis(),
-    val points: Int,
-)
-
+// FIXME: точно надо onUpdate?
 @Entity(
     tableName = "toss_table",
     foreignKeys = [ForeignKey(
@@ -39,10 +35,3 @@ data class SavedToss(
     }
 
 }
-
-data class GameAndTosses(
-    @Embedded
-    var savedGame: SavedGame? = null,
-    @Relation(parentColumn = "id", entityColumn = "game_id")
-    var savedTossList: List<SavedToss> = ArrayList(),
-)
