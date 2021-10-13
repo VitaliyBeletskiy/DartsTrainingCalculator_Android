@@ -1,14 +1,20 @@
 package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
 import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HistoryViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HistoryViewModel@Inject internal constructor(
+    private val dartsRepository: DartsRepository
+) : ViewModel() {
 
-    private val dartsRepository = DartsRepository(application)
     val gameAndTossesList: LiveData<List<GameAndTosses>> = dartsRepository.gameAndTossesList.asLiveData()
     var selectedGameAndTosses = MutableLiveData<GameAndTosses>()
 
@@ -29,14 +35,4 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    // Factory for constructing HistoryViewModel with parameters
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HistoryViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
-    }
 }

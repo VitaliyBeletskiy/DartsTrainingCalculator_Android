@@ -1,33 +1,42 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
 import com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScoreViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ScoreViewModel @Inject internal constructor(
+    @ApplicationContext application: Context,
+    private val dartsRepository: DartsRepository
+) : ViewModel() {
 
-    // for SingleLiveEvent
+    //region for SingleLiveEvent
     sealed class Event {
         data class OnNewTossAdded(val position: Int) : Event()
         data class ShowSnackBar(val stringId: Int) : Event()
         object NavigateBackToScoreScreen : Event()
     }
 
-    // for SingleLiveEvent
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
+    //endregion
 
     //region Variables for [ScoreFragment]
-
-    private val dartsRepository = DartsRepository(application)
 
     var currentStartPoints = 0
 
@@ -286,16 +295,5 @@ class ScoreViewModel(application: Application) : AndroidViewModel(application) {
         return true
     }
     //endregion
-
-    // Factory for constructing ScoreViewModel with parameters
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return ScoreViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
-    }
 
 }

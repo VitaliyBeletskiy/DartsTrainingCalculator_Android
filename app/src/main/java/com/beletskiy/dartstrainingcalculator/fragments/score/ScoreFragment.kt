@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,17 +14,14 @@ import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
 import com.beletskiy.dartstrainingcalculator.utils.PreferenceUtils
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class ScoreFragment : Fragment() {
 
     private lateinit var binding: FragmentScoreBinding
-    private val scoreViewModel: ScoreViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ScoreViewModel.Factory(requireActivity().application)
-        ).get(ScoreViewModel::class.java)
-    }
+    private val scoreViewModel: ScoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

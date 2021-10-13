@@ -4,25 +4,19 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentHistoryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
 
     private lateinit var binding: FragmentHistoryBinding
-    private val historyViewModel: HistoryViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-        ViewModelProvider(
-            activity,  // not 'this', as we use this ViewModel in two Fragments
-            HistoryViewModel.Factory(activity.application)
-        ).get(HistoryViewModel::class.java)
-    }
+    private val historyViewModel: HistoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,52 +1,49 @@
 package com.beletskiy.dartstrainingcalculator.data
 
-import android.content.Context
 import androidx.annotation.WorkerThread
-import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DartsRepository(context: Context) {
+@Singleton
+class DartsRepository @Inject constructor(
+    private val savedGameDao: SavedGameDao,
+    private val savedTossDao: SavedTossDao
+) {
 
-    private val dartsDatabase = DartsDatabase.getInstance(context)
+    val gameAndTossesList = savedGameDao.getAllGamesAndTosses()
 
-    val gameAndTossesList: Flow<List<GameAndTosses>> =
-        dartsDatabase.savedGameDao().getAllGamesAndTosses()
-
+    // FIXME: а надо тут  @WorkerThread ???
     /** Saves the finished game to database. */
     @WorkerThread
     suspend fun saveGame(gamePoints: Int, tossList: List<Toss>) {
         val savedGame = SavedGame(points = gamePoints)
         // save game first, get gameId
-        val gameId = dartsDatabase.savedGameDao().insertGame(savedGame)
+        val gameId = savedGameDao.insertGame(savedGame)
         // convert List<Toss> to List<SavedToss>
         val savedTossList = convertTossListToSavedTossList(gameId, tossList)
         // save List<SavedToss> to database
-        dartsDatabase.savedTossDao().insertTosses(savedTossList)
+        savedTossDao.insertTosses(savedTossList)
     }
 
     /** Empties database = deletes all data. */
     @WorkerThread
     suspend fun deleteAllData() {
-        dartsDatabase.run {
-            savedGameDao().deleteAll()
-        }
+        savedGameDao.deleteAll()
     }
 
     /** Deletes one SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteSavedGame(gameId: Long) {
-        dartsDatabase.run {
-            savedGameDao().deleteGame(gameId)
-        }
+        savedGameDao.deleteGame(gameId)
     }
 
     /** Deletes the last SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteLastSavedGame() {
-        dartsDatabase.run {
-            savedGameDao().deleteLastGame()
-        }
+        savedGameDao.deleteLastGame()
     }
 
+    // FIXME: перевести это в inline fun
     /** Converts the list of Toss to the list of SavedToss (to save in database). */
     private fun convertTossListToSavedTossList(
         gameId: Long,
