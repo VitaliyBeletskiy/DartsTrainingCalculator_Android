@@ -23,9 +23,8 @@ abstract class DartsDatabase : RoomDatabase() {
             }
         }
 
-        // FIXME: убрать .applicationContext
         private fun buildDatabase(context: Context): DartsDatabase {
-            return Room.databaseBuilder(context.applicationContext, DartsDatabase::class.java, DATABASE_NAME)
+            return Room.databaseBuilder(context, DartsDatabase::class.java, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build()
         }

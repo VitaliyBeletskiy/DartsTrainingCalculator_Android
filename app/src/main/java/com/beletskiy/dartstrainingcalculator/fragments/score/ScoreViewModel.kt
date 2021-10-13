@@ -1,6 +1,5 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import com.beletskiy.dartstrainingcalculator.R
@@ -8,9 +7,6 @@ import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
 import com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +34,7 @@ class ScoreViewModel @Inject internal constructor(
 
     //region Variables for [ScoreFragment]
 
-    var currentStartPoints = 0
+    private var currentStartPoints = 0
 
     // contains all throws
     private val _tossList = MutableLiveData<ArrayList<Toss>>(ArrayList())
@@ -52,8 +48,6 @@ class ScoreViewModel @Inject internal constructor(
 
     // current score after the last trow
     private val _scoreAfterThrow = MutableLiveData<Int>()
-    val scoreAfterThrow: LiveData<Int>
-        get() = _scoreAfterThrow
     // String for the toolbar title in [ScoresFragment]
     val scoresTitle = Transformations.map(_scoreAfterThrow) {
         it?.let {
@@ -148,8 +142,7 @@ class ScoreViewModel @Inject internal constructor(
         // trigger scrolling inside RecyclerView
         _tossList.value?.size?.let {
             viewModelScope.launch(Dispatchers.Main) {
-                // FIXME: а можно использовать it вместо  _tossList.value!!.size?
-                eventChannel.send(Event.OnNewTossAdded(_tossList.value!!.size))
+                eventChannel.send(Event.OnNewTossAdded(it))
             }
         }
     }

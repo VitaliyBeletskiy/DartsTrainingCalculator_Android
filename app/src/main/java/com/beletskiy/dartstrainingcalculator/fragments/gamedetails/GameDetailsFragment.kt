@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentGameDetailsBinding
 import com.beletskiy.dartstrainingcalculator.fragments.history.HistoryViewModel
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class GameDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentGameDetailsBinding
-    private val historyViewModel: HistoryViewModel by activityViewModels()
+    private val historyViewModel: HistoryViewModel by hiltNavGraphViewModels(R.id.history_nav)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

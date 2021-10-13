@@ -10,7 +10,7 @@
         android:id="@+id/scoreFragment"
         android:name="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreFragment"
         android:label="Score"
-        tools:layout="@layout/fragment_score" >
+        tools:layout="@layout/fragment_score">
         <action
             android:id="@+id/action_scoreFragment_to_tossFragment"
             app:destination="@id/tossFragment"
@@ -25,8 +25,7 @@
         android:id="@+id/tossFragment"
         android:name="com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment"
         android:label="@string/toss"
-        tools:layout="@layout/fragment_toss" >
-    </fragment>
+        tools:layout="@layout/fragment_toss" />
 
     <!-- Settings Fragment -->
     <fragment
@@ -35,26 +34,36 @@
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
-    <!-- History Fragment -->
-    <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryFragment"
-        android:label="@string/history"
-        tools:layout="@layout/fragment_history" >
-        <action
-            android:id="@+id/action_history_to_gameDetails"
-            app:destination="@id/gameDetailsFragment" />
-    </fragment>
+    <!-- Global actions -->
+    <action
+        android:id="@+id/settingsDestination"
+        app:destination="@id/settingsFragment" />
+    <action
+        android:id="@+id/historyDestination"
+        app:destination="@id/history_nav" />
 
-    <!-- GameDetails Fragment -->
-    <fragment
-        android:id="@+id/gameDetailsFragment"
-        android:name="com.beletskiy.dartstrainingcalculator.fragments.gamedetails.GameDetailsFragment"
-        android:label="Details" >
-    </fragment>
+    <!-- Nested graph -->
+    <navigation
+        android:id="@+id/history_nav"
+        app:startDestination="@id/historyFragment">
 
-    <!--Global action-->
-    <action android:id="@+id/settingsDestination"
-        app:destination="@id/settingsFragment"/>
+        <!-- History Fragment -->
+        <fragment
+            android:id="@+id/historyFragment"
+            android:name="com.beletskiy.dartstrainingcalculator.fragments.history.HistoryFragment"
+            android:label="@string/history"
+            tools:layout="@layout/fragment_history">
+            <action
+                android:id="@+id/action_history_to_gameDetails"
+                app:destination="@id/gameDetailsFragment" />
+        </fragment>
 
+        <!-- GameDetails Fragment -->
+        <fragment
+            android:id="@+id/gameDetailsFragment"
+            android:name="com.beletskiy.dartstrainingcalculator.fragments.gamedetails.GameDetailsFragment"
+            android:label="Details"
+            tools:layout="@layout/fragment_game_details" />
+
+    </navigation>
 </navigation>

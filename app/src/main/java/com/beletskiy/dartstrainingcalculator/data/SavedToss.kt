@@ -5,15 +5,13 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-// FIXME: точно надо onUpdate?
 @Entity(
     tableName = "toss_table",
     foreignKeys = [ForeignKey(
         entity = SavedGame::class,
         parentColumns = ["id"],
         childColumns = ["game_id"],
-        onDelete = ForeignKey.CASCADE,
-        onUpdate = ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE
     )]
 )
 data class SavedToss(

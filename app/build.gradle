@@ -76,4 +76,6 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    // to make "by hiltNavGraphViewModels(...)" work
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 }

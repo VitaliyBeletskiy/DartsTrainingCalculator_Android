@@ -3,10 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/drawable/ic_badge_x1.xml" value="0.2896396396396396" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/drawable/ic_badge_x2.xml" value="0.30180180180180183" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/drawable/ic_badge_x3.xml" value="0.30180180180180183" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/drawable/ic_done.xml" value="0.30180180180180183" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/drawable/ic_strike_out.xml" value="0.19684684684684683" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout-sw500dp/item_toss.xml" value="0.26875" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/activity_main.xml" value="0.31261261261261264" />
         <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/fragment_score.xml" value="0.3204444444444444" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/fragment_settings.xml" value="0.3204444444444444" />
         <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/fragment_toss.xml" value="0.3204444444444444" />
         <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/item_detailed_toss.xml" value="0.3204444444444444" />
         <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/item_saved_game.xml" value="0.31261261261261264" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/layout/item_toss.xml" value="0.3204444444444444" />
+        <entry key="..\:/Programming/AndroidStudioProjects/DartsTrainingCalculator/app/src/main/res/menu/drawer_menu.xml" value="0.31261261261261264" />
       </map>
     </option>
   </component>

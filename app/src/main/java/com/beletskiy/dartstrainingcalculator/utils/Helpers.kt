@@ -7,11 +7,11 @@ import com.beletskiy.dartstrainingcalculator.data.SavedToss
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import java.text.SimpleDateFormat
 
-/// returns position in the last series of 3
+/** Returns position in the last series of 3 (f.e. 43 -> 1, 44 -> 2, 45 ->3). */
 val Int.inSeriesOf3: Int
     get() = this - ((this - 1) / 3) * 3
 
-/// takes the Long milliseconds and convert it to a string for display.
+/** Takes the Long milliseconds and convert it to a string for display. */
 @SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(milliseconds: Long, context: Context): String {
     val weekday = SimpleDateFormat("EEEE").format(milliseconds)
@@ -20,7 +20,7 @@ fun convertLongToDateString(milliseconds: Long, context: Context): String {
     return "$weekday, $date, $time"
 }
 
-/// converts List<SavedToss> to String
+/** Converts List<SavedToss> to a String. */
 fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
     val sb = StringBuilder()
     var numberInSeries = 0
@@ -47,7 +47,7 @@ fun convertSavedTossListToString(savedTossList: List<SavedToss>): String {
     return sb.toString()
 }
 
-/// converts SavedToss to String
+/** Converts SavedToss to a String. */
 fun convertSavedTossToString(savedToss: SavedToss): String {
     val sb = StringBuilder()
     sb.apply {

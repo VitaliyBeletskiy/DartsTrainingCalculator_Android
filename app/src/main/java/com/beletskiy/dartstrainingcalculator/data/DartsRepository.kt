@@ -1,6 +1,8 @@
 package com.beletskiy.dartstrainingcalculator.data
 
 import androidx.annotation.WorkerThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +14,6 @@ class DartsRepository @Inject constructor(
 
     val gameAndTossesList = savedGameDao.getAllGamesAndTosses()
 
-    // FIXME: а надо тут  @WorkerThread ???
     /** Saves the finished game to database. */
     @WorkerThread
     suspend fun saveGame(gamePoints: Int, tossList: List<Toss>) {
@@ -20,36 +21,40 @@ class DartsRepository @Inject constructor(
         // save game first, get gameId
         val gameId = savedGameDao.insertGame(savedGame)
         // convert List<Toss> to List<SavedToss>
-        val savedTossList = convertTossListToSavedTossList(gameId, tossList)
+        val savedTossList = tossList.convertToSavedTossList(gameId)
         // save List<SavedToss> to database
-        savedTossDao.insertTosses(savedTossList)
+        withContext(Dispatchers.IO) {
+            savedTossDao.insertTosses(savedTossList)
+        }
     }
 
     /** Empties database = deletes all data. */
     @WorkerThread
     suspend fun deleteAllData() {
-        savedGameDao.deleteAll()
+        withContext(Dispatchers.IO) {
+            savedGameDao.deleteAll()
+        }
     }
 
     /** Deletes one SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteSavedGame(gameId: Long) {
-        savedGameDao.deleteGame(gameId)
+        withContext(Dispatchers.IO) {
+            savedGameDao.deleteGame(gameId)
+        }
     }
 
     /** Deletes the last SavedGamed with all its SavedTosses. */
     @WorkerThread
     suspend fun deleteLastSavedGame() {
-        savedGameDao.deleteLastGame()
+        withContext(Dispatchers.IO) {
+            savedGameDao.deleteLastGame()
+        }
     }
 
-    // FIXME: перевести это в inline fun
     /** Converts the list of Toss to the list of SavedToss (to save in database). */
-    private fun convertTossListToSavedTossList(
-        gameId: Long,
-        tossList: List<Toss>
-    ): List<SavedToss> {
-        return tossList.map {
+    private fun List<Toss>.convertToSavedTossList(gameId: Long): List<SavedToss> {
+        return map {
             SavedToss(
                 gameId = gameId,
                 number = it.number,
