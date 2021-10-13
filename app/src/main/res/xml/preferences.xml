@@ -2,7 +2,7 @@
 
     <PreferenceCategory app:title="@string/game">
         <ListPreference
-            app:defaultValue="@string/default_game_value"
+            app:defaultValue="@string/default_start_points"
             app:entries="@array/preferencesGameTitles"
             app:entryValues="@array/preferencesGameTitles"
             app:key="@string/game_key"

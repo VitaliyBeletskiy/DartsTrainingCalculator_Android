@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentTossBinding
-import com.beletskiy.dartstrainingcalculator.fragments.score.ScoreFragment
+import com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.onEach
@@ -16,8 +16,12 @@ import kotlinx.coroutines.flow.onEach
 class TossFragment : Fragment() {
 
     private lateinit var binding: FragmentTossBinding
-    private val tossViewModel: TossViewModel by lazy {
-        ViewModelProvider(this).get(TossViewModel::class.java)
+
+    private val scoreViewModel: ScoreViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            ScoreViewModel.Factory(requireActivity().application)
+        ).get(ScoreViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -25,7 +29,7 @@ class TossFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTossBinding.inflate(inflater)
-        binding.tossViewModel = tossViewModel
+        binding.vm = scoreViewModel
         binding.lifecycleOwner = this
 
         return binding.root
@@ -35,19 +39,17 @@ class TossFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // receiving events from ViewModel
-        tossViewModel.eventsFlow
+        scoreViewModel.eventsFlow
             .onEach { event ->
                 when (event) {
-                    is TossViewModel.Event.NavigateToScoreScreen -> {
-                        findNavController()
-                            .previousBackStackEntry
-                            ?.savedStateHandle
-                            ?.set(ScoreFragment.NEW_TOSS, event.newToss)
+                    is ScoreViewModel.Event.NavigateBackToScoreScreen -> {
                         findNavController().navigateUp()
                     }
-                    is TossViewModel.Event.ShowSnackBar -> {
+                    is ScoreViewModel.Event.ShowSnackBar -> {
                         val message = getString(event.stringId)
                         Snackbar.make(binding.buttonAdd, message, Snackbar.LENGTH_SHORT).show()
+                    }
+                    else -> {
                     }
                 }
             }

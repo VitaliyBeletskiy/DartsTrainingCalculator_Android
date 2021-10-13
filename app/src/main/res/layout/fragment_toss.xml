@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="tossViewModel"
-            type="com.beletskiy.dartstrainingcalculator.fragments.toss.TossViewModel" />
+            name="vm"
+            type="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,394 +22,422 @@
         <ImageButton
             android:id="@+id/button1"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[1]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(1)}"
+            android:background="@{vm.numberSectorChosen[1]}"
+            android:onClick="@{() -> vm.onSectionTapped(1)}"
             android:src="@drawable/ic_wire_1"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toStartOf="@+id/button2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+            app:layout_constraintVertical_chainStyle="spread_inside"
+
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button2"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[2]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(2)}"
+            android:background="@{vm.numberSectorChosen[2]}"
+            android:onClick="@{() -> vm.onSectionTapped(2)}"
             android:src="@drawable/ic_wire_2"
 
-            app:layout_constraintStart_toEndOf="@+id/button1"
+            app:layout_constraintBottom_toBottomOf="@id/button1"
             app:layout_constraintEnd_toStartOf="@+id/button3"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button1"
             app:layout_constraintTop_toTopOf="@id/button1"
-            app:layout_constraintBottom_toBottomOf="@id/button1" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button3"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[3]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(3)}"
+            android:background="@{vm.numberSectorChosen[3]}"
+            android:onClick="@{() -> vm.onSectionTapped(3)}"
             android:src="@drawable/ic_wire_3"
 
-            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintBottom_toBottomOf="@id/button1"
             app:layout_constraintEnd_toStartOf="@+id/button4"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button2"
             app:layout_constraintTop_toTopOf="@id/button1"
-            app:layout_constraintBottom_toBottomOf="@id/button1" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button4"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[4]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(4)}"
+            android:background="@{vm.numberSectorChosen[4]}"
+            android:onClick="@{() -> vm.onSectionTapped(4)}"
             android:src="@drawable/ic_wire_4"
 
-            app:layout_constraintStart_toEndOf="@+id/button3"
+            app:layout_constraintBottom_toBottomOf="@id/button1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button3"
             app:layout_constraintTop_toTopOf="@id/button1"
-            app:layout_constraintBottom_toBottomOf="@id/button1" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 2 (5-8)">-->
         <ImageButton
             android:id="@+id/button5"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[5]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(5)}"
+            android:background="@{vm.numberSectorChosen[5]}"
+            android:onClick="@{() -> vm.onSectionTapped(5)}"
             android:src="@drawable/ic_wire_5"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button9"
             app:layout_constraintEnd_toStartOf="@+id/button6"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button1"
-            app:layout_constraintBottom_toTopOf="@+id/button9"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button6"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[6]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(6)}"
+            android:background="@{vm.numberSectorChosen[6]}"
+            android:onClick="@{() -> vm.onSectionTapped(6)}"
             android:src="@drawable/ic_wire_6"
 
-            app:layout_constraintStart_toEndOf="@+id/button5"
+            app:layout_constraintBottom_toBottomOf="@id/button5"
             app:layout_constraintEnd_toStartOf="@+id/button7"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button5"
             app:layout_constraintTop_toTopOf="@id/button5"
-            app:layout_constraintBottom_toBottomOf="@id/button5" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button7"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[7]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(7)}"
+            android:background="@{vm.numberSectorChosen[7]}"
+            android:onClick="@{() -> vm.onSectionTapped(7)}"
             android:src="@drawable/ic_wire_7"
 
-            app:layout_constraintStart_toEndOf="@+id/button6"
+            app:layout_constraintBottom_toBottomOf="@id/button5"
             app:layout_constraintEnd_toStartOf="@+id/button8"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button6"
             app:layout_constraintTop_toTopOf="@id/button5"
-            app:layout_constraintBottom_toBottomOf="@id/button5" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button8"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[8]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(8)}"
+            android:background="@{vm.numberSectorChosen[8]}"
+            android:onClick="@{() -> vm.onSectionTapped(8)}"
             android:src="@drawable/ic_wire_8"
 
-            app:layout_constraintStart_toEndOf="@+id/button7"
+            app:layout_constraintBottom_toBottomOf="@id/button5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button7"
             app:layout_constraintTop_toTopOf="@id/button5"
-            app:layout_constraintBottom_toBottomOf="@id/button5" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 3 (9-12)">-->
         <ImageButton
             android:id="@+id/button9"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[9]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(9)}"
+            android:background="@{vm.numberSectorChosen[9]}"
+            android:onClick="@{() -> vm.onSectionTapped(9)}"
             android:src="@drawable/ic_wire_9"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button13"
             app:layout_constraintEnd_toStartOf="@+id/button10"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button5"
-            app:layout_constraintBottom_toTopOf="@+id/button13"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button10"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[10]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(10)}"
+            android:background="@{vm.numberSectorChosen[10]}"
+            android:onClick="@{() -> vm.onSectionTapped(10)}"
             android:src="@drawable/ic_wire_10"
 
-            app:layout_constraintStart_toEndOf="@+id/button9"
+            app:layout_constraintBottom_toBottomOf="@id/button9"
             app:layout_constraintEnd_toStartOf="@+id/button11"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button9"
             app:layout_constraintTop_toTopOf="@id/button9"
-            app:layout_constraintBottom_toBottomOf="@id/button9" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button11"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[11]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(11)}"
+            android:background="@{vm.numberSectorChosen[11]}"
+            android:onClick="@{() -> vm.onSectionTapped(11)}"
             android:src="@drawable/ic_wire_11"
 
-            app:layout_constraintStart_toEndOf="@+id/button10"
+            app:layout_constraintBottom_toBottomOf="@id/button9"
             app:layout_constraintEnd_toStartOf="@+id/button12"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button10"
             app:layout_constraintTop_toTopOf="@id/button9"
-            app:layout_constraintBottom_toBottomOf="@id/button9" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button12"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[12]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(12)}"
+            android:background="@{vm.numberSectorChosen[12]}"
+            android:onClick="@{() -> vm.onSectionTapped(12)}"
             android:src="@drawable/ic_wire_12"
 
-            app:layout_constraintStart_toEndOf="@+id/button11"
+            app:layout_constraintBottom_toBottomOf="@id/button9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button11"
             app:layout_constraintTop_toTopOf="@id/button9"
-            app:layout_constraintBottom_toBottomOf="@id/button9" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 4 (13-16)">-->
         <ImageButton
             android:id="@+id/button13"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[13]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(13)}"
+            android:background="@{vm.numberSectorChosen[13]}"
+            android:onClick="@{() -> vm.onSectionTapped(13)}"
             android:src="@drawable/ic_wire_13"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button17"
             app:layout_constraintEnd_toStartOf="@+id/button14"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button9"
-            app:layout_constraintBottom_toTopOf="@+id/button17"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button14"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[14]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(14)}"
+            android:background="@{vm.numberSectorChosen[14]}"
+            android:onClick="@{() -> vm.onSectionTapped(14)}"
             android:src="@drawable/ic_wire_14"
 
-            app:layout_constraintStart_toEndOf="@+id/button13"
+            app:layout_constraintBottom_toBottomOf="@id/button13"
             app:layout_constraintEnd_toStartOf="@+id/button15"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button13"
             app:layout_constraintTop_toTopOf="@id/button13"
-            app:layout_constraintBottom_toBottomOf="@id/button13" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button15"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[15]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(15)}"
+            android:background="@{vm.numberSectorChosen[15]}"
+            android:onClick="@{() -> vm.onSectionTapped(15)}"
             android:src="@drawable/ic_wire_15"
 
-            app:layout_constraintStart_toEndOf="@+id/button14"
+            app:layout_constraintBottom_toBottomOf="@id/button13"
             app:layout_constraintEnd_toStartOf="@+id/button16"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button14"
             app:layout_constraintTop_toTopOf="@id/button13"
-            app:layout_constraintBottom_toBottomOf="@id/button13" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button16"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[16]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(16)}"
+            android:background="@{vm.numberSectorChosen[16]}"
+            android:onClick="@{() -> vm.onSectionTapped(16)}"
             android:src="@drawable/ic_wire_16"
 
-            app:layout_constraintStart_toEndOf="@+id/button15"
+            app:layout_constraintBottom_toBottomOf="@id/button13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button15"
             app:layout_constraintTop_toTopOf="@id/button13"
-            app:layout_constraintBottom_toBottomOf="@id/button13" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 5 (17-20)">-->
         <ImageButton
             android:id="@+id/button17"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[17]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(17)}"
+            android:background="@{vm.numberSectorChosen[17]}"
+            android:onClick="@{() -> vm.onSectionTapped(17)}"
             android:src="@drawable/ic_wire_17"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttonX2"
             app:layout_constraintEnd_toStartOf="@+id/button18"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button13"
-            app:layout_constraintBottom_toTopOf="@+id/buttonX2"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button18"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[18]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(18)}"
+            android:background="@{vm.numberSectorChosen[18]}"
+            android:onClick="@{() -> vm.onSectionTapped(18)}"
             android:src="@drawable/ic_wire_18"
 
-            app:layout_constraintStart_toEndOf="@+id/button17"
+            app:layout_constraintBottom_toBottomOf="@id/button17"
             app:layout_constraintEnd_toStartOf="@+id/button19"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button17"
             app:layout_constraintTop_toTopOf="@id/button17"
-            app:layout_constraintBottom_toBottomOf="@id/button17" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button19"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[19]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(19)}"
+            android:background="@{vm.numberSectorChosen[19]}"
+            android:onClick="@{() -> vm.onSectionTapped(19)}"
             android:src="@drawable/ic_wire_19"
 
-            app:layout_constraintStart_toEndOf="@+id/button18"
+            app:layout_constraintBottom_toBottomOf="@id/button17"
             app:layout_constraintEnd_toStartOf="@+id/button20"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button18"
             app:layout_constraintTop_toTopOf="@id/button17"
-            app:layout_constraintBottom_toBottomOf="@id/button17" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/button20"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[20]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(20)}"
+            android:background="@{vm.numberSectorChosen[20]}"
+            android:onClick="@{() -> vm.onSectionTapped(20)}"
             android:src="@drawable/ic_wire_20"
 
-            app:layout_constraintStart_toEndOf="@+id/button19"
+            app:layout_constraintBottom_toBottomOf="@id/button17"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button19"
             app:layout_constraintTop_toTopOf="@id/button17"
-            app:layout_constraintBottom_toBottomOf="@id/button17" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 6 (x2, x3)">-->
         <ImageButton
             android:id="@+id/buttonX2"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.ringChosen[0]}"
-            android:onClick="@{() -> tossViewModel.onRingTapped(0)}"
+            android:background="@{vm.ringChosen[0]}"
+            android:onClick="@{() -> vm.onRingTapped(0)}"
             android:src="@drawable/ic_wire_x2"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button0"
             app:layout_constraintEnd_toStartOf="@+id/buttonX3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button17"
-            app:layout_constraintBottom_toTopOf="@+id/button0"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/buttonX3"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.ringChosen[1]}"
-            android:onClick="@{() -> tossViewModel.onRingTapped(1)}"
+            android:background="@{vm.ringChosen[1]}"
+            android:onClick="@{() -> vm.onRingTapped(1)}"
             android:src="@drawable/ic_wire_x3"
 
-            app:layout_constraintStart_toEndOf="@+id/buttonX2"
+            app:layout_constraintBottom_toBottomOf="@id/buttonX2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/buttonX2"
             app:layout_constraintTop_toTopOf="@id/buttonX2"
-            app:layout_constraintBottom_toBottomOf="@id/buttonX2" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
         <!--<editor-fold desc="Row 7 (Missed, InnerBE, OuterBE, ADD)">-->
         <ImageButton
             android:id="@+id/button0"
             style="@style/toss_imagebutton_first_column_style"
-            android:background="@{tossViewModel.numberSectorChosen[0]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(0)}"
+            android:background="@{vm.numberSectorChosen[0]}"
+            android:onClick="@{() -> vm.onSectionTapped(0)}"
             android:src="@drawable/ic_wire_0"
 
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonOB"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonX2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/buttonOB"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[21]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(21)}"
+            android:background="@{vm.numberSectorChosen[21]}"
+            android:onClick="@{() -> vm.onSectionTapped(21)}"
             android:src="@drawable/ic_wire_25"
 
-            app:layout_constraintStart_toEndOf="@+id/button0"
+            app:layout_constraintBottom_toBottomOf="@id/button0"
             app:layout_constraintEnd_toStartOf="@+id/buttonIB"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/button0"
             app:layout_constraintTop_toTopOf="@id/button0"
-            app:layout_constraintBottom_toBottomOf="@id/button0" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/buttonIB"
             style="@style/toss_imagebutton_style"
-            android:background="@{tossViewModel.numberSectorChosen[22]}"
-            android:onClick="@{() -> tossViewModel.onSectionTapped(22)}"
+            android:background="@{vm.numberSectorChosen[22]}"
+            android:onClick="@{() -> vm.onSectionTapped(22)}"
             android:src="@drawable/ic_wire_b"
 
-            app:layout_constraintStart_toEndOf="@+id/buttonOB"
+            app:layout_constraintBottom_toBottomOf="@id/button0"
             app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/buttonOB"
             app:layout_constraintTop_toTopOf="@id/button0"
-            app:layout_constraintBottom_toBottomOf="@id/button0" />
+            tools:background="@drawable/toss_tile_background" />
 
         <ImageButton
             android:id="@+id/buttonAdd"
             style="@style/toss_imagebutton_style"
-            android:onClick="@{()->tossViewModel.onAddTapped()}"
-            android:src="@drawable/ic_done"
             android:background="@drawable/toss_add_background"
+            android:onClick="@{()->vm.onAddTapped()}"
+            android:src="@drawable/ic_done"
 
-            app:layout_constraintStart_toEndOf="@+id/buttonIB"
+            app:layout_constraintBottom_toBottomOf="@id/button0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
 
+            app:layout_constraintStart_toEndOf="@+id/buttonIB"
             app:layout_constraintTop_toTopOf="@id/button0"
-            app:layout_constraintBottom_toBottomOf="@id/button0" />
+            tools:background="@drawable/toss_tile_background" />
         <!--</editor-fold>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

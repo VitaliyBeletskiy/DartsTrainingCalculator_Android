@@ -9,7 +9,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="scoreViewModel"
+            name="vm"
             type="com.beletskiy.dartstrainingcalculator.fragments.score.ScoreViewModel" />
     </data>
 
@@ -27,13 +27,14 @@
             android:clipToPadding="false"
             app:layout_constraintBottom_toTopOf="@id/add_toss_button"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_toss" />
+            tools:listitem="@layout/item_toss"
+            tools:itemCount="3"/>
 
         <Button
             android:id="@+id/add_toss_button"
             style="@style/score_fragment_bottom_button"
             android:text="@string/add_a_throw"
-            android:visibility="@{scoreViewModel.isGameOver ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{vm.isGameOver ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,9 +43,9 @@
         <Button
             android:id="@+id/start_new_game_button"
             style="@style/score_fragment_bottom_button"
-            android:onClick="@{() -> scoreViewModel.restartGame()}"
+            android:onClick="@{() -> vm.restartGame()}"
             android:text="@string/start_new_game"
-            android:visibility="@{scoreViewModel.isGameOver ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.isGameOver ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,7 @@
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:visibility="@{scoreViewModel.tossList.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.tossList.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

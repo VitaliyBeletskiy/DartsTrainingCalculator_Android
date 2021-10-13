@@ -2,27 +2,34 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.beletskiy.dartstrainingcalculator.R
 import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
+import com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class ScoreViewModel(private var gameTotalScore: Int, application: Application) :
-    AndroidViewModel(application) {
+class ScoreViewModel(application: Application) : AndroidViewModel(application) {
 
     // for SingleLiveEvent
     sealed class Event {
         data class OnNewTossAdded(val position: Int) : Event()
+        data class ShowSnackBar(val stringId: Int) : Event()
+        object NavigateBackToScoreScreen : Event()
     }
 
     // for SingleLiveEvent
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
+    //region Variables for [ScoreFragment]
+
     private val dartsRepository = DartsRepository(application)
+
+    var currentStartPoints = 0
 
     // contains all throws
     private val _tossList = MutableLiveData<ArrayList<Toss>>(ArrayList())
@@ -38,30 +45,56 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
     private val _scoreAfterThrow = MutableLiveData<Int>()
     val scoreAfterThrow: LiveData<Int>
         get() = _scoreAfterThrow
+    // String for the toolbar title in [ScoresFragment]
+    val scoresTitle = Transformations.map(_scoreAfterThrow) {
+        it?.let {
+            application.getString(R.string.score_fragment_title_bar, it, currentStartPoints)
+        }
+    }
 
     // score after the most recent series of 3 trows
     private var scoreAfterSeries: Int = 0
+
+    //endregion
+
+    //region Variables for [TossFragment]
+
+    // contains values for number sections 1-20 as well as 0, Outer Bullseye, Inner Bullseye
+    private val _numberSectorChosen = MutableLiveData(Array(23) { false })
+    val numberSectorChosen: LiveData<Array<Boolean>>
+        get() = _numberSectorChosen
+
+    // contains values for x2 and x3 rings
+    private val _ringChosen = MutableLiveData(Array(2) { false })
+    val ringChosen: LiveData<Array<Boolean>>
+        get() = _ringChosen
+
+    //endregion
 
     init {
         restartGame()
     }
 
-    // when User chosen another Game (f.e. 301 instead of 501)
-    fun onGameChanged(newTotalPoints: Int) {
-        gameTotalScore = newTotalPoints
-        restartGame()
+    //region Functions for [ScoreFragment]
+
+    /** Compares newStartPoints with currentStartPoints and restarts the game if needed. */
+    fun onNewStartPoints(newStartPoints: Int) {
+        if (newStartPoints != currentStartPoints) {
+            currentStartPoints = newStartPoints
+            restartGame()
+        }
     }
 
     // restarts the game
     fun restartGame() {
         _tossList.value = ArrayList()               // empty array of "Toss"
         _isGameOver.value = false                   // game is NOT over
-        scoreAfterSeries = gameTotalScore           // reset points counter
-        _scoreAfterThrow.value = gameTotalScore     // reset points counter
+        scoreAfterSeries = currentStartPoints       // reset points counter
+        _scoreAfterThrow.value = currentStartPoints // reset points counter
     }
 
     // when User added a new throw
-    fun onNewTossCreated(newToss: Toss) {
+    private fun addNewToss(newToss: Toss) {
 
         if (_scoreAfterThrow.value == null) {
             throw IllegalArgumentException()
@@ -82,7 +115,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         ) {
             //  save the game to database
             viewModelScope.launch {
-                dartsRepository.saveGame(gameTotalScore, _tossList.value ?: emptyList())
+                dartsRepository.saveGame(currentStartPoints, _tossList.value ?: emptyList())
             }
             _isGameOver.value = true
             return
@@ -106,6 +139,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         // trigger scrolling inside RecyclerView
         _tossList.value?.size?.let {
             viewModelScope.launch(Dispatchers.Main) {
+                // FIXME: а можно использовать it вместо  _tossList.value!!.size?
                 eventChannel.send(Event.OnNewTossAdded(_tossList.value!!.size))
             }
         }
@@ -136,7 +170,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
 
         // recalculate score for completed series
         val completedSeries = list.size / 3
-        scoreAfterSeries = gameTotalScore - list.subList(0, completedSeries * 3)
+        scoreAfterSeries = currentStartPoints - list.subList(0, completedSeries * 3)
             .fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
         // Tosses (1 or 2) the incomplete series (the last one) should be switched to counted
@@ -148,7 +182,7 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
             list[list.size - i] = toss
         }
 
-        _scoreAfterThrow.value = gameTotalScore -
+        _scoreAfterThrow.value = currentStartPoints -
                 list.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
         // trigger LiveData observer
@@ -174,14 +208,94 @@ class ScoreViewModel(private var gameTotalScore: Int, application: Application) 
         _tossList.value = _tossList.value
     }
 
+    //endregion
+
+    //region Functions for [TossFragment]
+
+    /** Called when User tapped on number section in [TossFragment]. */
+    fun onSectionTapped(section: Int) {
+        val temp = Array(23) { false }
+        if (_numberSectorChosen.value?.get(section) == false) {
+            temp[section] = true
+        }
+        _numberSectorChosen.value = temp
+
+        // clicking on 0, Outer Bullseye, Inner Bullseye clears multipliers
+        if (section in setOf(0, 21, 22)) {
+            _ringChosen.value = Array(2) { false }
+        }
+    }
+
+    /** Called when User tapped on Multiplier in [TossFragment]. */
+    fun onRingTapped(ring: Int) {
+        val temp = Array(2) { false }
+        if (_ringChosen.value?.get(ring) == false) {
+            temp[ring] = true
+        }
+        _ringChosen.value = temp
+
+        // clear selection on 0, Outer Bullseye (25), Inner Bullseye (50) if any
+        val isNonRingSectionChosen = _numberSectorChosen.value?.sliceArray(listOf(0, 21, 22))
+            ?.reduce { sum, item -> sum || item } ?: false
+        if (isNonRingSectionChosen) {
+            _numberSectorChosen.value = Array(23) { false }
+        }
+    }
+
+    /** Called when User tapped ADD button in [TossFragment]. */
+    fun onAddTapped() {
+        if (!validateThrow()) {
+            // inform user that the trow is invalid
+            viewModelScope.launch {
+                eventChannel.send(Event.ShowSnackBar(R.string.invalid_trow_message))
+            }
+            return
+        }
+        // throw is valid
+        val sectionIndex = _numberSectorChosen.value?.indexOf(true) ?: 0
+        val ringIndex = (_ringChosen.value?.indexOf(true) ?: -1) + 1
+        val newToss =
+            Toss(0, false, Toss.Section.values()[sectionIndex], Toss.Ring.values()[ringIndex])
+        viewModelScope.launch {
+            eventChannel.send(Event.NavigateBackToScoreScreen)
+        }
+
+        addNewToss(newToss)
+
+        // reset TossFragment variables
+        _numberSectorChosen.value = Array(23) { false }
+        _ringChosen.value = Array(2) { false }
+    }
+
+    /** Checks if user entered a valid throw. */
+    private fun validateThrow(): Boolean {
+        // at least one number section chosen
+        val trueQuantity = _numberSectorChosen.value?.fold(0) { sum, item ->
+            sum + if (item) 1 else 0
+        }
+        if (trueQuantity != 1) return false
+
+        // if number is 0, Outer Bullseye or Inner Bullseye then x2 and x3 must not be selected
+        val isNonRingSectionChosen = _numberSectorChosen.value?.sliceArray(listOf(0, 21, 22))
+            ?.reduce { sum, item -> sum || item } ?: false
+        val isRingChosen = _ringChosen.value?.reduce { sum, item -> sum || item } ?: false
+        if (isNonRingSectionChosen && isRingChosen) {
+            return false
+        }
+
+        return true
+    }
+    //endregion
+
     // Factory for constructing ScoreViewModel with parameters
-    class Factory(private val game: Int, private val app: Application) : ViewModelProvider.Factory {
+    class Factory(private val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ScoreViewModel(game, app) as T
+                return ScoreViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct ViewModel")
         }
     }
+
 }

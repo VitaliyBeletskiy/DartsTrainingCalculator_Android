@@ -7,12 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.databinding.FragmentScoreBinding
-import com.beletskiy.dartstrainingcalculator.utils.DEFAULT_GAME_VALUE
+import com.beletskiy.dartstrainingcalculator.utils.PreferenceUtils
 import com.beletskiy.dartstrainingcalculator.utils.observeInLifecycle
 import kotlinx.coroutines.flow.onEach
 
@@ -20,20 +18,11 @@ class ScoreFragment : Fragment() {
 
     private lateinit var binding: FragmentScoreBinding
     private val scoreViewModel: ScoreViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
         ViewModelProvider(
-            this,
-            ScoreViewModel.Factory(currentGameTotalPoints, activity.application)
+            requireActivity(),
+            ScoreViewModel.Factory(requireActivity().application)
         ).get(ScoreViewModel::class.java)
     }
-
-    // what game we are playing - 301 or 501 or custom
-    private var currentGameTotalPoints: Int = DEFAULT_GAME_VALUE
-
-    // indicates if we need to restart the current game due to Settings changes
-    private var resetGameAsSettingsChanged: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,12 +32,9 @@ class ScoreFragment : Fragment() {
 
         binding = FragmentScoreBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        binding.vm = scoreViewModel
+
         readGameSettings()
-        binding.scoreViewModel = scoreViewModel
-        // if Settings changed - notify ViewModel
-        if (resetGameAsSettingsChanged) {
-            scoreViewModel.onGameChanged(currentGameTotalPoints)
-        }
 
         //<editor-fold desc="setting up RecyclerView">
         // binding RecyclerView with ListAdapter
@@ -68,24 +54,6 @@ class ScoreFragment : Fragment() {
         })
         //</editor-fold>
 
-        // getting new [Toss] from TossFragment
-        findNavController()
-            .currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<Toss>(NEW_TOSS)
-            ?.observe(viewLifecycleOwner, {
-                it?.let {
-                    scoreViewModel.onNewTossCreated(it)
-
-                    // we need a result only once, so we call remove() according to this
-                    // https://developer.android.com/guide/navigation/navigation-programmatic#returning_a_result
-                    findNavController()
-                        .currentBackStackEntry
-                        ?.savedStateHandle
-                        ?.remove<Toss>(NEW_TOSS)
-                }
-            })
-
         return binding.root
     }
 
@@ -96,34 +64,26 @@ class ScoreFragment : Fragment() {
         binding.addTossButton.setOnClickListener {
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToTossFragment())
         }
-        // update Toolbar text with current score
-        scoreViewModel.scoreAfterThrow.observe(viewLifecycleOwner, {
-            it?.let {
-                getString(
-                    R.string.score_fragment_title_bar,
-                    it,
-                    this.currentGameTotalPoints
-                ).also { text ->
-                    (activity as AppCompatActivity?)?.supportActionBar?.title = text
-                }
+        // update Toolbar text with the current score
+        scoreViewModel.scoresTitle.observe(viewLifecycleOwner, {
+            it?.let { text ->
+                (activity as AppCompatActivity?)?.supportActionBar?.title = text
             }
         })
         // receiving events from ViewModel - adding new Toss triggers RecyclerView scrolling
-        scoreViewModel.eventsFlow
-            .onEach { event ->
-                if (event is ScoreViewModel.Event.OnNewTossAdded) {
-                    binding.recyclerView.smoothScrollToPosition(event.position)
-                }
+        scoreViewModel.eventsFlow.onEach { event ->
+            if (event is ScoreViewModel.Event.OnNewTossAdded) {
+                binding.recyclerView.smoothScrollToPosition(event.position)
             }
-            .observeInLifecycle(viewLifecycleOwner)
+        }.observeInLifecycle(viewLifecycleOwner)
     }
 
-    /// adds menu with "Restart game" to the toolbar
+    /** adds menu with "Restart game" to the toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.score_menu, menu)
     }
 
-    /// called when User clicked "Restart game" or "Undo" in the toolbar
+    /** called when User clicked "Restart game" or "Undo" in the toolbar */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_game -> {
@@ -138,7 +98,7 @@ class ScoreFragment : Fragment() {
         }
     }
 
-    /// asks if User is sure and wants to restart the game and loose all progress
+    /** asks if User is sure and wants to restart the game and loose all progress */
     private fun restartGameWithConfirmation() {
         // don't ask for confirmation if there is no throws yet or if game is over
         if (scoreViewModel.tossList.value?.size == 0 || scoreViewModel.isGameOver.value == true) {
@@ -160,21 +120,10 @@ class ScoreFragment : Fragment() {
         }
     }
 
-    /// reads from Preferences what game we play (301 or 501)
+    /** Gets game points value (301, 501, etc) from SharedPreferences */
     private fun readGameSettings() {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val gameString = sharedPreferences.getString(
-            getString(R.string.game_key),
-            getString(R.string.default_game_value)
-        )
-        val newGameTotalPoints = gameString?.toInt() ?: currentGameTotalPoints
-        resetGameAsSettingsChanged = currentGameTotalPoints != newGameTotalPoints
-        currentGameTotalPoints = newGameTotalPoints
-    }
-
-    /// const for savedStateHandle.getLiveData (getting a new Toss from TossFragment)
-    companion object {
-        const val NEW_TOSS = "NEW_TOSS"
+        val newGameTotalPoints = PreferenceUtils.getStartPoints(requireContext())
+        scoreViewModel.onNewStartPoints(newGameTotalPoints)
     }
 
 }

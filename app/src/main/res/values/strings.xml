@@ -1,7 +1,7 @@
 <resources>
     <!-- Preferences Constants -->
     <string name="game_key" translatable="false">game_key</string>
-    <string name="default_game_value" translatable="false">501</string>
+    <string name="default_start_points" translatable="false">501</string>
     <string name="prevent_sleep_key" translatable="false">prevent_sleep_key</string>
     <!-- End of Preferences Constants -->
 
