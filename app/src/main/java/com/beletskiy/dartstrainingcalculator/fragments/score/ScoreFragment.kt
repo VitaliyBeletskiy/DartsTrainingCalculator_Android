@@ -2,7 +2,12 @@ package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,7 +27,8 @@ class ScoreFragment : Fragment() {
     private val scoreViewModel: ScoreViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
@@ -33,7 +39,7 @@ class ScoreFragment : Fragment() {
 
         readGameSettings()
 
-        //<editor-fold desc="setting up RecyclerView">
+        // <editor-fold desc="setting up RecyclerView">
         // binding RecyclerView with ListAdapter
         val scoreAdapter = ScoreAdapter()
         binding.recyclerView.adapter = scoreAdapter
@@ -49,7 +55,7 @@ class ScoreFragment : Fragment() {
                 scoreAdapter.submitList(it)
             }
         })
-        //</editor-fold>
+        // </editor-fold>
 
         return binding.root
     }
@@ -122,6 +128,4 @@ class ScoreFragment : Fragment() {
         val newGameTotalPoints = PreferenceUtils.getStartPoints(requireContext())
         scoreViewModel.onNewStartPoints(newGameTotalPoints)
     }
-
 }
-

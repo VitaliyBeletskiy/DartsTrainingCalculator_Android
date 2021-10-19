@@ -21,13 +21,13 @@ class GameDetailedAdapter : ListAdapter<SavedToss, GameDetailedAdapter.SavedToss
     class SavedTossViewHolder(private var binding: ItemDetailedTossBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            companion object {
-                fun from(parent: ViewGroup): SavedTossViewHolder {
-                    val layoutInflater = LayoutInflater.from(parent.context)
-                    val binding = ItemDetailedTossBinding.inflate(layoutInflater, parent, false)
-                    return SavedTossViewHolder(binding)
-                }
+        companion object {
+            fun from(parent: ViewGroup): SavedTossViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemDetailedTossBinding.inflate(layoutInflater, parent, false)
+                return SavedTossViewHolder(binding)
             }
+        }
 
         fun bind(savedToss: SavedToss) {
             binding.savedToss = savedToss
@@ -42,7 +42,5 @@ class GameDetailedAdapter : ListAdapter<SavedToss, GameDetailedAdapter.SavedToss
 
         override fun areContentsTheSame(oldItem: SavedToss, newItem: SavedToss): Boolean =
             oldItem == newItem
-
     }
-
 }

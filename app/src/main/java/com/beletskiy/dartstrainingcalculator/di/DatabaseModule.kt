@@ -30,5 +30,4 @@ class DatabaseModule {
     fun provideSavedTossDao(dartsDatabase: DartsDatabase): SavedTossDao {
         return dartsDatabase.savedTossDao()
     }
-
 }

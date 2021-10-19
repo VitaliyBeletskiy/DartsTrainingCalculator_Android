@@ -16,5 +16,4 @@ object PreferenceUtils {
         )
         return gameString?.toInt() ?: DEFAULT_START_POINTS
     }
-
 }

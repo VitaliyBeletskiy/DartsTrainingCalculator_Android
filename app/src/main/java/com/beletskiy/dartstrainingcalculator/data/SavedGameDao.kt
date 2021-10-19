@@ -1,6 +1,10 @@
 package com.beletskiy.dartstrainingcalculator.data
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,5 +25,4 @@ interface SavedGameDao {
 
     @Query("DELETE FROM game_table WHERE id = (SELECT MAX(id) FROM game_table)")
     suspend fun deleteLastGame()
-
 }

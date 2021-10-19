@@ -8,5 +8,4 @@ interface SavedTossDao {
 
     @Insert
     suspend fun insertTosses(savedTossList: List<SavedToss>)
-
 }

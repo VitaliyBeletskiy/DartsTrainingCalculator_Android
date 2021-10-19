@@ -20,7 +20,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
             0
         ).versionName
         val summaryProvider = Preference.SummaryProvider<Preference> {
-            //"Version $appVersion"
+            // "Version $appVersion"
             getString(R.string.version, appVersion)
         }
         findPreference<Preference>("version")?.summaryProvider = summaryProvider

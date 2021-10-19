@@ -28,7 +28,5 @@ abstract class DartsDatabase : RoomDatabase() {
                 .fallbackToDestructiveMigration()
                 .build()
         }
-
     }
-
 }

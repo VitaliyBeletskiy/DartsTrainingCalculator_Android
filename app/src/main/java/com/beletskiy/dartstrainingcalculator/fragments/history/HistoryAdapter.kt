@@ -24,7 +24,7 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
         holder.bind(gameAndTossesItem, rowClickListener)
     }
 
-    /// ViewHolder for GameAndTosses
+    /** ViewHolder for GameAndTosses */
     class GameAndTossesViewHolder(private var binding: ItemSavedGameBinding) :
         RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
 
@@ -78,7 +78,6 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
         }
     }
 
-    // required for ListAdapter
     class GameAndTossesDiffItemCallback : DiffUtil.ItemCallback<GameAndTosses>() {
 
         override fun areItemsTheSame(oldItem: GameAndTosses, newItem: GameAndTosses): Boolean =
@@ -86,7 +85,6 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
 
         override fun areContentsTheSame(oldItem: GameAndTosses, newItem: GameAndTosses): Boolean =
             oldItem == newItem
-
     }
 
     // interface to handle user action for the particular row (row click, pop-up menu click)
@@ -95,9 +93,4 @@ class HistoryAdapter(private val rowClickListener: RowClickListener) :
 
         fun onRowClicked(gameAndTosses: GameAndTosses)
     }
-
 }
-
-
-
-

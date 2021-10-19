@@ -1,7 +1,12 @@
 package com.beletskiy.dartstrainingcalculator.fragments.gamedetails
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -19,7 +24,8 @@ class GameDetailsFragment : Fragment() {
     private val historyViewModel: HistoryViewModel by hiltNavGraphViewModels(R.id.history_nav)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
@@ -31,7 +37,7 @@ class GameDetailsFragment : Fragment() {
         val gameDetailsAdapter = GameDetailedAdapter()
         binding.recyclerView.adapter = gameDetailsAdapter
 
-        historyViewModel.selectedGameAndTosses.observe(viewLifecycleOwner){
+        historyViewModel.selectedGameAndTosses.observe(viewLifecycleOwner) {
             it?.let {
                 gameDetailsAdapter.submitList(it.savedTossList)
             }
@@ -54,17 +60,18 @@ class GameDetailsFragment : Fragment() {
     }
 
     private fun shareGame() {
-        val intent = ShareCompat.IntentBuilder.from(requireActivity())
-            .setText(resources.getString(
-                R.string.share_game_text,
-                convertLongToDateString(historyViewModel.selectedGameAndTosses.value?.savedGame?.timestamp ?: 0L, requireContext()),
-                this.historyViewModel.selectedGameAndTosses.value?.savedGame?.points ?: 0,
-                historyViewModel.selectedGameAndTosses.value?.savedTossList?.size ?: 0,
-                convertSavedTossListToString(historyViewModel.selectedGameAndTosses.value?.savedTossList ?: emptyList()),
-            ))
+        val intent = ShareCompat.IntentBuilder(requireContext())
+            .setText(
+                resources.getString(
+                    R.string.share_game_text,
+                    convertLongToDateString(historyViewModel.selectedGameAndTosses.value?.savedGame?.timestamp ?: 0L, requireContext()),
+                    this.historyViewModel.selectedGameAndTosses.value?.savedGame?.points ?: 0,
+                    historyViewModel.selectedGameAndTosses.value?.savedTossList?.size ?: 0,
+                    convertSavedTossListToString(historyViewModel.selectedGameAndTosses.value?.savedTossList ?: emptyList()),
+                )
+            )
             .setType("text/plain")
             .intent
         startActivity(intent)
     }
-
 }

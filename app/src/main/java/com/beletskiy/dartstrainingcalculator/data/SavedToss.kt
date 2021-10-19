@@ -7,12 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "toss_table",
-    foreignKeys = [ForeignKey(
-        entity = SavedGame::class,
-        parentColumns = ["id"],
-        childColumns = ["game_id"],
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = SavedGame::class,
+            parentColumns = ["id"],
+            childColumns = ["game_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
 )
 data class SavedToss(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -31,5 +33,4 @@ data class SavedToss(
             ring = Toss.Ring.values()[ring]
         )
     }
-
 }

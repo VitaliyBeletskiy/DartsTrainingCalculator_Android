@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 /** Represents a single throw's result */
 data class Toss(
-    var number: Int,       // we need 'number' for DiffUtil to work
+    var number: Int, // we need 'number' for DiffUtil to work
     var counted: Boolean,
     val section: Section,
     val ring: Ring
@@ -77,7 +77,5 @@ data class Toss(
         override fun newArray(size: Int): Array<Toss?> {
             return arrayOfNulls(size)
         }
-
     }
-
 }

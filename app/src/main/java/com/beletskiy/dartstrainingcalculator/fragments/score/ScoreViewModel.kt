@@ -1,10 +1,14 @@
 package com.beletskiy.dartstrainingcalculator.fragments.score
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.beletskiy.dartstrainingcalculator.R
-import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
+import com.beletskiy.dartstrainingcalculator.data.Toss
 import com.beletskiy.dartstrainingcalculator.fragments.toss.TossFragment
 import com.beletskiy.dartstrainingcalculator.utils.inSeriesOf3
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -90,9 +94,9 @@ class ScoreViewModel @Inject internal constructor(
 
     // restarts the game
     fun restartGame() {
-        _tossList.value = ArrayList()               // empty array of "Toss"
-        _isGameOver.value = false                   // game is NOT over
-        scoreAfterSeries = currentStartPoints       // reset points counter
+        _tossList.value = ArrayList() // empty array of "Toss"
+        _isGameOver.value = false // game is NOT over
+        scoreAfterSeries = currentStartPoints // reset points counter
         _scoreAfterThrow.value = currentStartPoints // reset points counter
     }
 
@@ -109,7 +113,7 @@ class ScoreViewModel @Inject internal constructor(
         _tossList.value = _tossList.value
 
         // throw number in series of 3
-        val throwPositionInSeries = newToss.number.inSeriesOf3  // 1, 2 or 3
+        val throwPositionInSeries = newToss.number.inSeriesOf3 // 1, 2 or 3
         _scoreAfterThrow.value = _scoreAfterThrow.value?.minus(newToss.value)
 
         // check if game is over
@@ -177,7 +181,7 @@ class ScoreViewModel @Inject internal constructor(
 
         // Tosses (1 or 2) the incomplete series (the last one) should be switched to counted
         // (as we removed nonzero Toss which caused "bust")
-        val lastTossPositionInSeries = list.size % 3  // 0 (nothing to switch), 1 , 2
+        val lastTossPositionInSeries = list.size % 3 // 0 (nothing to switch), 1 , 2
         for (i in 1..lastTossPositionInSeries) {
             // have to do this to force List Adapter to update UI
             val toss = list[list.size - i].copy(counted = true)
@@ -185,7 +189,7 @@ class ScoreViewModel @Inject internal constructor(
         }
 
         _scoreAfterThrow.value = currentStartPoints -
-                list.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
+            list.fold(0) { sum, item -> sum + (if (item.counted) item.value else 0) }
 
         // trigger LiveData observer
         _tossList.value = list
@@ -288,5 +292,4 @@ class ScoreViewModel @Inject internal constructor(
         return true
     }
     //endregion
-
 }

@@ -2,7 +2,12 @@ package com.beletskiy.dartstrainingcalculator.fragments.history
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +24,9 @@ class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
     private val historyViewModel: HistoryViewModel by hiltNavGraphViewModels(R.id.history_nav)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
 
@@ -59,7 +66,7 @@ class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
         }
     }
 
-    /// asks if User is sure and wants to delete all data from history
+    /** asks if User is sure and wants to delete all data from history */
     private fun deleteAllDataWithConfirmation() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -90,5 +97,4 @@ class HistoryFragment : Fragment(), HistoryAdapter.RowClickListener {
         historyViewModel.selectedGameAndTosses.value = gameAndTosses
         findNavController().navigate(HistoryFragmentDirections.actionHistoryToGameDetails())
     }
-
 }

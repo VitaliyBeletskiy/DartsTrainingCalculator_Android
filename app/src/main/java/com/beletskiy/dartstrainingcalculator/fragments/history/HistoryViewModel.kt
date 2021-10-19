@@ -1,6 +1,9 @@
 package com.beletskiy.dartstrainingcalculator.fragments.history
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.beletskiy.dartstrainingcalculator.data.DartsRepository
 import com.beletskiy.dartstrainingcalculator.data.GameAndTosses
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,11 +28,10 @@ class HistoryViewModel @Inject internal constructor(
         }
     }
 
-    /// deletes one SavedGame (User action from row's pop-up menu)
+    /** deletes one SavedGame (User action from row's pop-up menu) */
     fun deleteSavedGame(gameId: Long) {
         viewModelScope.launch {
             dartsRepository.deleteSavedGame(gameId)
         }
     }
-
 }

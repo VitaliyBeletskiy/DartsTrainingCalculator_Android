@@ -20,23 +20,25 @@ class FlowObserver<T>(
     private var job: Job? = null
 
     init {
-        lifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { source: LifecycleOwner, event: Lifecycle.Event ->
-            when (event) {
-                Lifecycle.Event.ON_START -> {
-                    job = source.lifecycleScope.launch {
-                        flow.collect {
-                            collector
+        lifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { source: LifecycleOwner, event: Lifecycle.Event ->
+                when (event) {
+                    Lifecycle.Event.ON_START -> {
+                        job = source.lifecycleScope.launch {
+                            flow.collect {
+                                collector
+                            }
                         }
                     }
-                }
-                Lifecycle.Event.ON_STOP -> {
-                    job?.cancel()
-                    job = null
-                }
-                else -> {
+                    Lifecycle.Event.ON_STOP -> {
+                        job?.cancel()
+                        job = null
+                    }
+                    else -> {
+                    }
                 }
             }
-        })
+        )
     }
 }
 
